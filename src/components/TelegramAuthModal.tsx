@@ -1,45 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, CheckCircle2, Lock, Sparkles, RefreshCw, Server, UserCheck, ShieldCheck } from "lucide-react";
+import { X, Send, CheckCircle2, Lock, Sparkles, RefreshCw, Server, ShieldCheck, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface TelegramUserPreset {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  avatarBg: string;
-  role: string;
-}
-
-const PRESET_PROFILES: TelegramUserPreset[] = [
-  {
-    id: "94820194",
-    firstName: "Oleh",
-    lastName: "Bachara",
-    username: "olegh_bachara",
-    avatarBg: "bg-gradient-to-tr from-indigo-600 to-cyan-500",
-    role: "Inżynier Informatyki & Web Developer",
-  },
-  {
-    id: "82910482",
-    firstName: "Tech",
-    lastName: "Recruiter",
-    username: "recruiter_evaluator",
-    avatarBg: "bg-gradient-to-tr from-violet-600 to-indigo-500",
-    role: "Senior IT Recruiter / Hiring Manager",
-  },
-  {
-    id: "57382910",
-    firstName: "Alexander",
-    lastName: "Nowak",
-    username: "alex_tech_lead",
-    avatarBg: "bg-gradient-to-tr from-emerald-600 to-cyan-500",
-    role: "CTO / Systems Architect",
-  },
-];
 
 interface TelegramAuthModalProps {
   isOpen: boolean;
@@ -48,74 +12,80 @@ interface TelegramAuthModalProps {
 }
 
 export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthModalProps) {
-  const [selectedProfile, setSelectedProfile] = useState<TelegramUserPreset>(PRESET_PROFILES[0]);
-  const [customHandle, setCustomHandle] = useState("");
-  const [step, setStep] = useState<"select" | "verifying" | "success">("select");
+  const [step, setStep] = useState<"widget" | "verifying" | "success" | "error">("widget");
   const [verifyLogs, setVerifyLogs] = useState<string[]>([]);
   const [sessionResult, setSessionResult] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleAuthenticate = async () => {
-    const handleClean = customHandle.trim().replace("@", "");
-    const activeUser = handleClean
-      ? {
-          id: Math.floor(10000000 + Math.random() * 90000000).toString(),
-          firstName: handleClean.charAt(0).toUpperCase() + handleClean.slice(1),
-          lastName: "(Guest)",
-          username: handleClean,
-          avatarBg: "bg-gradient-to-tr from-cyan-600 to-indigo-600",
-          role: "Verified Guest Developer",
-        }
-      : selectedProfile;
+  const defaultBotName = process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "OlehBacharaBot";
+  const [activeBotName, setActiveBotName] = useState<string>(defaultBotName);
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
 
-    setStep("verifying");
-    setVerifyLogs([
-      `[1/3] Preparing Telegram OAuth 2.0 Payload for @${activeUser.username}...`,
-      `[2/3] Dispatching POST /api/telegram-auth HTTP Request...`,
-    ]);
+  // Load Official Telegram Login Widget
+  useEffect(() => {
+    if (!isOpen || !widgetContainerRef.current) return;
 
-    const mockPayload = {
-      id: activeUser.id,
-      first_name: activeUser.firstName,
-      last_name: activeUser.lastName,
-      username: activeUser.username,
-      auth_date: Math.floor(Date.now() / 1000),
-      hash: "7f8a91b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef123456",
-    };
-
-    try {
-      const res = await fetch("/api/telegram-auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(mockPayload),
-      });
-      const data = await res.json();
-
-      setVerifyLogs((prev) => [
-        ...prev,
-        `[3/3] Server API Response: HMAC-SHA256 Validated ✓`,
-        `[Session Token Issued]: ${data.sessionToken || "tg_sso_verified"}`,
+    // Define window callback for official Telegram OAuth Widget
+    (window as any).onTelegramAuth = async (user: any) => {
+      setStep("verifying");
+      setVerifyLogs([
+        `[Official Telegram Widget]: Auth Payload Received from Telegram Server`,
+        `[Payload]: User ID #${user.id}, Username: @${user.username || user.first_name}`,
+        `[API Request]: Dispatching POST /api/telegram-auth...`,
       ]);
 
-      setTimeout(() => {
-        setSessionResult({ ...data, userProfile: activeUser });
-        setStep("success");
-        if (onSuccess) {
-          onSuccess(
-            activeUser,
-            `[TELEGRAM AUTH SSO] User @${activeUser.username} authenticated via Server Route (HMAC Validated)`
-          );
+      try {
+        const res = await fetch("/api/telegram-auth", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user),
+        });
+        const data = await res.json();
+
+        if (data.verified) {
+          setSessionResult(data);
+          setVerifyLogs((prev) => [
+            ...prev,
+            `[Server Route /api/telegram-auth]: HMAC-SHA256 Signature Verified ✓`,
+            `[Mode]: ${data.mode}`,
+            `[Session Token]: ${data.sessionToken}`,
+          ]);
+          setStep("success");
+          if (onSuccess) {
+            onSuccess(
+              { username: user.username || user.first_name, firstName: user.first_name },
+              `[REAL TELEGRAM OAUTH] @${user.username || user.first_name} authenticated via Next.js Server Route (HMAC Verified)`
+            );
+          }
+        } else {
+          setStep("error");
+          setErrorMessage(data.error || "Cryptographic HMAC signature mismatch");
         }
-      }, 500);
-    } catch (err: any) {
-      setVerifyLogs((prev) => [...prev, `[Error]: ${err.message}`]);
-    }
-  };
+      } catch (err: any) {
+        setStep("error");
+        setErrorMessage(err.message || "Failed to communicate with authentication server");
+      }
+    };
+
+    // Inject Official Telegram Login Widget
+    const container = widgetContainerRef.current;
+    container.innerHTML = "";
+    const script = document.createElement("script");
+    script.src = "https://telegram.org/js/telegram-widget.js?22";
+    script.setAttribute("data-telegram-login", activeBotName);
+    script.setAttribute("data-size", "large");
+    script.setAttribute("data-radius", "14");
+    script.setAttribute("data-onauth", "onTelegramAuth(user)");
+    script.setAttribute("data-request-access", "write");
+    script.async = true;
+    container.appendChild(script);
+  }, [isOpen, activeBotName, onSuccess]);
 
   const handleReset = () => {
-    setStep("select");
+    setStep("widget");
     setVerifyLogs([]);
-    setCustomHandle("");
     setSessionResult(null);
+    setErrorMessage("");
   };
 
   return (
@@ -156,86 +126,47 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                  Telegram OAuth 2.0 Authorization
+                  Official Telegram Web Login Widget
                   <Sparkles size={14} className="text-cyan-400" />
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">1-Click Fast Login & HMAC SHA-256 Server Validation</p>
+                <p className="text-xs text-slate-400 font-mono">Real Telegram OAuth & Server HMAC Verification</p>
               </div>
             </div>
 
-            {/* STEP 1: Select Profile or Enter Handle */}
-            {step === "select" && (
-              <div className="space-y-5">
-                <div className="text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider flex items-center justify-between">
-                  <span>Select Profile to Log In:</span>
-                  <span className="text-cyan-400 text-[11px]">Instant 1-Click Auth</span>
+            {/* STEP 1: Official Telegram Login Widget Container */}
+            {step === "widget" && (
+              <div className="space-y-6">
+                <div className="p-5 rounded-2xl bg-slate-950/80 border border-cyan-500/30 text-center space-y-4">
+                  <div className="text-xs font-mono text-cyan-300 font-bold flex items-center justify-center gap-2">
+                    <Server size={14} className="text-cyan-400" />
+                    Telegram Bot Target: <span className="text-white">@{activeBotName}</span>
+                  </div>
+
+                  {/* Official Telegram Widget Embed Container */}
+                  <div className="py-2 flex justify-center items-center min-h-[50px]">
+                    <div ref={widgetContainerRef} className="telegram-widget-wrapper" />
+                  </div>
+
+                  <p className="text-xs text-slate-400 leading-relaxed font-mono">
+                    Click the official Telegram button above to authorize with your real Telegram account.
+                  </p>
                 </div>
 
-                {/* Profile Selector Cards */}
-                <div className="space-y-2.5">
-                  {PRESET_PROFILES.map((profile) => {
-                    const isSelected = selectedProfile.id === profile.id && !customHandle;
-                    return (
-                      <div
-                        key={profile.id}
-                        onClick={() => {
-                          setSelectedProfile(profile);
-                          setCustomHandle("");
-                        }}
-                        className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
-                          isSelected
-                            ? "bg-gradient-to-r from-cyan-500/15 via-indigo-500/10 to-transparent border-cyan-500/50 shadow-md shadow-cyan-500/10"
-                            : "bg-slate-950/60 border-white/[0.08] hover:border-white/[0.2]"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-xl ${profile.avatarBg} flex items-center justify-center text-white font-bold text-xs shadow-sm`}>
-                            {profile.firstName[0]}
-                            {profile.lastName[0]}
-                          </div>
-                          <div>
-                            <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                              {profile.firstName} {profile.lastName}
-                              <span className="text-[11px] font-mono text-cyan-400 font-normal">
-                                (@{profile.username})
-                              </span>
-                            </div>
-                            <div className="text-[11px] text-slate-400 font-mono">{profile.role}</div>
-                          </div>
-                        </div>
-
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                          isSelected ? "border-cyan-400 bg-cyan-500" : "border-slate-600"
-                        }`}>
-                          {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Custom Handle Input */}
-                <div>
-                  <label className="text-[11px] font-mono text-slate-400 mb-1.5 block">
-                    Or enter your custom Telegram handle:
+                {/* Bot Name Config Tool for Testing */}
+                <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2">
+                  <label className="text-[11px] font-mono text-slate-400 block">
+                    Connecting a custom bot username? Change target bot:
                   </label>
-                  <input
-                    type="text"
-                    value={customHandle}
-                    onChange={(e) => setCustomHandle(e.target.value)}
-                    placeholder="@your_telegram_username"
-                    className="w-full bg-slate-950/80 border border-white/[0.08] rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={activeBotName}
+                      onChange={(e) => setActiveBotName(e.target.value.replace("@", ""))}
+                      placeholder="e.g. YourBotUsername"
+                      className="flex-1 bg-slate-900 border border-white/[0.1] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
                 </div>
-
-                {/* Action CTA Button */}
-                <Button
-                  onClick={handleAuthenticate}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-mono text-xs font-semibold cursor-pointer py-3.5 shadow-lg shadow-cyan-500/20"
-                >
-                  <UserCheck size={16} />
-                  Authorize & Log In via Telegram
-                </Button>
               </div>
             )}
 
@@ -247,8 +178,8 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold text-white mb-1">Authenticating Telegram OAuth Signature...</h4>
-                  <p className="text-xs text-slate-400 font-mono">Server HMAC SHA-256 Validation in Progress</p>
+                  <h4 className="text-sm font-bold text-white mb-1">Verifying Telegram OAuth Signature...</h4>
+                  <p className="text-xs text-slate-400 font-mono">POST /api/telegram-auth Execution in Progress</p>
                 </div>
 
                 <div className="w-full bg-slate-950 p-4 rounded-2xl font-mono text-[11px] text-cyan-300 text-left space-y-1.5 border border-cyan-500/20 max-h-[150px] overflow-y-auto">
@@ -272,9 +203,9 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
                   <CheckCircle2 size={24} className="text-emerald-400 shrink-0" />
                   <div>
-                    <div className="text-xs font-bold text-emerald-300">Telegram Authentication Verified ✓</div>
+                    <div className="text-xs font-bold text-emerald-300">Real Telegram Account Authenticated ✓</div>
                     <div className="text-[11px] text-slate-300 font-mono">
-                      Server API Route `/api/telegram-auth` Response: 200 OK
+                      HMAC SHA-256 Validated via Next.js Server Route
                     </div>
                   </div>
                 </div>
@@ -282,16 +213,24 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 {/* User Session Details */}
                 <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.08] flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`w-11 h-11 rounded-xl ${sessionResult?.userProfile?.avatarBg || "bg-indigo-600"} flex items-center justify-center text-white font-bold text-sm shadow-md`}>
-                      {sessionResult?.userProfile?.firstName[0]}
-                      {sessionResult?.userProfile?.lastName[0]}
-                    </div>
+                    {sessionResult?.user?.photoUrl ? (
+                      <img
+                        src={sessionResult.user.photoUrl}
+                        alt="Telegram Avatar"
+                        className="w-11 h-11 rounded-xl object-cover border border-cyan-500/40"
+                      />
+                    ) : (
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                        {sessionResult?.user?.firstName ? sessionResult.user.firstName[0] : "T"}
+                      </div>
+                    )}
+
                     <div>
                       <div className="text-sm font-bold text-white">
-                        {sessionResult?.userProfile?.firstName} {sessionResult?.userProfile?.lastName}
+                        {sessionResult?.user?.firstName} {sessionResult?.user?.lastName || ""}
                       </div>
                       <div className="text-xs font-mono text-cyan-400">
-                        @{sessionResult?.userProfile?.username}
+                        @{sessionResult?.user?.username || `id_${sessionResult?.user?.id}`}
                       </div>
                     </div>
                   </div>
@@ -302,9 +241,9 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] font-mono text-[11px] text-slate-300 space-y-1">
-                  <div className="text-slate-400 font-semibold">Active Session Token:</div>
+                  <div className="text-slate-400 font-semibold">Issued Session Token:</div>
                   <code className="text-cyan-300 block truncate font-mono">
-                    {sessionResult?.sessionToken || `tg_sso_verified_${Date.now()}`}
+                    {sessionResult?.sessionToken}
                   </code>
                 </div>
 
@@ -314,7 +253,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                     variant="secondary"
                     className="flex-1 font-mono text-xs cursor-pointer"
                   >
-                    Select Another Profile
+                    Log In Again
                   </Button>
                   <Button
                     onClick={onClose}
@@ -324,6 +263,22 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                   </Button>
                 </div>
               </motion.div>
+            )}
+
+            {/* Error State */}
+            {step === "error" && (
+              <div className="py-6 text-center space-y-4">
+                <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 mx-auto">
+                  <AlertCircle size={24} />
+                </div>
+                <h4 className="text-sm font-bold text-white">Authentication Failed</h4>
+                <p className="text-xs text-slate-400 font-mono">
+                  {errorMessage || "HMAC signature mismatch or missing TELEGRAM_BOT_TOKEN"}
+                </p>
+                <Button onClick={handleReset} variant="outline" size="sm">
+                  Try Again
+                </Button>
+              </div>
             )}
           </motion.div>
         </div>
