@@ -26,17 +26,12 @@ export default function Home() {
       {/* Grid Pattern */}
       <div className="fixed inset-0 bg-grid-pattern opacity-30 pointer-events-none z-0" />
 
-      {/* Ambient Spotlight Background */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background: `
-            radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 10% 40%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
-            radial-gradient(circle at 90% 70%, rgba(168, 85, 247, 0.06) 0%, transparent 40%)
-          `,
-        }}
-      />
+      {/* Stripe / Vercel Animated Gradient Mesh Background Orbs */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="mesh-blob-1 absolute -top-[20%] left-[15%] w-[600px] h-[600px] rounded-full bg-indigo-600/15 blur-[140px]" />
+        <div className="mesh-blob-2 absolute top-[35%] -left-[10%] w-[700px] h-[700px] rounded-full bg-cyan-500/12 blur-[160px]" />
+        <div className="mesh-blob-3 absolute top-[60%] right-[-10%] w-[650px] h-[650px] rounded-full bg-purple-600/12 blur-[150px]" />
+      </div>
 
       <div className="relative z-10">
         <Navbar lang={lang} setLang={setLang} />

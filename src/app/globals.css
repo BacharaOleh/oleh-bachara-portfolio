@@ -130,3 +130,54 @@ body {
     padding-right: 2rem;
   }
 }
+
+/* ── Stripe/Vercel Style Fluid Mesh Orbs ─────────────────── */
+.mesh-blob-1 {
+  animation: floatMesh1 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.mesh-blob-2 {
+  animation: floatMesh2 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.mesh-blob-3 {
+  animation: floatMesh3 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes floatMesh1 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(120px, -60px) scale(1.15);
+  }
+  100% {
+    transform: translate(-40px, 80px) scale(0.95);
+  }
+}
+
+@keyframes floatMesh2 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(-100px, 80px) scale(1.2);
+  }
+  100% {
+    transform: translate(80px, -50px) scale(0.9);
+  }
+}
+
+@keyframes floatMesh3 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(80px, 60px) scale(1.1);
+  }
+  100% {
+    transform: translate(-90px, -70px) scale(1.05);
+  }
+}
+

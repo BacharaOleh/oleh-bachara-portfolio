@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Download, Mail, MapPin, Send } from "lucide-react";
+import { ArrowUpRight, Download, Mail, MapPin, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { STATS, SOCIAL_LINKS, TRANSLATIONS, type Lang } from "@/data/portfolio-data";
 import { TelegramAuthModal } from "@/components/TelegramAuthModal";
+import { TypewriterRoles } from "@/components/ui/typewriter-roles";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 interface HeroProps {
   lang: Lang;
@@ -81,7 +83,7 @@ export function Hero({ lang }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center"
+      className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden min-h-[92vh] flex flex-col justify-center"
     >
       <TelegramAuthModal
         isOpen={isModalOpen}
@@ -90,18 +92,24 @@ export function Hero({ lang }: HeroProps) {
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
-          {/* Status Badge */}
+          
+          {/* Status Badge with Sparkles */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium shadow-lg shadow-emerald-500/5 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            {t.available}
+            <span>{t.available}</span>
+            <span className="text-slate-600">•</span>
+            <span className="text-slate-400 flex items-center gap-1">
+              <ShieldCheck size={13} className="text-emerald-400" />
+              Full EU Work Rights
+            </span>
           </motion.div>
 
           {/* Headline */}
@@ -116,6 +124,17 @@ export function Hero({ lang }: HeroProps) {
               {t.headline2}
             </span>
           </motion.h1>
+
+          {/* Dynamic Typewriter Roles Subtitle */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex items-center gap-2 my-1"
+          >
+            <Sparkles size={16} className="text-amber-400 animate-pulse" />
+            <TypewriterRoles lang={lang} />
+          </motion.div>
 
           {/* Subtitle / Bio */}
           <motion.p
@@ -160,7 +179,7 @@ export function Hero({ lang }: HeroProps) {
                   window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
-              className="group cursor-pointer"
+              className="group cursor-pointer shadow-lg shadow-indigo-500/20"
             >
               {t.cta_primary}
               <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -174,7 +193,7 @@ export function Hero({ lang }: HeroProps) {
               {t.cta_demo}
             </button>
 
-            <a href="/cv-oleh-bachara.pdf" download className="cursor-pointer">
+            <a href="/cv-oleh-bachara.pdf" download="cv-oleh-bachara.pdf" className="cursor-pointer">
               <Button size="lg" variant="secondary">
                 {t.cta_secondary}
                 <Download size={16} />
@@ -203,7 +222,7 @@ export function Hero({ lang }: HeroProps) {
             ))}
           </motion.div>
 
-          {/* Animated Stats Bar */}
+          {/* Animated Stats Bar with 3D Tilt Cards */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -212,17 +231,18 @@ export function Hero({ lang }: HeroProps) {
           >
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {statsList.map((stat) => (
-                <div
+                <TiltCard
                   key={stat.label}
-                  className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group"
+                  className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/[0.08] hover:border-indigo-500/40 shadow-xl"
+                  spotlightColor="rgba(99, 102, 241, 0.15)"
                 >
-                  <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight font-mono">
                     <CountUp target={stat.value} />
                   </div>
-                  <div className="text-xs text-slate-400 font-medium mt-1">
+                  <div className="text-xs text-slate-400 font-medium mt-1 font-sans">
                     {stat.label}
                   </div>
-                </div>
+                </TiltCard>
               ))}
             </div>
           </motion.div>
