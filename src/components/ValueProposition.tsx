@@ -5,6 +5,7 @@ import { Code2, Zap, BarChart3, Shield } from "lucide-react";
 import { VALUE_CARDS, TRANSLATIONS, type Lang } from "@/data/portfolio-data";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 const ICONS: Record<string, React.ElementType> = { Code2, Zap, BarChart3, Shield };
 
@@ -72,41 +73,51 @@ export function ValueProposition({ lang }: ValuePropositionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between ${colSpan} ${theme.borderHover}`}
+                className={colSpan}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${theme.glowGradient} opacity-50 pointer-events-none`} />
+                <SpotlightCard
+                  className={`glass-card h-full p-6 sm:p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between`}
+                  spotlightColor={
+                    card.accentColor === "indigo" ? "rgba(99,102,241,0.10)" :
+                    card.accentColor === "cyan" ? "rgba(56,189,248,0.10)" :
+                    card.accentColor === "violet" ? "rgba(168,85,247,0.10)" :
+                    "rgba(16,185,129,0.10)"
+                  }
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.glowGradient} opacity-50 pointer-events-none`} />
 
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className={`w-11 h-11 rounded-2xl border flex items-center justify-center ${theme.iconBg}`}>
-                      <Icon size={20} />
-                    </div>
-                    <div className="text-right">
-                      <div className={`text-3xl font-extrabold font-mono ${theme.metricText}`}>
-                        {card.metric}
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between gap-4 mb-6">
+                      <div className={`w-11 h-11 rounded-2xl border flex items-center justify-center ${theme.iconBg}`}>
+                        <Icon size={20} />
                       </div>
-                      <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
-                        {card.metricLabel}
+                      <div className="text-right">
+                        <div className={`text-3xl font-extrabold font-mono ${theme.metricText}`}>
+                          {card.metric}
+                        </div>
+                        <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                          {card.metricLabel}
+                        </div>
                       </div>
                     </div>
+
+                    <h3 className="text-xl font-bold text-white tracking-tight mb-3">
+                      {card.title}
+                    </h3>
+
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
+                      {card.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white tracking-tight mb-3">
-                    {card.title}
-                  </h3>
-
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
-                    {card.description}
-                  </p>
-                </div>
-
-                <div className="relative z-10 pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
-                  {card.tags.map((tag) => (
-                    <Badge key={tag} variant={theme.badge}>
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                  <div className="relative z-10 pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+                    {card.tags.map((tag) => (
+                      <Badge key={tag} variant={theme.badge}>
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </SpotlightCard>
               </motion.div>
             );
           })}
