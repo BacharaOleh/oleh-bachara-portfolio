@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Download, Mail, MapPin, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { STATS, SOCIAL_LINKS, TRANSLATIONS, type Lang } from "@/data/portfolio-data";
+import { STATS, SOCIAL_LINKS, TRANSLATIONS, type Lang, type Stat } from "@/data/portfolio-data";
 import { TelegramAuthModal } from "@/components/TelegramAuthModal";
 import { TypewriterRoles } from "@/components/ui/typewriter-roles";
 import { TiltCard } from "@/components/ui/tilt-card";
@@ -158,9 +158,9 @@ export function Hero({ lang }: HeroProps) {
               Jarosław, Poland
             </span>
             <span className="text-slate-600">•</span>
-            <span className="text-indigo-300 font-semibold">Magister Zarządzania (2025–Present)</span>
+            <span className="text-indigo-300 font-semibold">Magister Zarządzania (2023–2025)</span>
             <span className="text-slate-600">•</span>
-            <span className="text-cyan-300 font-semibold">Inżynier Informatyki (2019–2025)</span>
+            <span className="text-cyan-300 font-semibold">Inżynier Informatyki (2019–2023)</span>
           </motion.div>
 
           {/* Action CTAs */}
@@ -230,7 +230,7 @@ export function Hero({ lang }: HeroProps) {
             className="w-full max-w-4xl mt-8 pt-8 border-t border-white/[0.08]"
           >
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {statsList.map((stat) => (
+              {statsList.map((stat: Stat) => (
                 <TiltCard
                   key={stat.label}
                   className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/[0.08] hover:border-indigo-500/40 shadow-xl"

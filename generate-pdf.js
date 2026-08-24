@@ -98,7 +98,7 @@ sectionHeader('Academic Credentials & Degrees');
 entry(
   'Magister Zarzadzania (M.Sc. Management)',
   'PANS w Jaroslawiu — Jaroslawa, Poland',
-  '2025 – Present',
+  '2023 – 2025',
   [
     'Advanced studies in organizational management, digital marketing strategy,',
     'project management methodologies, and business process optimization.'
@@ -108,7 +108,7 @@ entry(
 entry(
   'Inzynier Informatyki (B.Sc. Computer Science)',
   'PANS w Jaroslawiu — Jaroslawa, Poland',
-  '2019 – 2025',
+  '2019 – 2023',
   [
     'Software engineering, algorithms & data structures, database systems,',
     'computer networks, and web technologies coursework.'

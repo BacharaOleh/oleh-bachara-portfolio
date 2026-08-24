@@ -228,13 +228,13 @@ export const PROJECTS: Record<"en" | "pl", Project[]> = {
     },
     {
       id: "telegram-auth-bridge",
-      title: "Telegram API Custom Auth & Realtime Data Bridge",
+      title: "Telegram API Auth & Realtime Data Integration",
       category: "Freelance & Pet Project (2021 – 2023 / 1.5 Yrs)",
       tags: ["Freelance / Pet Project (2021–2023)", "PHP", "Telegram API", "Webhooks", "REST API"],
       shortDescription:
-        "Developed a custom OAuth-like Telegram authentication system for web platforms with real-time database sync.",
+        "Implementation of Telegram authentication with server-side HMAC validation and real-time database synchronization via webhooks.",
       fullDescription:
-        "Designed and implemented a custom authentication layer leveraging Telegram's Login Widget and Bot API during my freelance/pet project period (2021–2023). The system validates cryptographic hashes server-side (PHP), issues session tokens, and maintains a live sync between user actions in Telegram bots and web databases via webhooks. Includes rate limiting, replay-attack prevention, and user-state management.",
+        "Engineered and integrated a passwordless user authentication module using Telegram's Login Widget and Bot API (2021–2023). The server-side module validates Telegram cryptographic signatures via HMAC-SHA256, manages secure sessions, and synchronizes user actions between messaging bots and web databases using REST webhooks.",
       metrics: [
         { label: "Active Users", value: "500+" },
         { label: "Auth Latency", value: "<200ms" },
@@ -281,13 +281,13 @@ export const PROJECTS: Record<"en" | "pl", Project[]> = {
     },
     {
       id: "telegram-auth-bridge",
-      title: "Autorska Autoryzacja Telegram API & Most Danych Live",
+      title: "Integracja Autoryzacji Telegram API & Synchronizacja Danych Live",
       category: "Freelance & Pet Project (2021 – 2023 / 1.5 Roku)",
       tags: ["Freelance / Pet Project (2021–2023)", "PHP", "Telegram API", "Webhooks", "REST API"],
       shortDescription:
-        "Stworzenie autorskiego systemu autoryzacji Telegram typu OAuth dla serwisów www z synchronizacją bazy danych w czasie rzeczywistym.",
+        "Wdrożenie bezpiecznej autoryzacji z wykorzystaniem Telegram API oraz synchronizacji danych w czasie rzeczywistym z serwisami WWW.",
       fullDescription:
-        "Zaprojektowanie i wdrożenie autorskiej warstwy uwierzytelniania opartej na Telegram Login Widget i Bot API w okresie freelance/pet project (2021–2023). System weryfikuje kryptograficzne хеши na serwerze (PHP), wydaje tokeny sesji i utrzymuje na żywo synchronizację akcji użytkowników Telegram z bazą danych przez webhooki.",
+        "Zaprojektowanie i wdrożenie bezhasłowej autoryzacji użytkowników w oparciu o Telegram Login Widget oraz Telegram Bot API (2021–2023). Moduł serwerowy weryfikuje podpis kryptograficzny HMAC-SHA256, generuje bezpieczne tokeny sesji i realizuje dwukierunkową synchronizację danych poprzez webhooki REST.",
       metrics: [
         { label: "Użytkownicy Live", value: "500+" },
         { label: "Opóźnienie Auth", value: "<200ms" },
@@ -421,7 +421,7 @@ export const EDUCATION: Record<"en" | "pl", EducationItem[]> = {
       field: "M.Sc. Management",
       institution: "PANS w Jarosławiu",
       location: "Jarosław, Poland",
-      years: "2025 – Present",
+      years: "2023 – 2025",
       description:
         "Państwowa Akademia Nauk Stosowanych w Jarosławiu. Advanced studies in organizational management, digital marketing strategy, project management methodologies, and business process optimization.",
       accentColor: "cyan",
@@ -431,7 +431,7 @@ export const EDUCATION: Record<"en" | "pl", EducationItem[]> = {
       field: "B.Sc. Computer Science",
       institution: "PANS w Jarosławiu",
       location: "Jarosław, Poland",
-      years: "2019 – 2025",
+      years: "2019 – 2023",
       description:
         "Państwowa Akademia Nauk Stosowanych w Jarosławiu. Core engineering coursework: algorithms & data structures, web technologies, database systems, software engineering, and computer networks.",
       accentColor: "indigo",
@@ -443,7 +443,7 @@ export const EDUCATION: Record<"en" | "pl", EducationItem[]> = {
       field: "M.Sc. Management",
       institution: "PANS w Jarosławiu",
       location: "Jarosław, Polska",
-      years: "2025 – Obecnie",
+      years: "2023 – 2025",
       description:
         "Państwowa Akademia Nauk Stosowanych w Jarosławiu. Studia drugiego stopnia z zakresu zarządzania organizacją, strategii marketingu cyfrowego, metodyk zarządzania projektami oraz optymalizacji procesów biznesowych.",
       accentColor: "cyan",
@@ -453,7 +453,7 @@ export const EDUCATION: Record<"en" | "pl", EducationItem[]> = {
       field: "B.Sc. Computer Science",
       institution: "PANS w Jarosławiu",
       location: "Jarosław, Polska",
-      years: "2019 – 2025",
+      years: "2019 – 2023",
       description:
         "Państwowa Akademia Nauk Stosowanych w Jarosławiu. Studia inżynierskie: algorytmy i struktury danych, technologie webowe, systemy bazodanowe, inżynieria oprogramowania oraz sieci komputerowe.",
       accentColor: "indigo",
