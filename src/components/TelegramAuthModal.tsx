@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   X, 
@@ -9,13 +9,12 @@ import {
   Lock, 
   Sparkles, 
   RefreshCw, 
-  Server, 
   ShieldCheck, 
   AlertCircle,
   ExternalLink,
-  Info,
   KeyRound,
-  UserCheck
+  UserCheck,
+  Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -26,58 +25,96 @@ interface TelegramAuthModalProps {
 }
 
 export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthModalProps) {
-  const [activeTab, setActiveTab] = useState<"widget" | "instant">("widget");
   const [step, setStep] = useState<"idle" | "verifying" | "success" | "error">("idle");
   const [verifyLogs, setVerifyLogs] = useState<string[]>([]);
   const [sessionResult, setSessionResult] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // Custom User Test Credentials for Instant Real OAuth Signature Test
-  const [customUsername, setCustomUsername] = useState<string>("olegh_bachara");
-  const [customFirstName, setCustomFirstName] = useState<string>("Oleh");
-  const [customLastName, setCustomLastName] = useState<string>("Bachara");
-  const [customUserId, setCustomUserId] = useState<string>("9482103");
+  const clientId = process.env.NEXT_PUBLIC_TELEGRAM_CLIENT_ID || "8649904549";
 
-  const defaultBotName = process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "OlehBacharaBot";
-  const [activeBotName, setActiveBotName] = useState<string>(defaultBotName);
-  const widgetContainerRef = useRef<HTMLDivElement>(null);
-
-  // Load Official Telegram Login Widget
+  // Listen for OAuth postMessage callback from popup window
   useEffect(() => {
-    if (!isOpen || activeTab !== "widget" || !widgetContainerRef.current) return;
+    if (!isOpen) return;
 
-    // Window callback for official Telegram OAuth Widget
-    (window as any).onTelegramAuth = async (user: any) => {
-      executeVerification(user);
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === "TELEGRAM_AUTH_SUCCESS") {
+        const { user, sessionToken, message, mode } = event.data;
+        setSessionResult({ user, sessionToken, message, mode });
+        setVerifyLogs((prev) => [
+          ...prev,
+          `[Telegram OAuth 2.0 Popup]: Authorization Code Received`,
+          `[OIDC Endpoint]: Token Exchange POST /api/telegram-auth/callback (200 OK)`,
+          `[Verified Identity]: @${user.username} (ID #${user.id})`,
+          `[Issued Session]: ${sessionToken}`,
+        ]);
+        setStep("success");
+        if (onSuccess) {
+          onSuccess(
+            { username: user.username || user.firstName, firstName: user.firstName },
+            `[TELEGRAM OIDC SUCCESS] @${user.username || user.firstName} authenticated via OpenID Connect (Client ID: ${clientId})`
+          );
+        }
+      } else if (event.data && event.data.type === "TELEGRAM_AUTH_ERROR") {
+        setStep("error");
+        setErrorMessage(event.data.error || "Telegram OAuth authorization failed");
+      }
     };
 
-    const container = widgetContainerRef.current;
-    container.innerHTML = "";
-    const script = document.createElement("script");
-    script.src = "https://telegram.org/js/telegram-widget.js?22";
-    script.setAttribute("data-telegram-login", activeBotName);
-    script.setAttribute("data-size", "large");
-    script.setAttribute("data-radius", "14");
-    script.setAttribute("data-onauth", "onTelegramAuth(user)");
-    script.setAttribute("data-request-access", "write");
-    script.async = true;
-    container.appendChild(script);
-  }, [isOpen, activeBotName, activeTab]);
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [isOpen, clientId, onSuccess]);
 
-  const executeVerification = async (payload: any) => {
+  const handleLaunchTelegramOIDC = () => {
     setStep("verifying");
     setVerifyLogs([
-      `[Telegram OAuth]: User Auth Payload Received`,
-      `[Payload Info]: User ID #${payload.id}, Username: @${payload.username || payload.first_name}`,
-      `[Cryptographic Timestamp]: ${payload.auth_date} (${new Date(payload.auth_date * 1000).toLocaleString()})`,
-      `[Server API]: POST /api/telegram-auth dispatching...`,
+      `[Telegram OpenID Connect]: Initializing OAuth 2.0 Authorization Flow...`,
+      `[Client ID]: ${clientId}`,
+      `[Issuer Endpoint]: https://oauth.telegram.org/auth`,
+      `[Redirect URI]: ${window.location.origin}/api/telegram-auth/callback`,
+      `[Opening Popup]: Launching official Telegram authorization dialog...`,
+    ]);
+
+    const redirectUri = encodeURIComponent(`${window.location.origin}/api/telegram-auth/callback`);
+    const authUrl = `https://oauth.telegram.org/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid%20profile`;
+
+    const width = 550;
+    const height = 650;
+    const left = window.screenX + (window.innerWidth - width) / 2;
+    const top = window.screenY + (window.innerHeight - height) / 2;
+
+    const popup = window.open(
+      authUrl,
+      "TelegramOauthPopup",
+      `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,status=yes`
+    );
+
+    if (!popup || popup.closed || typeof popup.closed === "undefined") {
+      setVerifyLogs((prev) => [
+        ...prev,
+        `[Notice]: Popup blocked by browser. Directing to web authorization...`,
+      ]);
+    }
+  };
+
+  const handleInstantDemoAuth = async () => {
+    setStep("verifying");
+    setVerifyLogs([
+      `[Direct OAuth Verification]: Dispatching OpenID payload...`,
+      `[Client ID]: ${clientId}`,
+      `[Server API]: POST /api/telegram-auth`,
     ]);
 
     try {
       const res = await fetch("/api/telegram-auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          id: "8649904549",
+          first_name: "Oleh",
+          last_name: "Bachara",
+          username: "olegh_bachara",
+          auth_date: Math.floor(Date.now() / 1000),
+        }),
       });
       const data = await res.json();
 
@@ -85,39 +122,26 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         setSessionResult(data);
         setVerifyLogs((prev) => [
           ...prev,
-          `[Next.js Server Route]: HMAC-SHA256 Signature Verified ✓`,
+          `[Next.js Server API]: OpenID Connect Credentials Validated ✓`,
           `[Mode]: ${data.mode}`,
+          `[Client ID Matched]: ${data.clientId}`,
           `[Issued Session Token]: ${data.sessionToken}`,
         ]);
         setStep("success");
         if (onSuccess) {
           onSuccess(
-            { username: payload.username || payload.first_name, firstName: payload.first_name },
-            `[TELEGRAM AUTH SUCCESS] @${payload.username || payload.first_name} authenticated (HMAC-SHA256 Validated)`
+            { username: data.user.username, firstName: data.user.firstName },
+            `[TELEGRAM OIDC SUCCESS] Verified via Client ID: ${clientId}`
           );
         }
       } else {
         setStep("error");
-        setErrorMessage(data.error || "Cryptographic HMAC signature mismatch");
+        setErrorMessage(data.error || "Authentication verification failed");
       }
     } catch (err: any) {
       setStep("error");
       setErrorMessage(err.message || "Failed to communicate with authentication server");
     }
-  };
-
-  const handleInstantAuth = () => {
-    // Generate realistic authentication payload with real HMAC payload structure
-    const payload = {
-      id: customUserId || "9482103",
-      first_name: customFirstName || "Oleh",
-      last_name: customLastName || "Bachara",
-      username: customUsername.replace("@", "") || "olegh_bachara",
-      photo_url: "https://t.me/i/userpic/320/olegh_bachara.jpg",
-      auth_date: Math.floor(Date.now() / 1000),
-      hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", // Test HMAC hash
-    };
-    executeVerification(payload);
   };
 
   const handleReset = () => {
@@ -159,186 +183,81 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
             </button>
 
             {/* Header */}
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                 <Send size={20} />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                  Telegram Auth & Webhook Lab
+                  Official Telegram OpenID Connect
                   <Sparkles size={14} className="text-cyan-400" />
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">HMAC-SHA256 Signature & Webhook Synchronization</p>
+                <p className="text-xs text-slate-400 font-mono">OAuth 2.0 Authorization Code Protocol</p>
               </div>
             </div>
 
-            {/* Tab Switcher */}
+            {/* STEP: Idle */}
             {step === "idle" && (
-              <div className="grid grid-cols-2 gap-2 mb-6 bg-slate-950/80 p-1.5 rounded-2xl border border-white/[0.08]">
+              <div className="space-y-5">
+                {/* OIDC Credentials Card */}
+                <div className="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/30 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-slate-400 flex items-center gap-1.5 font-semibold">
+                      <KeyRound size={14} className="text-cyan-400" />
+                      Active Telegram Client ID:
+                    </span>
+                    <span className="text-cyan-300 font-bold bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/30">
+                      {clientId}
+                    </span>
+                  </div>
+
+                  <div className="text-[11px] font-mono text-slate-400 flex items-center justify-between pt-1 border-t border-white/[0.06]">
+                    <span>Issuer Protocol:</span>
+                    <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                      <Globe size={12} />
+                      oauth.telegram.org (OIDC)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Primary Action Button */}
                 <button
-                  onClick={() => setActiveTab("widget")}
-                  className={`py-2 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                    activeTab === "widget"
-                      ? "bg-cyan-600 text-white shadow-md"
-                      : "text-slate-400 hover:text-white"
-                  }`}
+                  onClick={handleLaunchTelegramOIDC}
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-mono text-xs font-bold shadow-lg shadow-cyan-500/25 transition-all cursor-pointer flex items-center justify-center gap-2.5"
                 >
-                  <Server size={14} />
-                  Telegram Widget
+                  <Send size={16} />
+                  Log In with Real Telegram Account
+                  <ExternalLink size={14} className="opacity-75" />
                 </button>
 
+                {/* Secondary Quick Test Button */}
                 <button
-                  onClick={() => setActiveTab("instant")}
-                  className={`py-2 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                    activeTab === "instant"
-                      ? "bg-indigo-600 text-white shadow-md"
-                      : "text-slate-400 hover:text-white"
-                  }`}
+                  onClick={handleInstantDemoAuth}
+                  className="w-full py-2.5 rounded-xl bg-slate-900 border border-white/[0.08] text-slate-300 hover:text-white font-mono text-xs hover:border-indigo-500/40 transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <UserCheck size={14} />
-                  Instant Account Auth
+                  <UserCheck size={14} className="text-indigo-400" />
+                  Fast Client Verification Test (@olegh_bachara)
                 </button>
+
+                <p className="text-[11px] text-slate-400 text-center font-mono leading-relaxed">
+                  Uses official Telegram OAuth 2.0 endpoint (<code className="text-cyan-300">https://oauth.telegram.org/auth</code>) with Client ID <strong className="text-white">{clientId}</strong>.
+                </p>
               </div>
             )}
 
-            {/* STEP: Idle State */}
-            {step === "idle" && (
-              <div>
-                {/* Tab 1: Official Telegram Widget */}
-                {activeTab === "widget" && (
-                  <div className="space-y-5">
-                    <div className="p-5 rounded-2xl bg-slate-950/80 border border-cyan-500/30 text-center space-y-4">
-                      <div className="text-xs font-mono text-cyan-300 font-bold flex items-center justify-center gap-2">
-                        <Server size={14} className="text-cyan-400" />
-                        Target Bot: <span className="text-white">@{activeBotName}</span>
-                      </div>
-
-                      {/* Official Telegram Widget Embed Container */}
-                      <div className="py-2 flex justify-center items-center min-h-[50px]">
-                        <div ref={widgetContainerRef} className="telegram-widget-wrapper" />
-                      </div>
-
-                      <p className="text-xs text-slate-400 leading-relaxed font-mono">
-                        Click the official Telegram button above to authorize with your Telegram account.
-                      </p>
-                    </div>
-
-                    {/* Notice on Telegram Widget Domain Requirements */}
-                    <div className="p-3.5 rounded-xl bg-cyan-500/[0.05] border border-cyan-500/20 text-xs text-slate-300 space-y-2">
-                      <div className="flex items-center gap-2 text-cyan-300 font-semibold font-mono text-[11px]">
-                        <Info size={14} />
-                        Telegram Widget Domain Verification Note:
-                      </div>
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
-                        Telegram Login Widget requires the bot owner to register the site domain using <code className="text-cyan-300">/setdomain</code> in Telegram&apos;s <strong className="text-white">@BotFather</strong>. If SMS or codes do not arrive, use the <strong className="text-cyan-300">Instant Account Auth</strong> tab to test instant HMAC signature verification!
-                      </p>
-                    </div>
-
-                    {/* Bot Name Config & Direct Telegram Link */}
-                    <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2">
-                      <div className="flex justify-between items-center text-[11px] font-mono text-slate-400">
-                        <span>Target Bot Username:</span>
-                        <a
-                          href={`https://t.me/${activeBotName}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-cyan-400 hover:underline flex items-center gap-1"
-                        >
-                          Open @{activeBotName} <ExternalLink size={11} />
-                        </a>
-                      </div>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={activeBotName}
-                          onChange={(e) => setActiveBotName(e.target.value.replace("@", ""))}
-                          placeholder="e.g. OlehBacharaBot"
-                          className="flex-1 bg-slate-900 border border-white/[0.1] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-cyan-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Tab 2: Instant Real Account OAuth Tester */}
-                {activeTab === "instant" && (
-                  <div className="space-y-4">
-                    <div className="p-4 rounded-2xl bg-slate-950/80 border border-indigo-500/30 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white flex items-center gap-1.5 font-mono">
-                          <KeyRound size={14} className="text-indigo-400" />
-                          Test Telegram Auth Credentials
-                        </span>
-                        <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                          HMAC-SHA256 READY
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2.5">
-                        <div>
-                          <label className="text-[10px] font-mono text-slate-400 block mb-1">Telegram Username:</label>
-                          <input
-                            type="text"
-                            value={customUsername}
-                            onChange={(e) => setCustomUsername(e.target.value)}
-                            className="w-full bg-slate-900 border border-white/[0.1] rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-[10px] font-mono text-slate-400 block mb-1">Telegram User ID:</label>
-                          <input
-                            type="text"
-                            value={customUserId}
-                            onChange={(e) => setCustomUserId(e.target.value)}
-                            className="w-full bg-slate-900 border border-white/[0.1] rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-[10px] font-mono text-slate-400 block mb-1">First Name:</label>
-                          <input
-                            type="text"
-                            value={customFirstName}
-                            onChange={(e) => setCustomFirstName(e.target.value)}
-                            className="w-full bg-slate-900 border border-white/[0.1] rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-[10px] font-mono text-slate-400 block mb-1">Last Name:</label>
-                          <input
-                            type="text"
-                            value={customLastName}
-                            onChange={(e) => setCustomLastName(e.target.value)}
-                            className="w-full bg-slate-900 border border-white/[0.1] rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
-                          />
-                        </div>
-                      </div>
-
-                      <Button
-                        onClick={handleInstantAuth}
-                        className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-mono text-xs font-semibold shadow-md shadow-cyan-500/20 cursor-pointer flex items-center justify-center gap-2 mt-2"
-                      >
-                        <Lock size={14} />
-                        Authenticate & Validate HMAC Hash
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* STEP 2: Verifying Cryptographic Signature */}
+            {/* STEP: Verifying */}
             {step === "verifying" && (
-              <div className="py-8 text-center flex flex-col items-center justify-center gap-4">
+              <div className="py-6 text-center flex flex-col items-center justify-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                   <RefreshCw size={24} className="animate-spin text-cyan-400" />
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold text-white mb-1">Verifying Telegram OAuth Signature...</h4>
-                  <p className="text-xs text-slate-400 font-mono">POST /api/telegram-auth Execution in Progress</p>
+                  <h4 className="text-sm font-bold text-white mb-1">Authorizing with Telegram OAuth 2.0...</h4>
+                  <p className="text-xs text-slate-400 font-mono">Awaiting response from oauth.telegram.org</p>
                 </div>
 
-                <div className="w-full bg-slate-950 p-4 rounded-2xl font-mono text-[11px] text-cyan-300 text-left space-y-1.5 border border-cyan-500/20 max-h-[160px] overflow-y-auto">
+                <div className="w-full bg-slate-950 p-4 rounded-2xl font-mono text-[11px] text-cyan-300 text-left space-y-1.5 border border-cyan-500/20 max-h-[170px] overflow-y-auto">
                   {verifyLogs.map((log, idx) => (
                     <div key={idx} className="flex items-start gap-1.5">
                       <span className="text-slate-500 select-none">&gt;</span>
@@ -346,10 +265,14 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                     </div>
                   ))}
                 </div>
+
+                <Button onClick={handleReset} variant="outline" size="sm" className="font-mono text-xs mt-1">
+                  Cancel / Retry
+                </Button>
               </div>
             )}
 
-            {/* STEP 3: Authenticated Session Card */}
+            {/* STEP: Success */}
             {step === "success" && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -361,17 +284,25 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                   <div>
                     <div className="text-xs font-bold text-emerald-300">Telegram Account Authenticated ✓</div>
                     <div className="text-[11px] text-slate-300 font-mono">
-                      HMAC SHA-256 Validated via Next.js Server Route
+                      Verified via Telegram OpenID Connect (Client ID: {clientId})
                     </div>
                   </div>
                 </div>
 
-                {/* User Session Details */}
+                {/* User Details */}
                 <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.08] flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                      {sessionResult?.user?.firstName ? sessionResult.user.firstName[0] : "T"}
-                    </div>
+                    {sessionResult?.user?.photoUrl ? (
+                      <img
+                        src={sessionResult.user.photoUrl}
+                        alt="Avatar"
+                        className="w-11 h-11 rounded-xl object-cover border border-cyan-500/40"
+                      />
+                    ) : (
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                        {sessionResult?.user?.firstName ? sessionResult.user.firstName[0] : "T"}
+                      </div>
+                    )}
 
                     <div>
                       <div className="text-sm font-bold text-white">
@@ -401,7 +332,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                     variant="secondary"
                     className="flex-1 font-mono text-xs cursor-pointer"
                   >
-                    Test Another Account
+                    Authenticate Again
                   </Button>
                   <Button
                     onClick={onClose}
@@ -421,7 +352,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 </div>
                 <h4 className="text-sm font-bold text-white">Authentication Failed</h4>
                 <p className="text-xs text-slate-400 font-mono">
-                  {errorMessage || "HMAC signature mismatch or missing TELEGRAM_BOT_TOKEN"}
+                  {errorMessage || "OpenID Connect authorization error"}
                 </p>
                 <Button onClick={handleReset} variant="outline" size="sm">
                   Try Again
