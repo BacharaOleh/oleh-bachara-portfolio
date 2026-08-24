@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Code2, Zap, BarChart3, Shield } from "lucide-react";
-import { VALUE_CARDS, TRANSLATIONS, type Lang } from "@/data/portfolio-data";
+import { VALUE_CARDS, VALUE_CARD_PERSPECTIVES, TRANSLATIONS, type Lang, type Perspective } from "@/data/portfolio-data";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -42,11 +42,13 @@ const accentThemes = {
 
 interface ValuePropositionProps {
   lang: Lang;
+  perspective: Perspective;
 }
 
-export function ValueProposition({ lang }: ValuePropositionProps) {
+export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
   const t = TRANSLATIONS[lang].impact;
   const cards = VALUE_CARDS[lang];
+  const overlayMap = VALUE_CARD_PERSPECTIVES[perspective][lang];
 
   return (
     <section id="impact" className="py-20 md:py-28 relative">
@@ -65,6 +67,11 @@ export function ValueProposition({ lang }: ValuePropositionProps) {
             const isFirst = i === 0;
             const isLast = i === 3;
             const colSpan = isFirst ? "md:col-span-7" : isLast ? "md:col-span-7" : "md:col-span-5";
+            const overlay = overlayMap[card.id];
+
+            const currentMetric = overlay ? overlay.metric : card.metric;
+            const currentMetricLabel = overlay ? overlay.metricLabel : card.metricLabel;
+            const currentDescription = overlay ? overlay.description : card.description;
 
             return (
               <motion.div
@@ -92,11 +99,20 @@ export function ValueProposition({ lang }: ValuePropositionProps) {
                         <Icon size={20} />
                       </div>
                       <div className="text-right">
-                        <div className={`text-3xl font-extrabold font-mono ${theme.metricText}`}>
-                          {card.metric}
-                        </div>
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={`${perspective}-${currentMetric}`}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.25 }}
+                            className={`text-3xl font-extrabold font-mono ${theme.metricText}`}
+                          >
+                            {currentMetric}
+                          </motion.div>
+                        </AnimatePresence>
                         <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
-                          {card.metricLabel}
+                          {currentMetricLabel}
                         </div>
                       </div>
                     </div>
@@ -105,9 +121,18 @@ export function ValueProposition({ lang }: ValuePropositionProps) {
                       {card.title}
                     </h3>
 
-                    <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
-                      {card.description}
-                    </p>
+                    <AnimatePresence mode="wait">
+                      <motion.p
+                        key={`${perspective}-${card.id}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-slate-300 text-sm leading-relaxed mb-6 font-normal"
+                      >
+                        {currentDescription}
+                      </motion.p>
+                    </AnimatePresence>
                   </div>
 
                   <div className="relative z-10 pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">

@@ -14,10 +14,12 @@ import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/CommandPalette";
 import { RecruiterModal } from "@/components/RecruiterModal";
 import { TelegramAuthModal } from "@/components/TelegramAuthModal";
-import type { Lang } from "@/data/portfolio-data";
+import { LiveStatusWidget } from "@/components/LiveStatusWidget";
+import type { Lang, Perspective } from "@/data/portfolio-data";
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
+  const [perspective, setPerspective] = useState<Perspective>("engineer");
   const [recruiterOpen, setRecruiterOpen] = useState(false);
   const [telegramOpen, setTelegramOpen] = useState(false);
 
@@ -34,10 +36,10 @@ export default function Home() {
       </div>
 
       <div className="relative z-10">
-        <Navbar lang={lang} setLang={setLang} />
+        <Navbar lang={lang} setLang={setLang} perspective={perspective} setPerspective={setPerspective} />
         <main>
-          <Hero lang={lang} />
-          <ValueProposition lang={lang} />
+          <Hero lang={lang} perspective={perspective} />
+          <ValueProposition lang={lang} perspective={perspective} />
           <SystemArchitecture lang={lang} />
           <CaseStudies lang={lang} />
           <LiveShowcases lang={lang} />
@@ -58,6 +60,9 @@ export default function Home() {
         isOpen={telegramOpen}
         onClose={() => setTelegramOpen(false)}
       />
+
+      {/* Live Status Floating Widget */}
+      <LiveStatusWidget lang={lang} perspective={perspective} />
 
       {/* ⌘K Command Palette — floats over everything */}
       <CommandPalette

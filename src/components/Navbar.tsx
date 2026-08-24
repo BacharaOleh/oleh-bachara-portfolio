@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
-import { TRANSLATIONS, type Lang } from "@/data/portfolio-data";
+import { Menu, X, Zap, Code2, BarChart3 } from "lucide-react";
+import { TRANSLATIONS, type Lang, type Perspective } from "@/data/portfolio-data";
 import { cn } from "@/lib/utils";
 import { RecruiterModal } from "@/components/RecruiterModal";
 
@@ -19,9 +19,11 @@ const NAV_ITEMS = [
 interface NavbarProps {
   lang: Lang;
   setLang: (l: Lang) => void;
+  perspective: Perspective;
+  setPerspective: (p: Perspective) => void;
 }
 
-export function Navbar({ lang, setLang }: NavbarProps) {
+export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarProps) {
   const t = TRANSLATIONS[lang].nav;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,6 +75,8 @@ export function Navbar({ lang, setLang }: NavbarProps) {
       });
     }
   };
+
+  const isEngineer = perspective === "engineer";
 
   return (
     <>
@@ -146,7 +150,49 @@ export function Navbar({ lang, setLang }: NavbarProps) {
             </nav>
 
             {/* Right Controls */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              {/* ⚡ Perspective Switcher — Dual Mind Toggle */}
+              <div className="hidden sm:flex items-center bg-slate-900/80 rounded-full p-1 border border-white/[0.08] backdrop-blur-md">
+                <button
+                  onClick={() => setPerspective("engineer")}
+                  className={cn(
+                    "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-all duration-300 cursor-pointer",
+                    isEngineer
+                      ? "text-white"
+                      : "text-slate-400 hover:text-slate-200"
+                  )}
+                >
+                  <Code2 size={12} />
+                  <span className="hidden lg:inline">Engineer</span>
+                  {isEngineer && (
+                    <motion.div
+                      layoutId="perspectivePill"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-cyan-600 -z-10 shadow-md shadow-indigo-500/30"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                </button>
+                <button
+                  onClick={() => setPerspective("business")}
+                  className={cn(
+                    "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-all duration-300 cursor-pointer",
+                    !isEngineer
+                      ? "text-white"
+                      : "text-slate-400 hover:text-slate-200"
+                  )}
+                >
+                  <BarChart3 size={12} />
+                  <span className="hidden lg:inline">Business</span>
+                  {!isEngineer && (
+                    <motion.div
+                      layoutId="perspectivePill"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-600 to-amber-500 -z-10 shadow-md shadow-violet-500/30"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                </button>
+              </div>
+
               {/* Recruiter Quick View Button */}
               <button
                 onClick={() => setRecruiterModalOpen(true)}
@@ -197,6 +243,34 @@ export function Navbar({ lang, setLang }: NavbarProps) {
             transition={{ duration: 0.2 }}
             className="fixed inset-x-0 top-16 z-40 bg-[#080c14]/95 border-b border-white/[0.08] backdrop-blur-xl px-6 py-6 md:hidden shadow-2xl space-y-3"
           >
+            {/* Mobile Perspective Switcher */}
+            <div className="flex items-center bg-slate-900/80 rounded-full p-1 border border-white/[0.08] mb-3">
+              <button
+                onClick={() => setPerspective("engineer")}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono font-semibold transition-all duration-300 cursor-pointer",
+                  isEngineer
+                    ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md"
+                    : "text-slate-400"
+                )}
+              >
+                <Code2 size={13} />
+                Engineer
+              </button>
+              <button
+                onClick={() => setPerspective("business")}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono font-semibold transition-all duration-300 cursor-pointer",
+                  !isEngineer
+                    ? "bg-gradient-to-r from-violet-600 to-amber-500 text-white shadow-md"
+                    : "text-slate-400"
+                )}
+              >
+                <BarChart3 size={13} />
+                Business
+              </button>
+            </div>
+
             <button
               onClick={() => {
                 setMobileOpen(false);

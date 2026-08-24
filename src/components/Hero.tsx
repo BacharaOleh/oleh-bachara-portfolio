@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Download, Mail, MapPin, Send, ShieldCheck, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Download, Mail, MapPin, Send, ShieldCheck, Sparkles, Code2, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { STATS, SOCIAL_LINKS, TRANSLATIONS, type Lang, type Stat } from "@/data/portfolio-data";
+import { PERSPECTIVE_STATS, SOCIAL_LINKS, TRANSLATIONS, type Lang, type Perspective, type Stat } from "@/data/portfolio-data";
 import { TelegramAuthModal } from "@/components/TelegramAuthModal";
 import { TypewriterRoles } from "@/components/ui/typewriter-roles";
 import { TiltCard } from "@/components/ui/tilt-card";
 
 interface HeroProps {
   lang: Lang;
+  perspective: Perspective;
 }
 
 const GithubIcon = () => (
@@ -68,10 +69,12 @@ function CountUp({ target, duration = 1800 }: { target: string; duration?: numbe
   return <span ref={ref}>{display}</span>;
 }
 
-export function Hero({ lang }: HeroProps) {
+export function Hero({ lang, perspective }: HeroProps) {
   const t = TRANSLATIONS[lang].hero;
-  const statsList = STATS[lang];
+  const statsList = PERSPECTIVE_STATS[perspective][lang];
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const isEngineer = perspective === "engineer";
 
   const socialLinks = [
     { href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon, label: "LinkedIn" },
@@ -93,24 +96,43 @@ export function Hero({ lang }: HeroProps) {
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
           
-          {/* Status Badge with Sparkles */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium shadow-lg shadow-emerald-500/5 backdrop-blur-md"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>{t.available}</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-slate-400 flex items-center gap-1">
-              <ShieldCheck size={13} className="text-emerald-400" />
-              Full EU Work Rights
-            </span>
-          </motion.div>
+          {/* Top Badges Row */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            {/* Status Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium shadow-lg shadow-emerald-500/5 backdrop-blur-md"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>{t.available}</span>
+              <span className="text-slate-600">•</span>
+              <span className="text-slate-400 flex items-center gap-1">
+                <ShieldCheck size={13} className="text-emerald-400" />
+                Full EU Work Rights
+              </span>
+            </motion.div>
+
+            {/* Current Active Mode Indicator Badge */}
+            <motion.div
+              key={perspective}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold border ${
+                isEngineer 
+                  ? "bg-indigo-500/10 border-indigo-500/40 text-indigo-300"
+                  : "bg-amber-500/10 border-amber-500/40 text-amber-300"
+              }`}
+            >
+              {isEngineer ? <Code2 size={13} className="text-indigo-400" /> : <BarChart3 size={13} className="text-amber-400" />}
+              <span>{isEngineer ? "Mode: System Engineering" : "Mode: Business & ROI Growth"}</span>
+            </motion.div>
+          </div>
 
           {/* Headline */}
           <motion.h1
@@ -136,15 +158,25 @@ export function Hero({ lang }: HeroProps) {
             <TypewriterRoles lang={lang} />
           </motion.div>
 
-          {/* Subtitle / Bio */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-400 text-base sm:text-xl leading-relaxed max-w-2xl font-normal"
-          >
-            {t.subtitle}
-          </motion.p>
+          {/* Subtitle / Bio with Smooth Morphing Transition */}
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`${lang}-${perspective}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="text-slate-300 text-base sm:text-xl leading-relaxed max-w-2xl font-normal"
+            >
+              {isEngineer 
+                ? (lang === "pl"
+                    ? "Inżynier Informatyki z 4.5+ letnim doświadczeniem w architekturze systemów webowych, integracjach API Telegram, bazach MariaDB i optymalizacji PageSpeed 90+."
+                    : "Computer Science Engineer with 4.5+ years building robust PHP architectures, Telegram API bridges, MariaDB index tuning, and high-performance web systems.")
+                : (lang === "pl"
+                    ? "Magister Zarządzania z 3-letnim doświadczeniem w Reh4mat. Łączę technologię z biznesem: +40% ruchu organicznego, mailing o CTR 30–36% i 0% przestoju przy migracjach."
+                    : "M.Sc. Management with 3-year track record scaling 8 corporate platforms at Reh4mat: +40% organic traffic, 30–36% email campaign CTR, and zero-loss migrations.")}
+            </motion.p>
+          </AnimatePresence>
 
           {/* Credentials Tagline */}
           <motion.div
@@ -222,29 +254,38 @@ export function Hero({ lang }: HeroProps) {
             ))}
           </motion.div>
 
-          {/* Animated Stats Bar with 3D Tilt Cards */}
+          {/* Animated Stats Bar with 3D Tilt Cards (Dual-Perspective Enabled) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
             className="w-full max-w-4xl mt-8 pt-8 border-t border-white/[0.08]"
           >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {statsList.map((stat: Stat) => (
-                <TiltCard
-                  key={stat.label}
-                  className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/[0.08] hover:border-indigo-500/40 shadow-xl"
-                  spotlightColor="rgba(99, 102, 241, 0.15)"
-                >
-                  <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight font-mono">
-                    <CountUp target={stat.value} />
-                  </div>
-                  <div className="text-xs text-slate-400 font-medium mt-1 font-sans">
-                    {stat.label}
-                  </div>
-                </TiltCard>
-              ))}
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={perspective}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35 }}
+                className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+              >
+                {statsList.map((stat: Stat) => (
+                  <TiltCard
+                    key={stat.label}
+                    className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/[0.08] hover:border-indigo-500/40 shadow-xl"
+                    spotlightColor="rgba(99, 102, 241, 0.15)"
+                  >
+                    <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight font-mono">
+                      <CountUp target={stat.value} />
+                    </div>
+                    <div className="text-xs text-slate-400 font-medium mt-1 font-sans">
+                      {stat.label}
+                    </div>
+                  </TiltCard>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>

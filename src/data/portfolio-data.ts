@@ -2,11 +2,147 @@
 // Portfolio Data — Oleh Bachara
 // ============================================================
 
+export type Perspective = "engineer" | "business";
+
 export interface Stat {
   value: string;
   label: string;
   icon: string;
 }
+
+// ─── DUAL-PERSPECTIVE STATS ─────────────────────────────────
+export const PERSPECTIVE_STATS: Record<Perspective, Record<"en" | "pl", Stat[]>> = {
+  engineer: {
+    en: [
+      { value: "48ms", label: "Avg Database Query Latency", icon: "Database" },
+      { value: "8+", label: "Production Web Systems Built", icon: "Server" },
+      { value: "0%", label: "Migration Downtime Achieved", icon: "Shield" },
+      { value: "90+", label: "PageSpeed Lighthouse Score", icon: "Zap" },
+    ],
+    pl: [
+      { value: "48ms", label: "Śr. Opóźnienie Zapytań do Bazy", icon: "Database" },
+      { value: "8+", label: "Systemów Webowych w Produkcji", icon: "Server" },
+      { value: "0%", label: "Przestojów Podczas Migracji", icon: "Shield" },
+      { value: "90+", label: "Wynik PageSpeed Lighthouse", icon: "Zap" },
+    ],
+  },
+  business: {
+    en: [
+      { value: "+40%", label: "Organic Traffic Surge", icon: "TrendingUp" },
+      { value: "30-36%", label: "Email Campaign CTR", icon: "Mail" },
+      { value: "8+", label: "Corporate Websites Managed", icon: "Globe" },
+      { value: "0%", label: "Client Loss During Migrations", icon: "Users" },
+    ],
+    pl: [
+      { value: "+40%", label: "Wzrost Ruchu Organicznego", icon: "TrendingUp" },
+      { value: "30-36%", label: "CTR Kampanii Mailowych", icon: "Mail" },
+      { value: "8+", label: "Zarządzanych Stron Korporacyjnych", icon: "Globe" },
+      { value: "0%", label: "Utraty Klientów Przy Migracji", icon: "Users" },
+    ],
+  },
+};
+
+// ─── DUAL-PERSPECTIVE VALUE CARD OVERLAYS ───────────────────
+export interface PerspectiveOverlay {
+  metric: string;
+  metricLabel: string;
+  description: string;
+}
+
+export const VALUE_CARD_PERSPECTIVES: Record<Perspective, Record<"en" | "pl", Record<string, PerspectiveOverlay>>> = {
+  engineer: {
+    en: {
+      "web-engineering": {
+        metric: "sub-2s",
+        metricLabel: "Page Load Time",
+        description: "Custom PHP themes with optimized SQL queries, Gutenberg block architecture, lazy-loaded WebP assets, and schema.org structured data for 8+ production web systems.",
+      },
+      "api-automation": {
+        metric: "<200ms",
+        metricLabel: "Auth Latency",
+        description: "HMAC-SHA256 signature verification, Telegram Bot API webhooks, stateless JWT session management, and bidirectional REST data synchronization pipelines.",
+      },
+      "technical-marketing": {
+        metric: "GA4",
+        metricLabel: "Event Architecture",
+        description: "Custom dataLayer pushes, enhanced ecommerce tracking, server-side GTM containers, Core Web Vitals optimization, and programmatic GSC API indexing.",
+      },
+      "infrastructure": {
+        metric: "0%",
+        metricLabel: "Downtime Achieved",
+        description: "Blue-green deployment strategy with DNS failover, rsync delta-sync, MariaDB replication streams, and automated SSL certificate rotation across 8+ domains.",
+      },
+    },
+    pl: {
+      "web-engineering": {
+        metric: "<2s",
+        metricLabel: "Czas Ładowania",
+        description: "Autorskie motywy PHP z optymalnymi zapytaniami SQL, architektura bloków Gutenberg, lazy-loading WebP i mikrodane schema.org dla 8+ systemów produkcyjnych.",
+      },
+      "api-automation": {
+        metric: "<200ms",
+        metricLabel: "Opóźnienie Auth",
+        description: "Weryfikacja podpisu HMAC-SHA256, webhooki Telegram Bot API, bezstanowe sesje JWT i dwukierunkowa synchronizacja danych REST.",
+      },
+      "technical-marketing": {
+        metric: "GA4",
+        metricLabel: "Architektura Zdarzeń",
+        description: "Własne dataLayer push, śledzenie e-commerce, kontenery GTM server-side, optymalizacja Core Web Vitals i programowe indeksowanie GSC API.",
+      },
+      "infrastructure": {
+        metric: "0%",
+        metricLabel: "Osiągnięty Przestoj",
+        description: "Strategia blue-green z DNS failover, rsync delta-sync, replikacja MariaDB i automatyczna rotacja certyfikatów SSL na 8+ domenach.",
+      },
+    },
+  },
+  business: {
+    en: {
+      "web-engineering": {
+        metric: "8+",
+        metricLabel: "Corporate Sites",
+        description: "End-to-end web platform ownership across PL/UA/EU markets — product catalog redesigns, B2B/B2C showcase optimization, and conversion-focused UX decisions driving measurable growth.",
+      },
+      "api-automation": {
+        metric: "100%",
+        metricLabel: "Bot Uptime",
+        description: "Seamless customer authentication via Telegram, reducing friction in user onboarding. Real-time data bridges connecting web platforms to messaging ecosystems for instant engagement.",
+      },
+      "technical-marketing": {
+        metric: "+40%",
+        metricLabel: "Organic Traffic Surge",
+        description: "Data-driven growth strategy: GA4 conversion funnels, high-CTR email campaigns (30–36% engagement), A/B tested CTAs, and technical SEO that moves traffic needles.",
+      },
+      "infrastructure": {
+        metric: "0%",
+        metricLabel: "Client Disruption",
+        description: "Invisible infrastructure transitions — zero client complaints during complex multi-domain migrations. Guaranteed business continuity while upgrading performance by 2x.",
+      },
+    },
+    pl: {
+      "web-engineering": {
+        metric: "8+",
+        metricLabel: "Serwisów Korporacyjnych",
+        description: "Pełna odpowiedzialność za platformy webowe na rynkach PL/UA/EU — redesign katalogów produktów, optymalizacja B2B/B2C i decyzje UX napędzające mierzalny wzrost.",
+      },
+      "api-automation": {
+        metric: "100%",
+        metricLabel: "Uptime Botów",
+        description: "Bezproblemowa autoryzacja klientów przez Telegram, redukcja tarcia w onboardingu. Synchronizacja w czasie rzeczywistym łącząca platformy z komunikatorem.",
+      },
+      "technical-marketing": {
+        metric: "+40%",
+        metricLabel: "Wzrostu Ruchu Organicznego",
+        description: "Strategia wzrostu oparta na danych: lejki konwersji GA4, kampanie mailowe o CTR 30–36%, testy A/B i SEO techniczne napędzające ruch.",
+      },
+      "infrastructure": {
+        metric: "0%",
+        metricLabel: "Przestoju dla Klientów",
+        description: "Niewidoczne przejścia infrastrukturalne — zero skarg klientów podczas złożonych migracji. Gwarantowana ciągłość biznesu przy 2x wzroście wydajności.",
+      },
+    },
+  },
+};
 
 export interface Project {
   id: string;
