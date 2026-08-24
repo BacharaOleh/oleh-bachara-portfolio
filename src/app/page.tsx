@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { ValueProposition } from "@/components/ValueProposition";
+import { SolutionMatrix } from "@/components/SolutionMatrix";
 import { SystemArchitecture } from "@/components/SystemArchitecture";
 import { CaseStudies } from "@/components/CaseStudies";
 import { LiveShowcases } from "@/components/LiveShowcases";
 import { TechStack } from "@/components/TechStack";
 import { Education } from "@/components/Education";
+import { ProjectConfigurator } from "@/components/ProjectConfigurator";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/CommandPalette";
@@ -39,12 +40,13 @@ export default function Home() {
         <Navbar lang={lang} setLang={setLang} perspective={perspective} setPerspective={setPerspective} />
         <main>
           <Hero lang={lang} perspective={perspective} />
-          <ValueProposition lang={lang} perspective={perspective} />
+          <SolutionMatrix lang={lang} />
           <SystemArchitecture lang={lang} />
           <CaseStudies lang={lang} />
           <LiveShowcases lang={lang} />
           <TechStack lang={lang} />
           <Education lang={lang} />
+          <ProjectConfigurator lang={lang} />
           <Contact lang={lang} />
         </main>
         <Footer />

@@ -195,7 +195,36 @@ export function Hero({ lang, perspective }: HeroProps) {
             <span className="text-cyan-300 font-semibold">Inżynier Informatyki (2019–2023)</span>
           </motion.div>
 
-          {/* Action CTAs */}
+          {/* Solution Quick-Filter Chips */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.28 }}
+            className="flex flex-wrap items-center justify-center gap-2"
+          >
+            {[
+              { id: "catalog", emoji: "🛍", en: "Product Catalogs", pl: "Katalogi Produktów" },
+              { id: "pagespeed", emoji: "⚡", en: "PageSpeed 90+", pl: "PageSpeed 90+" },
+              { id: "telegram", emoji: "🤖", en: "Telegram Auth", pl: "Auth Telegram" },
+              { id: "migration", emoji: "🛡", en: "Server Migrations", pl: "Migracje Serwerów" },
+              { id: "analytics", emoji: "📈", en: "GA4 & SEO", pl: "GA4 & SEO" },
+            ].map((chip) => (
+              <button
+                key={chip.id}
+                onClick={() => {
+                  const el = document.getElementById("solutions");
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({ top: y, behavior: "smooth" });
+                  }
+                }}
+                className="px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/[0.10] text-[11px] font-mono font-semibold text-slate-300 hover:text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 transition-all cursor-pointer backdrop-blur-md"
+              >
+                <span className="mr-1">{chip.emoji}</span>
+                {lang === "pl" ? chip.pl : chip.en}
+              </button>
+            ))}
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
