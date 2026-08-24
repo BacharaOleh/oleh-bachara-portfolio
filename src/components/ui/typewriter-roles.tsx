@@ -23,12 +23,18 @@ export function TypewriterRoles({ lang }: TypewriterRolesProps) {
       ];
 
   const [roleIdx, setRoleIdx] = useState(0);
-  const [currentText, setCurrentText] = useState("");
+  const [currentText, setCurrentText] = useState(roles[0]);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const targetRole = roles[roleIdx % roles.length];
-    const typingSpeed = isDeleting ? 40 : 80;
+    const typingSpeed = isDeleting ? 35 : 70;
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
@@ -36,7 +42,7 @@ export function TypewriterRoles({ lang }: TypewriterRolesProps) {
         setCurrentText(targetRole.slice(0, currentText.length + 1));
         if (currentText === targetRole) {
           // Pause at end of text
-          setTimeout(() => setIsDeleting(true), 2200);
+          setTimeout(() => setIsDeleting(true), 2400);
         }
       } else {
         // Deleting backward
@@ -49,12 +55,14 @@ export function TypewriterRoles({ lang }: TypewriterRolesProps) {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, roleIdx, roles]);
+  }, [currentText, isDeleting, roleIdx, roles, mounted]);
 
   return (
-    <span className="inline-flex items-center gap-1 font-mono text-indigo-400 font-semibold text-sm sm:text-base bg-indigo-500/10 border border-indigo-500/25 px-3 py-1 rounded-lg shadow-inner">
-      <span>{currentText}</span>
-      <span className="w-2 h-4 bg-cyan-400 animate-pulse rounded-sm inline-block" />
-    </span>
+    <div className="min-h-[38px] flex items-center">
+      <span className="inline-flex items-center gap-1.5 font-mono text-indigo-300 font-semibold text-xs sm:text-sm bg-indigo-500/10 border border-indigo-500/25 px-3 py-1.5 rounded-lg shadow-inner">
+        <span>{currentText || roles[0]}</span>
+        <span className="w-1.5 h-3.5 bg-cyan-400 animate-pulse rounded-sm inline-block shrink-0" aria-hidden="true" />
+      </span>
+    </div>
   );
 }

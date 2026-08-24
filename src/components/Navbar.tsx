@@ -195,6 +195,8 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
 
               {/* Recruiter Quick View Button */}
               <button
+                type="button"
+                aria-label="Open Recruiter 1-Minute Executive Summary modal"
                 onClick={() => setRecruiterModalOpen(true)}
                 className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
               >
@@ -203,10 +205,12 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
               </button>
 
               {/* Language switcher */}
-              <div className="flex items-center bg-slate-900/80 rounded-lg p-0.5 border border-white/[0.08]">
+              <div className="flex items-center bg-slate-900/80 rounded-lg p-0.5 border border-white/[0.08]" role="group" aria-label="Language selection">
                 {(["en", "pl"] as Lang[]).map((l) => (
                   <button
                     key={l}
+                    type="button"
+                    aria-label={`Switch language to ${l === "pl" ? "Polish" : "English"}`}
                     onClick={() => setLang(l)}
                     className={cn(
                       "px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold uppercase transition-all duration-200 cursor-pointer",
@@ -222,9 +226,11 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
 
               {/* Mobile Menu Button */}
               <button
+                type="button"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="md:hidden p-2 rounded-xl bg-slate-900/80 border border-white/[0.08] text-slate-300 hover:text-white transition-colors"
-                aria-label="Toggle menu"
+                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileOpen}
               >
                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>

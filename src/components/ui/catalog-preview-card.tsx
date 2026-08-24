@@ -201,16 +201,18 @@ export function CatalogPreviewCard({ className = "" }: CatalogPreviewCardProps) 
 
               {/* Size Selector */}
               <div className="mb-3">
-                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-1.5 block">Rozmiar:</span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5 block">Rozmiar:</span>
                 <div className="flex items-center gap-1.5">
                   {selectedProduct.sizes.map((size) => (
                     <button
                       key={size}
+                      type="button"
+                      aria-label={`Wybierz rozmiar ${size}`}
                       onClick={() => setSelectedSize(size)}
                       className={`w-8 h-8 rounded-lg text-[11px] font-mono font-bold transition-all cursor-pointer ${
                         selectedSize === size
                           ? "bg-indigo-600 text-white border border-indigo-400 shadow-sm"
-                          : "bg-slate-800 text-slate-400 border border-white/[0.08] hover:text-white"
+                          : "bg-slate-800 text-slate-300 border border-white/[0.08] hover:text-white"
                       }`}
                     >
                       {size}
@@ -221,13 +223,15 @@ export function CatalogPreviewCard({ className = "" }: CatalogPreviewCardProps) 
 
               {/* Color Selector */}
               <div className="mb-4">
-                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-1.5 block">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5 block">
                   Kolor: {selectedProduct.colors[selectedColorIdx]?.name}
                 </span>
                 <div className="flex items-center gap-2">
                   {selectedProduct.colors.map((color, i) => (
                     <button
                       key={color.name}
+                      type="button"
+                      aria-label={`Wybierz kolor ${color.name}`}
                       onClick={() => setSelectedColorIdx(i)}
                       className={`w-7 h-7 rounded-full border-2 transition-all cursor-pointer ${
                         selectedColorIdx === i ? "border-cyan-400 scale-110" : "border-white/[0.15] hover:border-white/30"

@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-sans, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif);
+  --font-mono: var(--font-mono, 'JetBrains Mono', monospace);
   
   --bg-primary: #080c14;
   --bg-surface: rgba(15, 23, 42, 0.65);
   --bg-surface-hover: rgba(30, 41, 59, 0.7);
   
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-bright: rgba(99, 102, 241, 0.3);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-bright: rgba(99, 102, 241, 0.35);
   
   --color-indigo: #6366f1;
   --color-cyan: #38bdf8;
@@ -37,16 +36,16 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  text-rendering: optimizeSpeed;
+  text-rendering: optimizeLegibility;
 }
 
-/* ── Hardware Acceleration & Smooth Scroll ───────────────── */
+/* ── Hardware Acceleration ────────────────────────────────── */
 .gpu-layer {
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   will-change: transform, opacity;
 }
 
-/* ── High-Performance Noise/Dot Overlay ──────────────────── */
+/* ── High-Performance Background Overlays ─────────────────── */
 .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -65,11 +64,11 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.3);
   box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
 }
 
@@ -94,16 +93,16 @@ body {
   background: #080c14;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.3);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.5);
+  background: rgba(99, 102, 241, 0.6);
 }
 
 /* ── Selection ────────────────────────────────────────────── */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.35);
   color: #ffffff;
 }
 
@@ -131,53 +130,13 @@ body {
   }
 }
 
-/* ── Stripe/Vercel Style Fluid Mesh Orbs ─────────────────── */
-.mesh-blob-1 {
-  animation: floatMesh1 18s ease-in-out infinite alternate;
-  will-change: transform;
+/* ── Static Ambient Radial Mesh Glows (Zero CPU/GPU Overhead) ─ */
+.mesh-ambient-1 {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
 }
-.mesh-blob-2 {
-  animation: floatMesh2 22s ease-in-out infinite alternate;
-  will-change: transform;
+.mesh-ambient-2 {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 70%);
 }
-.mesh-blob-3 {
-  animation: floatMesh3 20s ease-in-out infinite alternate;
-  will-change: transform;
+.mesh-ambient-3 {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.09) 0%, transparent 70%);
 }
-
-@keyframes floatMesh1 {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  50% {
-    transform: translate(120px, -60px) scale(1.15);
-  }
-  100% {
-    transform: translate(-40px, 80px) scale(0.95);
-  }
-}
-
-@keyframes floatMesh2 {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  50% {
-    transform: translate(-100px, 80px) scale(1.2);
-  }
-  100% {
-    transform: translate(80px, -50px) scale(0.9);
-  }
-}
-
-@keyframes floatMesh3 {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  50% {
-    transform: translate(80px, 60px) scale(1.1);
-  }
-  100% {
-    transform: translate(-90px, -70px) scale(1.05);
-  }
-}
-

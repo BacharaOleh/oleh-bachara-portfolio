@@ -211,6 +211,8 @@ export function Hero({ lang, perspective }: HeroProps) {
             ].map((chip) => (
               <button
                 key={chip.id}
+                type="button"
+                aria-label={`Scroll to ${lang === "pl" ? chip.pl : chip.en} solution`}
                 onClick={() => {
                   const el = document.getElementById("solutions");
                   if (el) {
@@ -234,7 +236,7 @@ export function Hero({ lang, perspective }: HeroProps) {
             <Button
               size="lg"
               onClick={() => {
-                const el = document.querySelector("#projects");
+                const el = document.querySelector("#solutions");
                 if (el) {
                   const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
                   window.scrollTo({ top: y, behavior: "smooth" });
@@ -247,6 +249,8 @@ export function Hero({ lang, perspective }: HeroProps) {
             </Button>
 
             <button
+              type="button"
+              aria-label="Open Telegram Auth Live Demo modal"
               onClick={() => setIsModalOpen(true)}
               className="px-6 py-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 font-mono text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 shadow-sm"
             >

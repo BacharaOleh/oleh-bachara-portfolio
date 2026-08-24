@@ -201,6 +201,8 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400" />
 
             <button
+              type="button"
+              aria-label="Close Telegram authentication modal"
               onClick={onClose}
               className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-900 border border-white/[0.08] text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             >

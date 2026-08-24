@@ -148,8 +148,14 @@ export function BeforeAfterSlider({ className = "" }: BeforeAfterSliderProps) {
 
           {/* Handle Button */}
           <div
+            role="slider"
+            tabIndex={0}
+            aria-label="Before and after performance comparison slider"
+            aria-valuemin={8}
+            aria-valuemax={92}
+            aria-valuenow={Math.round(splitPercent)}
             onPointerDown={handlePointerDown}
-            className="relative z-10 w-10 h-10 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center cursor-ew-resize shadow-xl shadow-cyan-500/30 hover:scale-110 transition-transform active:scale-95"
+            className="relative z-10 w-10 h-10 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center cursor-ew-resize shadow-xl shadow-cyan-500/30 hover:scale-110 transition-transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-cyan-300">
               <path d="M4 8L1 5M4 8L1 11M4 8H1M12 8L15 5M12 8L15 11M12 8H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
