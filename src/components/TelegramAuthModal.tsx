@@ -6,7 +6,6 @@ import {
   X, 
   Send, 
   CheckCircle2, 
-  Lock, 
   Sparkles, 
   RefreshCw, 
   ShieldCheck, 
@@ -14,7 +13,10 @@ import {
   ExternalLink,
   KeyRound,
   UserCheck,
-  Globe
+  Globe,
+  Copy,
+  Check,
+  Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -29,8 +31,18 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
   const [verifyLogs, setVerifyLogs] = useState<string[]>([]);
   const [sessionResult, setSessionResult] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [copiedRedirect, setCopiedRedirect] = useState(false);
 
   const clientId = process.env.NEXT_PUBLIC_TELEGRAM_CLIENT_ID || "8649904549";
+  const [currentOrigin, setCurrentOrigin] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentOrigin(window.location.origin);
+    }
+  }, []);
+
+  const redirectUri = `${currentOrigin || "http://localhost:3000"}/api/telegram-auth/callback`;
 
   // Listen for OAuth postMessage callback from popup window
   useEffect(() => {
@@ -64,18 +76,30 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
     return () => window.removeEventListener("message", handleMessage);
   }, [isOpen, clientId, onSuccess]);
 
+  const handleCopyRedirect = () => {
+    navigator.clipboard.writeText(redirectUri);
+    setCopiedRedirect(true);
+    setTimeout(() => setCopiedRedirect(false), 2000);
+  };
+
   const handleLaunchTelegramOIDC = () => {
     setStep("verifying");
     setVerifyLogs([
       `[Telegram OpenID Connect]: Initializing OAuth 2.0 Authorization Flow...`,
       `[Client ID]: ${clientId}`,
       `[Issuer Endpoint]: https://oauth.telegram.org/auth`,
-      `[Redirect URI]: ${window.location.origin}/api/telegram-auth/callback`,
+      `[Redirect URI]: ${redirectUri}`,
       `[Opening Popup]: Launching official Telegram authorization dialog...`,
     ]);
 
-    const redirectUri = encodeURIComponent(`${window.location.origin}/api/telegram-auth/callback`);
-    const authUrl = `https://oauth.telegram.org/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid%20profile`;
+    const params = new URLSearchParams({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      response_type: "code",
+      scope: "openid profile",
+    });
+
+    const authUrl = `https://oauth.telegram.org/auth?${params.toString()}`;
 
     const width = 550;
     const height = 650;
@@ -93,6 +117,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         ...prev,
         `[Notice]: Popup blocked by browser. Directing to web authorization...`,
       ]);
+      window.location.href = authUrl;
     }
   };
 
@@ -211,7 +236,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                     </span>
                   </div>
 
-                  <div className="text-[11px] font-mono text-slate-400 flex items-center justify-between pt-1 border-t border-white/[0.06]">
+                  <div className="text-[11px] font-mono text-slate-400 flex items-center justify-between pt-2 border-t border-white/[0.06]">
                     <span>Issuer Protocol:</span>
                     <span className="text-emerald-400 font-semibold flex items-center gap-1">
                       <Globe size={12} />
@@ -230,18 +255,37 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                   <ExternalLink size={14} className="opacity-75" />
                 </button>
 
+                {/* BotFather Setup Note / Redirect URI Info */}
+                <div className="p-3.5 rounded-xl bg-cyan-500/[0.05] border border-cyan-500/20 text-xs space-y-2">
+                  <div className="flex items-center justify-between font-mono text-[11px] text-cyan-300 font-semibold">
+                    <span className="flex items-center gap-1.5">
+                      <Info size={13} />
+                      BotFather Redirect URI:
+                    </span>
+                    <button
+                      onClick={handleCopyRedirect}
+                      className="text-[10px] text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedRedirect ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      {copiedRedirect ? "Copied" : "Copy URI"}
+                    </button>
+                  </div>
+                  <code className="block bg-slate-950 p-2 rounded border border-white/[0.08] text-[10px] font-mono text-slate-300 break-all">
+                    {redirectUri}
+                  </code>
+                  <p className="text-[10px] text-slate-400 leading-relaxed font-mono">
+                    Telegram requires this URL under <strong className="text-white">@BotFather &gt; Bot Settings &gt; Login Settings &gt; Redirect URIs</strong>.
+                  </p>
+                </div>
+
                 {/* Secondary Quick Test Button */}
                 <button
                   onClick={handleInstantDemoAuth}
                   className="w-full py-2.5 rounded-xl bg-slate-900 border border-white/[0.08] text-slate-300 hover:text-white font-mono text-xs hover:border-indigo-500/40 transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   <UserCheck size={14} className="text-indigo-400" />
-                  Fast Client Verification Test (@olegh_bachara)
+                  Fast Verification Test (@olegh_bachara)
                 </button>
-
-                <p className="text-[11px] text-slate-400 text-center font-mono leading-relaxed">
-                  Uses official Telegram OAuth 2.0 endpoint (<code className="text-cyan-300">https://oauth.telegram.org/auth</code>) with Client ID <strong className="text-white">{clientId}</strong>.
-                </p>
               </div>
             )}
 
