@@ -237,7 +237,7 @@ export function SystemArchitecture({ lang }: SystemArchitectureProps) {
                         <activeNode.icon size={20} />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white tracking-tight">{activeNode.name}</h4>
+                        <h3 className="text-lg font-bold text-white tracking-tight">{activeNode.name}</h3>
                         <p className="text-xs font-mono text-indigo-400">{activeNode.tech}</p>
                       </div>
                     </div>

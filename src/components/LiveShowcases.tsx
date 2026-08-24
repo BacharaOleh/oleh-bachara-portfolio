@@ -289,10 +289,10 @@ export function LiveShowcases({ lang }: LiveShowcasesProps) {
             </div>
 
             <div className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl flex flex-col justify-between">
-              <h4 className="text-sm font-bold text-white tracking-tight mb-6 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-white tracking-tight mb-6 flex items-center justify-between">
                 <span>PageSpeed Insights & Query Benchmarks</span>
-                <span className="font-mono text-xs text-slate-400">Target: Mobile Lighthouse</span>
-              </h4>
+                <span className="font-mono text-xs text-slate-300">Target: Mobile Lighthouse</span>
+              </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.08] text-center">
