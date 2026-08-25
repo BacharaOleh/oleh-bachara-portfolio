@@ -86,7 +86,7 @@ export function Hero({ lang, perspective }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden min-h-[92vh] flex flex-col justify-center"
+      className="relative pt-36 md:pt-44 pb-24 md:pb-32 overflow-hidden min-h-[90vh] flex flex-col justify-center"
     >
       <TelegramAuthModal
         isOpen={isModalOpen}

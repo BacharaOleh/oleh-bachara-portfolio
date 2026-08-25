@@ -48,28 +48,58 @@ body {
 /* ── High-Performance Background Overlays ─────────────────── */
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 .bg-dots-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* ── Premium Glassmorphism Card ───────────────────────────── */
+/* ── Premium Glassmorphism Card & Panels ───────────────────── */
 .glass-card {
-  background: var(--bg-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-subtle);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  background: rgba(13, 19, 32, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 12px 40px -12px rgba(99, 102, 241, 0.2);
+  background: rgba(18, 26, 43, 0.7);
+}
+
+.glass-panel {
+  background: rgba(10, 15, 26, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* ── Glow & Spatial Accents ────────────────────────────── */
+.glow-border {
+  position: relative;
+}
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(56, 189, 248, 0.2), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::after {
+  opacity: 1;
 }
 
 /* ── Gradient Accent Text ─────────────────────────────────── */
@@ -87,17 +117,17 @@ body {
 
 /* ── Custom Scrollbar ─────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080c14;
+  background: #050811;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.25);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.5);
 }
 
 /* ── Selection ────────────────────────────────────────────── */
@@ -106,37 +136,37 @@ body {
   color: #ffffff;
 }
 
-/* ── Utility Container Guard ─────────────────────────────── */
+/* ── Spatial Container Guard ─────────────────────────────── */
 .container-custom {
   width: 100%;
   max-width: 80rem; /* 1280px */
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 @media (min-width: 640px) {
-  .container-custom {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
   .container-custom {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 /* ── Static Ambient Radial Mesh Glows (Zero CPU/GPU Overhead) ─ */
 .mesh-ambient-1 {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 70%);
 }
 .mesh-ambient-2 {
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.11) 0%, transparent 70%);
 }
 .mesh-ambient-3 {
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.09) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, transparent 70%);
 }

@@ -18,7 +18,7 @@ export function TechStack({ lang }: TechStackProps) {
   const activeData = tabs.find((tab) => tab.id === activeTab) || tabs[0];
 
   return (
-    <section id="skills" className="py-20 md:py-28 relative">
+    <section id="skills" className="py-24 md:py-36 relative">
       <div className="container-custom">
         <SectionHeading
           eyebrow={t.eyebrow}
