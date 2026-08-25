@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
@@ -27,6 +27,10 @@ const Contact = dynamic(() => import("@/components/Contact").then((mod) => mod.C
   loading: () => <div className="py-20 min-h-[400px]" />,
 });
 
+const Testimonials = dynamic(() => import("@/components/Testimonials").then((mod) => mod.Testimonials), {
+  loading: () => <div className="py-20 min-h-[300px]" />,
+});
+
 // Modals loaded on-demand
 const RecruiterModal = dynamic(() => import("@/components/RecruiterModal").then((mod) => mod.RecruiterModal), {
   ssr: false,
@@ -50,6 +54,16 @@ export default function Home() {
   const [recruiterOpen, setRecruiterOpen] = useState(false);
   const [telegramOpen, setTelegramOpen] = useState(false);
 
+  // Auto-detect browser language on first visit
+  useEffect(() => {
+    try {
+      const browserLang = navigator.language || "";
+      if (browserLang.startsWith("pl")) {
+        setLang("pl");
+      }
+    } catch {}
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[#050811] text-slate-100 overflow-x-hidden">
       {/* Subtle Grid Pattern Overlay */}
@@ -69,6 +83,7 @@ export default function Home() {
           <WorkHub lang={lang} />
           <TechStack lang={lang} />
           <Education lang={lang} />
+          <Testimonials lang={lang} />
           <ProjectConfigurator lang={lang} />
           <Contact lang={lang} />
         </main>

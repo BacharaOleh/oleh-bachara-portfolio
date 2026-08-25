@@ -37,15 +37,15 @@ export function TechStack({ lang }: TechStackProps) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`relative px-5 py-2.5 rounded-full text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "text-white"
-                    : "text-slate-400 hover:text-slate-200 bg-slate-900/50 hover:bg-slate-900 border border-white/[0.06]"
+                    ? "text-[#f7f8f8]"
+                    : "text-[#a8a29e] hover:text-[#f7f8f8] bg-[#121316]/50 hover:bg-[#121316] border border-white/[0.06]"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeSkillTab"
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-cyan-600 shadow-md shadow-indigo-500/20"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                    className="absolute inset-0 rounded-full bg-white/10 border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
                 <span className="relative z-10">{tab.label}</span>
@@ -70,24 +70,27 @@ export function TechStack({ lang }: TechStackProps) {
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.04, duration: 0.3 }}
-                className="glass-card p-5 rounded-2xl flex flex-col justify-between"
+                className="glass-card p-5 rounded-2xl flex flex-col justify-between hover:border-amber-500/30 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-semibold text-white tracking-tight">
-                    {skill.name}
-                  </span>
-                  <span className="text-xs font-mono font-semibold text-indigo-400">
-                    {skill.level}%
-                  </span>
-                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-bold text-[#f7f8f8] tracking-tight">
+                      {skill.name}
+                    </span>
+                    <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded border ${
+                      skill.badge === "Core"
+                        ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                        : skill.badge === "Advanced"
+                        ? "bg-white/10 text-[#d6d3d1] border-white/15"
+                        : "bg-[#121316] text-[#a8a29e] border-white/10"
+                    }`}>
+                      {skill.badge}
+                    </span>
+                  </div>
 
-                <div className="h-1.5 w-full rounded-full bg-slate-950/80 overflow-hidden border border-white/[0.06]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${skill.level}%` }}
-                    transition={{ duration: 0.8, delay: i * 0.04 + 0.1, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400"
-                  />
+                  <p className="text-xs font-mono text-[#a8a29e] leading-relaxed">
+                    {skill.experience}
+                  </p>
                 </div>
               </motion.div>
             ))}

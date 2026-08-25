@@ -93,6 +93,9 @@ export function Hero({ lang, perspective }: HeroProps) {
         onClose={() => setIsModalOpen(false)}
       />
 
+      {/* Organic Aurora Soft Mesh Ambient */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-tr from-amber-500/[0.04] via-stone-400/[0.02] to-transparent blur-[160px] rounded-full pointer-events-none" />
+
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
           
@@ -103,15 +106,15 @@ export function Hero({ lang, perspective }: HeroProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium shadow-lg shadow-emerald-500/5 backdrop-blur-md"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121316] border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span>{t.available}</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-slate-400 flex items-center gap-1">
+              <span className="text-stone-700">•</span>
+              <span className="text-[#a8a29e] flex items-center gap-1">
                 <ShieldCheck size={13} className="text-emerald-400" />
                 Full EU Work Rights
               </span>
@@ -123,13 +126,9 @@ export function Hero({ lang, perspective }: HeroProps) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold border ${
-                isEngineer 
-                  ? "bg-indigo-500/10 border-indigo-500/40 text-indigo-300"
-                  : "bg-amber-500/10 border-amber-500/40 text-amber-300"
-              }`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold border bg-[#121316] border-white/10 text-[#d6d3d1] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
             >
-              {isEngineer ? <Code2 size={13} className="text-indigo-400" /> : <BarChart3 size={13} className="text-amber-400" />}
+              {isEngineer ? <Code2 size={13} className="text-amber-500" /> : <BarChart3 size={13} className="text-amber-500" />}
               <span>{isEngineer ? "Mode: System Engineering" : "Mode: Business & ROI Growth"}</span>
             </motion.div>
           </div>
@@ -166,15 +165,15 @@ export function Hero({ lang, perspective }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="text-slate-300 text-base sm:text-xl leading-relaxed max-w-2xl font-normal"
+              className="text-[#a8a29e] text-base sm:text-xl leading-relaxed max-w-2xl font-normal"
             >
               {isEngineer 
                 ? (lang === "pl"
-                    ? "Inżynier Informatyki z 4.5+ letnim doświadczeniem w architekturze systemów webowych, integracjach API Telegram, bazach MariaDB i optymalizacji PageSpeed 90+."
-                    : "Computer Science Engineer with 4.5+ years building robust PHP architectures, Telegram API bridges, MariaDB index tuning, and high-performance web systems.")
+                    ? "Inżynier Informatyki specjalizujący się w przekształcaniu wolnych serwisów w wydajne architektury webowe. PageSpeed 90+, migracje bez przestojów i niezawodne integracje API."
+                    : "Computer Science Engineer transforming legacy web platforms into high-performance architectures. Sub-2s load times, PageSpeed 90+, zero-downtime migrations, and robust API bridges.")
                 : (lang === "pl"
-                    ? "Magister Zarządzania z 3-letnim doświadczeniem w Reh4mat. Łączę technologię z biznesem: +40% ruchu organicznego, mailing o CTR 30–36% i 0% przestoju przy migracjach."
-                    : "M.Sc. Management with 3-year track record scaling 8 corporate platforms at Reh4mat: +40% organic traffic, 30–36% email campaign CTR, and zero-loss migrations.")}
+                    ? "Magister Zarządzania napędzający mierzalny wzrost serwisów na rynkach UE. 3 lata w Reh4mat: +40% wzrostu ruchu organicznego, CTR mailingu 30–36% i 0% przestoju."
+                    : "M.Sc. Management driving measurable digital growth across EU markets. 3-year track record at Reh4mat: +40% organic traffic surge, 30–36% email campaign CTR, and 0% client disruption.")}
             </motion.p>
           </AnimatePresence>
 
@@ -183,50 +182,20 @@ export function Hero({ lang, perspective }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400 bg-slate-900/60 border border-white/[0.08] px-4 py-2 rounded-xl"
+            className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-[#a8a29e] bg-[#121316] border border-white/10 px-4 py-2 rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
           >
-            <span className="flex items-center gap-1 text-slate-300">
-              <MapPin size={13} className="text-indigo-400" />
+            <span className="flex items-center gap-1 text-[#d6d3d1]">
+              <MapPin size={13} className="text-amber-500" />
               Jarosław, Poland
             </span>
-            <span className="text-slate-600">•</span>
-            <span className="text-indigo-300 font-semibold">Magister Zarządzania (2023–2025)</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-cyan-300 font-semibold">Inżynier Informatyki (2019–2023)</span>
+            <span className="text-stone-700">•</span>
+            <span className="text-[#f7f8f8] font-semibold">🇵🇱 {lang === "pl" ? "Obywatel Polski — Pełne Prawa Pracy w UE" : "Polish Citizen — Unrestricted EU Work Authorization"}</span>
+            <span className="text-stone-700">•</span>
+            <span className="text-stone-400">M.Sc. (2025) / Eng. (2023)</span>
           </motion.div>
 
-          {/* Solution Quick-Filter Chips */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.28 }}
-            className="flex flex-wrap items-center justify-center gap-2"
-          >
-            {[
-              { id: "catalog", emoji: "🛍", en: "Product Catalogs", pl: "Katalogi Produktów" },
-              { id: "pagespeed", emoji: "⚡", en: "PageSpeed 90+", pl: "PageSpeed 90+" },
-              { id: "telegram", emoji: "🤖", en: "Telegram Auth", pl: "Auth Telegram" },
-              { id: "migration", emoji: "🛡", en: "Server Migrations", pl: "Migracje Serwerów" },
-              { id: "analytics", emoji: "📈", en: "GA4 & SEO", pl: "GA4 & SEO" },
-            ].map((chip) => (
-              <button
-                key={chip.id}
-                type="button"
-                aria-label={`Scroll to ${lang === "pl" ? chip.pl : chip.en} solution`}
-                onClick={() => {
-                  const el = document.getElementById("solutions");
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
-                    window.scrollTo({ top: y, behavior: "smooth" });
-                  }
-                }}
-                className="px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/[0.10] text-[11px] font-mono font-semibold text-slate-300 hover:text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 transition-all cursor-pointer backdrop-blur-md"
-              >
-                <span className="mr-1">{chip.emoji}</span>
-                {lang === "pl" ? chip.pl : chip.en}
-              </button>
-            ))}
-          </motion.div>
+
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -252,9 +221,9 @@ export function Hero({ lang, perspective }: HeroProps) {
               type="button"
               aria-label="Open Telegram Auth Live Demo modal"
               onClick={() => setIsModalOpen(true)}
-              className="px-6 py-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 font-mono text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 shadow-sm"
+              className="px-6 py-3.5 rounded-xl bg-[#121316] border border-white/10 text-[#d6d3d1] hover:bg-white/10 hover:border-white/20 font-mono text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
             >
-              <Send size={15} />
+              <Send size={15} className="text-amber-500" />
               {t.cta_demo}
             </button>
 
@@ -280,7 +249,7 @@ export function Hero({ lang, perspective }: HeroProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-xl bg-slate-900/80 border border-white/[0.08] flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 transition-all duration-200"
+                className="w-9 h-9 rounded-xl bg-[#121316] border border-white/10 flex items-center justify-center text-[#a8a29e] hover:text-[#f7f8f8] hover:border-amber-500/40 hover:bg-white/10 transition-all duration-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
               >
                 <Icon />
               </a>
@@ -306,13 +275,13 @@ export function Hero({ lang, perspective }: HeroProps) {
                 {statsList.map((stat: Stat) => (
                   <TiltCard
                     key={stat.label}
-                    className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/[0.08] hover:border-indigo-500/40 shadow-xl"
-                    spotlightColor="rgba(99, 102, 241, 0.15)"
+                    className="glass-card p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden group border border-white/10 hover:border-amber-500/40 shadow-xl"
+                    spotlightColor="rgba(245, 158, 11, 0.12)"
                   >
                     <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight font-mono">
                       <CountUp target={stat.value} />
                     </div>
-                    <div className="text-xs text-slate-400 font-medium mt-1 font-sans">
+                    <div className="text-xs text-[#a8a29e] font-medium mt-1 font-sans">
                       {stat.label}
                     </div>
                   </TiltCard>

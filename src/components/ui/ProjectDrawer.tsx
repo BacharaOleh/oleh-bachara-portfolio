@@ -46,10 +46,10 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
   if (!data) return null;
 
   const accentGlow = {
-    indigo: "from-indigo-500/20 via-indigo-500/5 to-transparent text-indigo-400 border-indigo-500/30",
-    cyan: "from-cyan-500/20 via-cyan-500/5 to-transparent text-cyan-400 border-cyan-500/30",
-    emerald: "from-emerald-500/20 via-emerald-500/5 to-transparent text-emerald-400 border-emerald-500/30",
-    violet: "from-violet-500/20 via-violet-500/5 to-transparent text-violet-400 border-violet-500/30",
+    indigo: "from-amber-500/20 via-amber-500/5 to-transparent text-amber-500 border-amber-500/30",
+    cyan: "from-white/10 via-white/5 to-transparent text-[#d6d3d1] border-white/20",
+    emerald: "from-white/10 via-white/5 to-transparent text-[#d6d3d1] border-white/20",
+    violet: "from-amber-600/20 via-amber-600/5 to-transparent text-amber-600 border-amber-600/30",
   }[data.accentColor || "indigo"];
 
   return (
@@ -63,7 +63,7 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 bg-[#08090a]/80 backdrop-blur-2xl cursor-pointer"
           />
 
           {/* Drawer Content Panel */}
@@ -71,29 +71,29 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative w-full max-w-2xl h-full bg-[#0a0f1b] border-l border-white/10 shadow-2xl flex flex-col z-10 overflow-hidden"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            className="relative w-full max-w-2xl h-full bg-[#08090a] border-l border-white/10 shadow-2xl flex flex-col z-10 overflow-hidden"
           >
             {/* Ambient Accent Line */}
-            <div className={`h-1.5 w-full bg-gradient-to-r ${accentGlow}`} />
+            <div className={`h-[2px] w-full bg-gradient-to-r ${accentGlow}`} />
 
             {/* Header */}
-            <div className="p-6 sm:p-8 border-b border-white/[0.08] flex items-start justify-between gap-4 bg-slate-900/40">
+            <div className="p-6 sm:p-8 border-b border-white/[0.04] flex items-start justify-between gap-4 bg-[#121316]">
               <div>
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400 mb-1.5 block">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#a8a29e] mb-1.5 block">
                   // {data.category}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#f7f8f8] tracking-tight">
                   {data.title}
                 </h2>
                 {data.subtitle && (
-                  <p className="text-slate-400 text-sm mt-1">{data.subtitle}</p>
+                  <p className="text-[#d6d3d1] text-sm mt-1">{data.subtitle}</p>
                 )}
               </div>
 
               <button
                 onClick={onClose}
-                className="w-10 h-10 rounded-full bg-slate-800/80 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-colors shrink-0"
+                className="w-10 h-10 rounded-full bg-[#1c1917] border border-white/10 flex items-center justify-center text-[#a8a29e] hover:text-[#f7f8f8] hover:bg-white/10 transition-colors shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
               >
                 <X size={20} />
               </button>
@@ -107,12 +107,12 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
                   {data.metrics.map((metric, idx) => (
                     <div
                       key={idx}
-                      className="glass-panel p-4 rounded-2xl border border-white/[0.06] bg-slate-900/50"
+                      className="p-4 rounded-2xl border border-white/[0.06] bg-[#121316] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                     >
-                      <div className="text-2xl font-mono font-extrabold text-white mb-0.5">
+                      <div className="text-2xl font-mono font-extrabold text-[#f7f8f8] mb-0.5">
                         {metric.value}
                       </div>
-                      <div className="text-xs font-medium text-slate-400">
+                      <div className="text-xs font-medium text-[#a8a29e]">
                         {metric.label}
                       </div>
                     </div>
@@ -122,10 +122,10 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
 
               {/* Core Description */}
               <div className="space-y-3">
-                <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                  <Sparkles size={15} className="text-indigo-400" /> Executive Overview
+                <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-[#d6d3d1] flex items-center gap-2">
+                  <Sparkles size={15} className="text-amber-500" /> Executive Overview
                 </h3>
-                <p className="text-slate-300 text-sm leading-relaxed bg-slate-900/40 p-4 rounded-2xl border border-white/5">
+                <p className="text-[#a8a29e] text-sm leading-relaxed bg-[#121316] p-4 rounded-2xl border border-white/[0.04]">
                   {data.description}
                 </p>
               </div>
@@ -133,16 +133,16 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
               {/* Key Highlights */}
               {data.highlights && data.highlights.length > 0 && (
                 <div className="space-y-3">
-                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                    <CheckCircle2 size={15} className="text-emerald-400" /> Delivered Innovations
+                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-[#d6d3d1] flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-[#d6d3d1]" /> Delivered Innovations
                   </h3>
                   <ul className="space-y-2.5">
                     {data.highlights.map((item, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-3 text-sm text-slate-300 bg-slate-900/30 p-3 rounded-xl border border-white/[0.04]"
+                        className="flex items-start gap-3 text-sm text-[#a8a29e] bg-[#121316] p-3 rounded-xl border border-white/[0.04]"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -153,16 +153,16 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
               {/* Architecture & Engineering Details */}
               {data.architectureNotes && data.architectureNotes.length > 0 && (
                 <div className="space-y-3">
-                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                    <Server size={15} className="text-cyan-400" /> Architectural Breakdown
+                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-[#d6d3d1] flex items-center gap-2">
+                    <Server size={15} className="text-[#d6d3d1]" /> Architectural Breakdown
                   </h3>
                   <div className="space-y-2">
                     {data.architectureNotes.map((note, idx) => (
                       <div
                         key={idx}
-                        className="text-xs font-mono text-cyan-200/90 bg-cyan-950/20 border border-cyan-500/20 p-3.5 rounded-xl flex items-start gap-2.5"
+                        className="text-xs font-mono text-[#a8a29e] bg-[#121316] border border-white/[0.06] p-3.5 rounded-xl flex items-start gap-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                       >
-                        <span className="text-cyan-400 font-bold">$</span>
+                        <span className="text-amber-500 font-bold">$</span>
                         <span>{note}</span>
                       </div>
                     ))}
@@ -173,12 +173,12 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
               {/* Tech Stack Tags */}
               {data.techStack && data.techStack.length > 0 && (
                 <div className="space-y-3">
-                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                    <Code2 size={15} className="text-violet-400" /> Applied Technologies
+                  <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-[#d6d3d1] flex items-center gap-2">
+                    <Code2 size={15} className="text-[#d6d3d1]" /> Applied Technologies
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {data.techStack.map((tech, idx) => (
-                      <Badge key={idx} variant="slate" className="bg-slate-900/60 text-slate-300 border-white/10 px-3 py-1 text-xs">
+                      <Badge key={idx} variant="slate" className="bg-[#1c1917] text-[#a8a29e] border-white/10 px-3 py-1 text-xs">
                         {tech}
                       </Badge>
                     ))}
@@ -188,33 +188,42 @@ export function ProjectDrawer({ isOpen, onClose, data }: ProjectDrawerProps) {
             </div>
 
             {/* Footer Actions */}
-            <div className="p-6 border-t border-white/[0.08] bg-slate-900/80 flex items-center justify-between gap-4">
+            <div className="p-6 border-t border-white/[0.04] bg-[#121316] flex flex-wrap items-center justify-between gap-4">
               <Button
                 variant="ghost"
                 onClick={onClose}
-                className="text-slate-400 hover:text-white"
+                className="text-[#a8a29e] hover:text-[#f7f8f8]"
               >
                 Close Inspection
               </Button>
 
-              {data.liveUrl ? (
+              <div className="flex items-center gap-3">
                 <a
-                  href={data.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-lg shadow-indigo-600/25"
+                  href={`/projects/${data.id}`}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-[#f7f8f8] border border-white/10 font-semibold text-xs transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
                 >
-                  Visit System Live <ExternalLink size={15} />
+                  Dedicated Case Study Page <ArrowRight size={14} />
                 </a>
-              ) : (
-                <a
-                  href="#contact"
-                  onClick={onClose}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-lg shadow-indigo-600/25"
-                >
-                  Discuss Custom Solution <ArrowRight size={15} />
-                </a>
-              )}
+
+                {data.liveUrl ? (
+                  <a
+                    href={data.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_4px_15px_rgba(245,158,11,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Visit System Live <ExternalLink size={15} />
+                  </a>
+                ) : (
+                  <a
+                    href="#contact"
+                    onClick={onClose}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_4px_15px_rgba(245,158,11,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Discuss Custom Solution <ArrowRight size={15} />
+                  </a>
+                )}
+              </div>
             </div>
           </motion.div>
         </div>

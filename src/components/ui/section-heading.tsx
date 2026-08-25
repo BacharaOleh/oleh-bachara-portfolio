@@ -29,12 +29,12 @@ export function SectionHeading({
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.4 }}
           className={cn(
-            "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-4",
+            "inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#121316] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] mb-4",
             centered && "mx-auto"
           )}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="font-mono text-[11px] font-medium uppercase tracking-wider text-indigo-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)] animate-pulse" />
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#a8a29e]">
             {eyebrow}
           </span>
         </motion.div>
@@ -45,7 +45,7 @@ export function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5, delay: 0.05 }}
-        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]"
+        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f7f8f8] tracking-tight leading-[1.15]"
       >
         {title}{" "}
         {highlight && (

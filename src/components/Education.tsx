@@ -38,27 +38,27 @@ export function Education({ lang }: EducationProps) {
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <div className="w-10 h-10 rounded-2xl bg-[#1c1917] border border-white/10 flex items-center justify-center text-amber-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                       <GraduationCap size={20} />
                     </div>
-                    <span className="font-mono text-xs font-semibold text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
+                    <span className="font-mono text-xs font-semibold text-[#a8a29e] bg-[#1c1917] px-3 py-1 rounded-full border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
                       {edu.years}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white tracking-tight mb-1">
+                  <h3 className="text-xl font-bold text-[#f7f8f8] tracking-tight mb-1">
                     {edu.degree}
                   </h3>
-                  <p className="text-cyan-400 text-xs font-mono font-medium mb-3">
+                  <p className="text-amber-500/80 text-xs font-mono font-medium mb-3">
                     {edu.field}
                   </p>
 
-                  <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
-                    <MapPin size={13} className="text-slate-500" />
+                  <div className="flex items-center gap-2 text-xs text-[#a8a29e] mb-4">
+                    <MapPin size={13} className="text-amber-500" />
                     <span>{edu.institution} · {edu.location}</span>
                   </div>
 
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <p className="text-[#a8a29e] text-sm leading-relaxed">
                     {edu.description}
                   </p>
                 </div>
@@ -73,8 +73,8 @@ export function Education({ lang }: EducationProps) {
             transition={{ duration: 0.5, delay: 0.25 }}
             className="glass-card p-6 sm:p-8 rounded-3xl"
           >
-            <h3 className="text-base font-bold text-white tracking-tight mb-4 flex items-center gap-2">
-              <Award size={18} className="text-indigo-400" />
+            <h3 className="text-base font-bold text-[#f7f8f8] tracking-tight mb-4 flex items-center gap-2">
+              <Award size={18} className="text-amber-500" />
               {lang === "pl" ? "Znajomość Języków & Uprawnienia Pracy" : "Language Proficiency & Work Rights"}
             </h3>
 
@@ -82,23 +82,23 @@ export function Education({ lang }: EducationProps) {
               {languageList.map((item) => (
                 <div
                   key={item.name}
-                  className="bg-slate-950/60 border border-white/[0.08] p-4 rounded-2xl text-center"
+                  className="bg-[#121316] border border-white/[0.06] p-4 rounded-2xl text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                 >
                   <div className="text-2xl mb-1">{item.flag}</div>
-                  <div className="text-sm font-bold text-white">{item.name}</div>
-                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">{item.level}</div>
+                  <div className="text-sm font-bold text-[#f7f8f8]">{item.name}</div>
+                  <div className="text-[11px] font-mono text-[#a8a29e] mt-0.5">{item.level}</div>
                 </div>
               ))}
             </div>
 
             <div className="pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-xs">
-              <span className="text-slate-400">
+              <span className="text-[#a8a29e]">
                 {lang === "pl" ? "Obywatelstwa i Status Prawny:" : "Citizenships & Legal Status:"}
               </span>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="indigo">{lang === "pl" ? "🇵🇱 Obywatelstwo Polskie" : "🇵🇱 Polish Citizenship"}</Badge>
-                <Badge variant="yellow">{lang === "pl" ? "🇺🇦 Obywatelstwo Ukraińskie" : "🇺🇦 Ukrainian Citizenship"}</Badge>
-                <Badge variant="emerald">{lang === "pl" ? "🇪🇺 Pełne Prawa Pracy w UE" : "🇪🇺 Full EU Work Rights"}</Badge>
+                <Badge variant="slate">{lang === "pl" ? "🇵🇱 Obywatelstwo Polskie" : "🇵🇱 Polish Citizenship"}</Badge>
+                <Badge variant="slate">{lang === "pl" ? "🇺🇦 Obywatelstwo Ukraińskie" : "🇺🇦 Ukrainian Citizenship"}</Badge>
+                <Badge variant="slate">{lang === "pl" ? "🇪🇺 Pełne Prawa Pracy w UE" : "🇪🇺 Full EU Work Rights"}</Badge>
               </div>
             </div>
           </motion.div>

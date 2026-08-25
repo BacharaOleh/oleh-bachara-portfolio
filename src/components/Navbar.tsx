@@ -89,7 +89,7 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
 
       {/* Top Page Scroll Reading Progress Bar Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 z-50 origin-left shadow-sm shadow-cyan-500/50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 z-50 origin-left shadow-sm shadow-amber-500/20"
         style={{ scaleX }}
       />
 
@@ -97,7 +97,7 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full",
           scrolled
-            ? "bg-[#080c14]/90 backdrop-blur-md border-b border-white/[0.08] py-3 shadow-lg shadow-black/20"
+            ? "bg-[#08090a]/80 backdrop-blur-2xl border-b border-white/[0.06] py-3 shadow-lg shadow-black/40"
             : "bg-transparent py-5"
         )}
       >
@@ -108,21 +108,21 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
               onClick={() => scrollTo("#hero")}
               className="flex items-center gap-3 group text-left cursor-pointer"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-cyan-500 flex items-center justify-center shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
-                <span className="text-white font-extrabold text-sm tracking-tighter">OB</span>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1c1917] to-[#0c0a09] border border-white/10 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.1),_0_4px_10px_rgba(0,0,0,0.5)] group-hover:border-amber-500/40 group-hover:scale-105 transition-all duration-300">
+                <span className="text-[#f7f8f8] font-extrabold text-sm tracking-tighter">OB</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-white text-base tracking-tight leading-none">
+                <span className="font-bold text-[#f7f8f8] text-base tracking-tight leading-none">
                   Oleh Bachara
                 </span>
-                <span className="text-[11px] font-mono text-indigo-400 leading-tight mt-0.5">
+                <span className="text-[11px] font-mono text-amber-500/80 leading-tight mt-0.5">
                   Systems & Web Tech
                 </span>
               </div>
             </button>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-white/[0.08] backdrop-blur-md">
+            <nav className="hidden md:flex items-center gap-1 bg-[#1c1917]/60 p-1.5 rounded-full border border-white/10 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (
@@ -132,16 +132,16 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                     className={cn(
                       "relative px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer",
                       isActive
-                        ? "text-white"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
+                        ? "text-[#f7f8f8]"
+                        : "text-[#a8a29e] hover:text-[#f7f8f8] hover:bg-white/[0.03]"
                     )}
                   >
                     {t[item.label as keyof typeof t]}
                     {isActive && (
                       <motion.div
                         layoutId="activeNavTab"
-                        className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600/80 to-cyan-600/80 -z-10 shadow-sm shadow-indigo-500/30"
-                        transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                        className="absolute inset-0 rounded-full bg-white/10 -z-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] border border-white/10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
                   </button>
@@ -152,14 +152,14 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
             {/* Right Controls */}
             <div className="flex items-center gap-2.5">
               {/* ⚡ Perspective Switcher — Dual Mind Toggle */}
-              <div className="hidden sm:flex items-center bg-slate-900/80 rounded-full p-1 border border-white/[0.08] backdrop-blur-md">
+              <div className="hidden sm:flex items-center bg-[#1c1917]/60 rounded-full p-1 border border-white/10 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
                 <button
                   onClick={() => setPerspective("engineer")}
                   className={cn(
                     "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-all duration-300 cursor-pointer",
                     isEngineer
-                      ? "text-white"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "text-[#f7f8f8]"
+                      : "text-[#a8a29e] hover:text-[#f7f8f8]"
                   )}
                 >
                   <Code2 size={12} />
@@ -167,8 +167,8 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                   {isEngineer && (
                     <motion.div
                       layoutId="perspectivePill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-cyan-600 -z-10 shadow-md shadow-indigo-500/30"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                      className="absolute inset-0 rounded-full bg-white/10 -z-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] border border-white/10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
                 </button>
@@ -177,8 +177,8 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                   className={cn(
                     "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-all duration-300 cursor-pointer",
                     !isEngineer
-                      ? "text-white"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "text-[#f7f8f8]"
+                      : "text-[#a8a29e] hover:text-[#f7f8f8]"
                   )}
                 >
                   <BarChart3 size={12} />
@@ -186,8 +186,8 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                   {!isEngineer && (
                     <motion.div
                       layoutId="perspectivePill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-600 to-amber-500 -z-10 shadow-md shadow-violet-500/30"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                      className="absolute inset-0 rounded-full bg-white/10 -z-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] border border-white/10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
                 </button>
@@ -198,14 +198,14 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                 type="button"
                 aria-label="Open Recruiter 1-Minute Executive Summary modal"
                 onClick={() => setRecruiterModalOpen(true)}
-                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
+                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500/90 hover:bg-amber-500/20 text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
               >
-                <Zap size={13} className="text-indigo-400 animate-pulse" />
+                <Zap size={13} className="text-amber-500 animate-pulse" />
                 {lang === "pl" ? "Dla Rekrutera" : "Recruiter 1-Min"}
               </button>
 
               {/* Language switcher */}
-              <div className="flex items-center bg-slate-900/80 rounded-lg p-0.5 border border-white/[0.08]" role="group" aria-label="Language selection">
+              <div className="flex items-center bg-[#1c1917]/60 rounded-lg p-0.5 border border-white/10" role="group" aria-label="Language selection">
                 {(["en", "pl"] as Lang[]).map((l) => (
                   <button
                     key={l}
@@ -215,8 +215,8 @@ export function Navbar({ lang, setLang, perspective, setPerspective }: NavbarPro
                     className={cn(
                       "px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold uppercase transition-all duration-200 cursor-pointer",
                       lang === l
-                        ? "bg-indigo-600 text-white shadow-sm"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] border border-white/10"
+                        : "text-[#a8a29e] hover:text-[#f7f8f8]"
                     )}
                   >
                     {l}

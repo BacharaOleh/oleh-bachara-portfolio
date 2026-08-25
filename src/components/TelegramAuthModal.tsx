@@ -195,23 +195,23 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-            className="relative w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 bg-[#090d16]/95 border border-cyan-500/30 shadow-2xl z-10 overflow-hidden"
+            className="relative w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 bg-[#08090a]/95 border border-white/10 shadow-2xl z-10 overflow-hidden"
           >
             {/* Top Glowing Bar */}
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400" />
+            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 shadow-sm shadow-amber-500/20" />
 
             <button
               type="button"
               aria-label="Close Telegram authentication modal"
               onClick={onClose}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-900 border border-white/[0.08] text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#1c1917] border border-white/10 text-[#a8a29e] hover:text-[#f7f8f8] flex items-center justify-center transition-colors cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
             >
               <X size={16} />
             </button>
 
             {/* Header */}
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <div className="w-10 h-10 rounded-2xl bg-[#1c1917] border border-white/10 flex items-center justify-center text-amber-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                 <Send size={20} />
               </div>
               <div>

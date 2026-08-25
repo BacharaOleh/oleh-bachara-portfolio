@@ -36,16 +36,16 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#05080f] py-12 relative z-10">
+    <footer className="border-t border-white/[0.06] bg-[#08090a] py-12 relative z-10">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-extrabold text-xs">
+            <div className="w-8 h-8 rounded-xl bg-[#1c1917] border border-white/10 flex items-center justify-center text-[#f7f8f8] font-extrabold text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
               OB
             </div>
             <div>
-              <div className="font-bold text-white text-sm">Oleh Bachara</div>
-              <div className="text-[11px] font-mono text-slate-400">
+              <div className="font-bold text-[#f7f8f8] text-sm">Oleh Bachara</div>
+              <div className="text-[11px] font-mono text-[#a8a29e]">
                 Web Developer & Technical Marketing Specialist · +48 453 315 500
               </div>
             </div>
@@ -59,7 +59,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-xl bg-slate-900 border border-white/[0.08] flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/40 transition-colors"
+                className="w-9 h-9 rounded-xl bg-[#121316] border border-white/10 flex items-center justify-center text-[#a8a29e] hover:text-[#f7f8f8] hover:border-amber-500/40 hover:bg-white/5 transition-colors"
               >
                 <Icon />
               </a>
@@ -67,7 +67,7 @@ export function Footer() {
 
             <button
               onClick={scrollToTop}
-              className="w-9 h-9 rounded-xl bg-slate-900 border border-white/[0.08] flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/40 transition-colors ml-2 cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-[#121316] border border-white/10 flex items-center justify-center text-[#a8a29e] hover:text-[#f7f8f8] hover:border-amber-500/40 hover:bg-white/5 transition-colors ml-2 cursor-pointer"
               aria-label="Back to top"
             >
               <ArrowUp size={16} />
@@ -75,10 +75,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#a8a29e] font-mono">
           <div>&copy; {year} Oleh Bachara. Jarosław, Podkarpackie, Poland 🇵🇱</div>
           <div className="flex items-center gap-1.5">
-            <Code2 size={13} className="text-indigo-400" />
+            <Code2 size={13} className="text-amber-500" />
             Next.js 16 · Tailwind CSS · Framer Motion
           </div>
         </div>
