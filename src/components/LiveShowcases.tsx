@@ -112,11 +112,11 @@ export function LiveShowcases({ lang }: LiveShowcasesProps) {
             onClick={() => setActiveTab("telegram")}
             className={`px-5 py-2.5 rounded-full text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2 ${
               activeTab === "telegram"
-                ? "bg-cyan-600 text-white shadow-md shadow-cyan-500/20"
-                : "bg-slate-900/60 border border-white/[0.08] text-slate-400 hover:text-white"
+                ? "bg-white/10 text-[#f7f8f8] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                : "bg-[#121316]/60 border border-white/[0.08] text-[#a8a29e] hover:text-[#f7f8f8] hover:bg-white/5"
             }`}
           >
-            <Send size={14} />
+            <Send size={14} className={activeTab === "telegram" ? "text-amber-500" : "text-[#a8a29e]"} />
             Telegram Auth & Webhooks
           </button>
 
@@ -124,11 +124,11 @@ export function LiveShowcases({ lang }: LiveShowcasesProps) {
             onClick={() => setActiveTab("speed")}
             className={`px-5 py-2.5 rounded-full text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2 ${
               activeTab === "speed"
-                ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20"
-                : "bg-slate-900/60 border border-white/[0.08] text-slate-400 hover:text-white"
+                ? "bg-white/10 text-[#f7f8f8] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                : "bg-[#121316]/60 border border-white/[0.08] text-[#a8a29e] hover:text-[#f7f8f8] hover:bg-white/5"
             }`}
           >
-            <Zap size={14} />
+            <Zap size={14} className={activeTab === "speed" ? "text-amber-500" : "text-[#a8a29e]"} />
             Catalog Speed & UX Optimization
           </button>
 
@@ -136,11 +136,11 @@ export function LiveShowcases({ lang }: LiveShowcasesProps) {
             onClick={() => setActiveTab("infrastructure")}
             className={`px-5 py-2.5 rounded-full text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2 ${
               activeTab === "infrastructure"
-                ? "bg-emerald-600 text-white shadow-md shadow-emerald-500/20"
-                : "bg-slate-900/60 border border-white/[0.08] text-slate-400 hover:text-white"
+                ? "bg-white/10 text-[#f7f8f8] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                : "bg-[#121316]/60 border border-white/[0.08] text-[#a8a29e] hover:text-[#f7f8f8] hover:bg-white/5"
             }`}
           >
-            <Activity size={14} />
+            <Activity size={14} className={activeTab === "infrastructure" ? "text-amber-500" : "text-[#a8a29e]"} />
             Server Ping & Health Monitor
           </button>
         </div>

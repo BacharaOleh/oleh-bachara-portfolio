@@ -10,15 +10,15 @@ interface TypewriterRolesProps {
 export function TypewriterRoles({ lang }: TypewriterRolesProps) {
   const roles = lang === "pl"
     ? [
-        "Web Developer & Architekt Stron",
+        "Web Developer — Platformy Webowe",
         "Specjalista Technical Marketing",
-        "Inżynier PHP & WordPress",
+        "Programista PHP & WordPress",
         "Magister Zarządzania & Inż. Informatyki",
       ]
     : [
-        "Web Developer & Systems Architect",
+        "Web Developer for Product Platforms",
         "Technical Marketing Specialist",
-        "PHP & WordPress Engineer",
+        "PHP & WordPress Developer",
         "M.Sc. Management & B.Sc. CompSci",
       ];
 
@@ -59,9 +59,9 @@ export function TypewriterRoles({ lang }: TypewriterRolesProps) {
 
   return (
     <div className="min-h-[38px] flex items-center">
-      <span className="inline-flex items-center gap-1.5 font-mono text-indigo-300 font-semibold text-xs sm:text-sm bg-indigo-500/10 border border-indigo-500/25 px-3 py-1.5 rounded-lg shadow-inner">
+      <span className="inline-flex items-center gap-1.5 font-mono text-[#f7f8f8] font-semibold text-xs sm:text-sm bg-[#121316] border border-white/10 px-3 py-1.5 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
         <span>{currentText || roles[0]}</span>
-        <span className="w-1.5 h-3.5 bg-cyan-400 animate-pulse rounded-sm inline-block shrink-0" aria-hidden="true" />
+        <span className="w-1.5 h-3.5 bg-amber-500 animate-pulse rounded-sm inline-block shrink-0" aria-hidden="true" />
       </span>
     </div>
   );

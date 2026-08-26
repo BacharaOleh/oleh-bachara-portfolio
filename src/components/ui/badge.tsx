@@ -9,12 +9,12 @@ interface BadgeProps {
 }
 
 const variants = {
-  indigo: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
-  cyan: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
-  violet: "bg-violet-500/15 text-violet-300 border-violet-500/30",
-  emerald: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-  slate: "bg-slate-500/15 text-slate-300 border-slate-500/30",
-  yellow: "bg-yellow-500/15 text-yellow-300 border-yellow-500/30",
+  indigo: "bg-[#18191c] text-[#f7f8f8] border-amber-500/20 shadow-[inset_0_1px_0_rgba(245,158,11,0.05)]",
+  cyan: "bg-[#18191c] text-[#f7f8f8] border-cyan-500/20 shadow-[inset_0_1px_0_rgba(6,182,212,0.05)]",
+  violet: "bg-[#18191c] text-[#f7f8f8] border-violet-500/20 shadow-[inset_0_1px_0_rgba(139,92,246,0.05)]",
+  emerald: "bg-[#18191c] text-[#f7f8f8] border-emerald-500/20 shadow-[inset_0_1px_0_rgba(16,185,129,0.05)]",
+  slate: "bg-[#18191c] text-[#d6d3d1] border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]",
+  yellow: "bg-[#18191c] text-[#f7f8f8] border-yellow-500/20 shadow-[inset_0_1px_0_rgba(234,179,8,0.05)]",
 };
 
 export function Badge({ children, variant = "indigo", className }: BadgeProps) {

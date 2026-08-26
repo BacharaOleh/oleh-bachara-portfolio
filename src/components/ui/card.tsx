@@ -13,10 +13,10 @@ interface CardProps {
 
 export function Card({ children, className, hover = true, glow = "none", onClick }: CardProps) {
   const glowColors = {
-    indigo: "hover:shadow-indigo-500/20 hover:border-indigo-500/40",
-    cyan: "hover:shadow-cyan-500/20 hover:border-cyan-500/40",
-    violet: "hover:shadow-violet-500/20 hover:border-violet-500/40",
-    emerald: "hover:shadow-emerald-500/20 hover:border-emerald-500/40",
+    indigo: "hover:border-amber-500/40 hover:shadow-[0_8px_30px_rgba(245,158,11,0.1)]",
+    cyan: "hover:border-white/20 hover:shadow-[0_8px_30px_rgba(255,255,255,0.05)]",
+    violet: "hover:border-amber-500/40 hover:shadow-[0_8px_30px_rgba(245,158,11,0.1)]",
+    emerald: "hover:border-amber-500/40 hover:shadow-[0_8px_30px_rgba(245,158,11,0.1)]",
     none: "hover:border-white/20",
   };
 

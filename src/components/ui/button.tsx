@@ -13,16 +13,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
     const base =
-      "inline-flex items-center justify-center gap-2 font-semibold transition-all duration-300 rounded-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 disabled:pointer-events-none";
+      "inline-flex items-center justify-center gap-2 font-sans font-medium transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:opacity-50 disabled:pointer-events-none rounded-none";
 
     const variants = {
       primary:
-        "bg-gradient-to-r from-indigo-600 to-cyan-500 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/60 hover:scale-[1.03] active:scale-[0.98]",
+        "bg-[#eeece5] text-[#11100e] border border-[#eeece5] hover:bg-[#c4a160] hover:text-[#11100e] hover:border-[#c4a160]",
       secondary:
-        "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 hover:border-white/40",
-      ghost: "text-slate-400 hover:text-white hover:bg-white/5",
+        "bg-transparent border border-white/20 text-[#b9b4aa] hover:border-[#c4a160] hover:text-[#eeece5]",
+      ghost: "text-[#b9b4aa] hover:text-[#eeece5]",
       outline:
-        "border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-400 hover:text-indigo-300",
+        "border border-white/20 text-[#eeece5] hover:bg-[#eeece5] hover:text-[#11100e]",
     };
 
     const sizes = {

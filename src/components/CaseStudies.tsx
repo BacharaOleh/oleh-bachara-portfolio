@@ -9,25 +9,25 @@ import { Badge } from "@/components/ui/badge";
 
 const accentThemes = {
   indigo: {
-    borderHover: "hover:border-indigo-500/40",
-    badge: "indigo" as const,
-    metricText: "text-indigo-400",
-    number: "text-indigo-500/30",
-    bg: "from-indigo-600/10",
+    borderHover: "hover:border-amber-500/40",
+    badge: "slate" as const,
+    metricText: "text-amber-500",
+    number: "text-white/5",
+    bg: "from-amber-500/5",
   },
   cyan: {
-    borderHover: "hover:border-cyan-500/40",
-    badge: "cyan" as const,
-    metricText: "text-cyan-400",
-    number: "text-cyan-500/30",
-    bg: "from-cyan-600/10",
+    borderHover: "hover:border-white/20",
+    badge: "slate" as const,
+    metricText: "text-[#f7f8f8]",
+    number: "text-white/5",
+    bg: "from-white/5",
   },
   emerald: {
-    borderHover: "hover:border-emerald-500/40",
-    badge: "emerald" as const,
-    metricText: "text-emerald-400",
-    number: "text-emerald-500/30",
-    bg: "from-emerald-600/10",
+    borderHover: "hover:border-amber-500/40",
+    badge: "slate" as const,
+    metricText: "text-amber-500",
+    number: "text-white/5",
+    bg: "from-amber-500/5",
   },
 };
 
