@@ -2,6 +2,7 @@
 
 import { Mail, ArrowUp, Phone } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/portfolio-data";
+import { BrandMark } from "@/components/BrandMark";
 
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -40,6 +41,7 @@ export function Footer() {
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
+            <BrandMark />
             <div>
               <div className="font-medium text-[#eeece5] text-sm">Oleh Bachara</div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-[0.12em] text-[#777168]">

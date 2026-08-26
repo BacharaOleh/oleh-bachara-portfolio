@@ -59,6 +59,45 @@ h1, h2, h3, h4, h5, h6, .font-display {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
 }
 
+.brand-mark {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(238, 236, 229, 0.26);
+  color: var(--paper);
+}
+
+.brand-mark svg { width: 1.36rem; height: 1.36rem; stroke: currentColor; stroke-width: 0.85; }
+.brand-mark svg path { stroke-linecap: square; stroke-linejoin: miter; }
+
+.hero-section { position: relative; }
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.9rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.13em;
+}
+.hero-ornament .brand-mark { width: 1.55rem; height: 1.55rem; border-color: rgba(196, 161, 96, 0.55); color: var(--gold); }
+.hero-ornament .brand-mark svg { width: 1rem; height: 1rem; }
+
+@keyframes editorial-rise {
+  from { opacity: 0; transform: translateY(0.9rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal { animation: editorial-rise 700ms cubic-bezier(.22, 1, .36, 1) both; }
+.reveal--1 { animation-delay: 80ms; }
+.reveal--2 { animation-delay: 150ms; }
+.reveal--3 { animation-delay: 230ms; }
+.reveal--4 { animation-delay: 310ms; }
+
 .kicker {
   font-family: var(--font-mono);
   font-size: 0.67rem;
@@ -121,6 +160,19 @@ h1, h2, h3, h4, h5, h6, .font-display {
   z-index: 2;
 }
 
+.case-art::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 16rem;
+  height: 16rem;
+  top: -8rem;
+  right: -5rem;
+  border: 1px solid rgba(238,236,229,0.14);
+  border-radius: 50%;
+  transition: transform 700ms cubic-bezier(.22, 1, .36, 1);
+}
+
 .case-art__label {
   position: absolute;
   left: 1.25rem;
@@ -143,11 +195,24 @@ h1, h2, h3, h4, h5, h6, .font-display {
   color: rgba(238,236,229,0.6);
 }
 
+.case-art__corner {
+  position: absolute;
+  z-index: 3;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-color: rgba(238,236,229,0.5);
+}
+.case-art__corner--top { top: 0.8rem; left: 0.8rem; border-top: 1px solid; border-left: 1px solid; }
+.case-art__corner--bottom { right: 0.8rem; bottom: 0.8rem; border-right: 1px solid; border-bottom: 1px solid; }
+
 .case-art--reh4mat { background: linear-gradient(140deg, #172332 0%, #182333 38%, #5a4d32 150%); }
 .case-art--migration { background: linear-gradient(145deg, #2a2419 0%, #171613 52%, #665233 165%); }
 .case-art--telegram { background: linear-gradient(145deg, #102323 0%, #12201e 55%, #223b38 155%); }
 
 .case-art svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.case-art svg .art-stroke { transition: transform 700ms cubic-bezier(.22, 1, .36, 1), opacity 400ms ease; transform-origin: center; }
+.case-art:hover::before { transform: scale(1.2) translate(-1rem, 1rem); }
+.case-art:hover svg .art-stroke { transform: scale(1.04); opacity: 1; }
 
 .case-art--reh4mat .art-stroke { stroke: rgba(167, 195, 232, 0.78); }
 .case-art--reh4mat .art-fill { fill: rgba(167, 195, 232, 0.13); }
@@ -176,18 +241,23 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .case-row:hover .case-row__title { color: var(--gold); }
 
 .case-cover { margin-top: 3.5rem; }
+.case-cover__caption { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.57rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .case-body p + p { margin-top: 1.25rem; }
 .case-section { padding-top: 2.25rem; border-top: 1px solid var(--soft-line); }
 .case-section + .case-section { margin-top: 2.25rem; }
 .case-section__title { font-family: var(--font-mono); font-size: 0.67rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
 .case-section__copy { margin-top: 0.9rem; color: var(--stone); font-size: 1rem; line-height: 1.7; }
 .case-outcome { padding: 1.5rem 0 1.7rem 1.25rem; border-left: 1px solid var(--gold); color: var(--paper); font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.15rem); line-height: 1.08; letter-spacing: -0.035em; }
+.case-ledger { display: grid; grid-template-columns: 1fr; border: 1px solid var(--line); border-top: 0; }
+.case-ledger > div { min-height: 6.8rem; padding: 1.1rem 1.25rem 1.25rem; border-top: 1px solid var(--line); }
+.case-ledger span { display: block; font-family: var(--font-mono); font-size: 0.59rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); }
+.case-ledger strong { display: block; max-width: 25rem; margin-top: 0.65rem; color: var(--paper); font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; line-height: 1.16; letter-spacing: -0.025em; }
 .metadata-list > div { padding: 1rem 0; border-top: 1px solid var(--soft-line); }
 .metadata-list dt { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .metadata-list dd { margin-top: 0.45rem; color: var(--paper); font-size: 0.9rem; line-height: 1.5; }
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
-.tag-list span { font-family: var(--font-mono); font-size: 0.67rem; color: var(--stone); }
-.tag-list span::before { content: "+"; margin-right: 0.3rem; color: var(--gold); }
+.tag-list li { font-family: var(--font-mono); font-size: 0.67rem; color: var(--stone); }
+.tag-list li::before { content: "+"; margin-right: 0.3rem; color: var(--gold); }
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -224,6 +294,9 @@ h1, h2, h3, h4, h5, h6, .font-display {
   .case-row__result { margin-top: 0.4rem; }
   .case-row__link { margin-top: 2.4rem; }
   .case-art { min-height: 22rem; }
+  .case-ledger { grid-template-columns: 0.65fr 1.35fr 0.75fr; }
+  .case-ledger > div { border-top: 0; border-left: 1px solid var(--line); }
+  .case-ledger > div:first-child { border-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

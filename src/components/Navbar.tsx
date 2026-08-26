@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { BrandMark } from "@/components/BrandMark";
 import type { Lang } from "@/data/portfolio-data";
 
 const COPY = {
@@ -18,7 +19,10 @@ export function Navbar({ lang, setLang }: { lang: Lang; setLang: (lang: Lang) =>
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-white/[0.09] bg-[#11100e]/82 backdrop-blur-xl">
       <div className="container-custom flex min-h-20 items-center justify-between py-4">
-        <button onClick={() => navigate("#top")} className="text-left"><span className="block text-[15px] font-semibold tracking-[-0.03em] text-[#eeece5]">Oleh Bachara</span><span className="block mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#c4a160]">Web Developer / Product Platforms</span></button>
+        <button onClick={() => navigate("#top")} className="flex items-center gap-3 text-left">
+          <BrandMark />
+          <span><span className="block text-[15px] font-semibold tracking-[-0.03em] text-[#eeece5]">Oleh Bachara</span><span className="block mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#c4a160]">Web Developer / Product Platforms</span></span>
+        </button>
         <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
           {links.map((link) => <button key={link.href} onClick={() => navigate(link.href)} className="font-mono text-[10px] uppercase tracking-[0.13em] text-[#b9b4aa] transition-colors hover:text-[#eeece5]">{link.label}</button>)}
         </nav>

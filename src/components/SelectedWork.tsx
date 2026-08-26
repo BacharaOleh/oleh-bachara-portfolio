@@ -8,6 +8,7 @@ const COPY = {
     eyebrow: "Selected work",
     title: "Three examples of work where technical decisions changed the usefulness of a platform.",
     read: "Read case study",
+    caption: "System abstracts / each mark corresponds to the thinking behind the case.",
     projects: [
       { id: "reh4mat-ecosystem", number: "01", title: "Reh4mat — product catalogue ecosystem", description: "Improving a group of corporate websites and product catalogues across PL, UA and EU markets.", result: "+40% organic traffic reported for the main site during the relevant measurement period." },
       { id: "tech-infrastructure", number: "02", title: "Platform migration & performance recovery", description: "Planning and supporting platform migrations while reducing page weight and mobile performance bottlenecks.", result: "Selected mobile pages improved from approximately 45 to 90+ in PageSpeed testing." },
@@ -18,6 +19,7 @@ const COPY = {
     eyebrow: "Wybrane realizacje",
     title: "Trzy projekty, w których decyzje techniczne wpłynęły na użyteczność platformy.",
     read: "Zobacz case study",
+    caption: "Abstrakty systemowe / każdy znak odpowiada sposobowi myślenia stojącemu za casem.",
     projects: [
       { id: "reh4mat-ecosystem", number: "01", title: "Reh4mat — ekosystem katalogów produktów", description: "Rozwój grupy serwisów korporacyjnych i katalogów produktów dla rynków PL, UA i UE.", result: "+40% ruchu organicznego na głównej stronie w opisywanym okresie pomiarowym." },
       { id: "tech-infrastructure", number: "02", title: "Migracja platformy i poprawa wydajności", description: "Planowanie i wsparcie migracji platform wraz z ograniczaniem wagi stron i problemów mobilnych.", result: "Na wybranych stronach mobilnych wynik PageSpeed wzrósł z około 45 do 90+." },
@@ -50,9 +52,10 @@ export function SelectedWork({ lang }: { lang: Lang }) {
             </Link>
           ))}
         </div>
-        <div className="case-cover grid gap-4 md:grid-cols-3">
+        <div className="case-cover mt-6 grid gap-4 md:grid-cols-3">
           {t.projects.map((project) => <CaseArtwork key={project.id} id={project.id} index={project.number} label={project.title} />)}
         </div>
+        <p className="case-cover__caption">{t.caption}</p>
       </div>
     </section>
   );

@@ -13,8 +13,8 @@ interface ProjectPageClientProps {
 }
 
 const COPY = {
-  en: { back: "Back to portfolio", selectedOutcome: "Selected outcome", projectNotes: "Project notes", role: "Role", period: "Period", scope: "Scope", technologies: "Technologies", nextCase: "Next case", overview: "Overview", type: "Project type" },
-  pl: { back: "Powrót do portfolio", selectedOutcome: "Wybrany rezultat", projectNotes: "Notatki projektowe", role: "Rola", period: "Okres", scope: "Zakres", technologies: "Technologie", nextCase: "Następny case", overview: "Przegląd", type: "Typ projektu" },
+  en: { back: "Back to portfolio", selectedOutcome: "Selected outcome", projectNotes: "Project notes", role: "Role", period: "Period", scope: "Scope", technologies: "Technologies", nextCase: "Next case", overview: "Overview", type: "Project type", record: "Case record", contribution: "Contribution" },
+  pl: { back: "Powrót do portfolio", selectedOutcome: "Wybrany rezultat", projectNotes: "Notatki projektowe", role: "Rola", period: "Okres", scope: "Zakres", technologies: "Technologie", nextCase: "Następny case", overview: "Przegląd", type: "Typ projektu", record: "Karta case", contribution: "Wkład" },
 } as const;
 
 function isFeaturedProject(id: string): id is FeaturedProjectId {
@@ -73,6 +73,11 @@ export function ProjectPageClient({ projectEn, projectPl }: ProjectPageClientPro
               <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#eeece5]/70">Independent project / {project.title}</span>
             </div>
           )}
+          <div className="case-ledger">
+            <div><span>{t.record}</span><strong>{study?.index ?? "04"} / {study?.type ?? t.type}</strong></div>
+            <div><span>{t.contribution}</span><strong>{study?.role ?? "Web Developer"}</strong></div>
+            <div><span>{t.period}</span><strong>{study?.period ?? "Independent work"}</strong></div>
+          </div>
         </section>
         <section className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:gap-x-8">
           <div className="lg:col-span-2"><p className="kicker">{t.projectNotes}</p></div>

@@ -2,6 +2,7 @@
 
 import { ArrowDownRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandMark } from "@/components/BrandMark";
 import type { Lang } from "@/data/portfolio-data";
 
 const COPY = {
@@ -27,35 +28,36 @@ export function Hero({ lang }: { lang: Lang }) {
   const t = COPY[lang];
 
   return (
-    <section id="top" className="scroll-mt-20 pt-32 pb-20 sm:pt-44 sm:pb-32 lg:pb-40">
+    <section id="top" className="hero-section scroll-mt-20 pt-32 pb-20 sm:pt-44 sm:pb-32 lg:pb-40">
       <div className="container-custom">
+        <div className="hero-ornament" aria-hidden="true"><BrandMark /><span>01 — 03 / SELECTED SYSTEMS</span></div>
         <div className="grid items-end gap-12 border-b editorial-rule pb-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-9">
-            <p className="kicker mb-8">{t.eyebrow}</p>
-            <h1 className="display-xl max-w-6xl text-[#eeece5]">
+            <p className="kicker mb-8 reveal reveal--1">{t.eyebrow}</p>
+            <h1 className="display-xl max-w-6xl text-[#eeece5] reveal reveal--2">
               {t.title}
             </h1>
           </div>
-          <div className="border-l editorial-rule pl-5 lg:col-span-3 lg:mb-2">
+          <div className="border-l editorial-rule pl-5 lg:col-span-3 lg:mb-2 reveal reveal--3">
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.12em] leading-relaxed text-[#a39c91]">
               {t.location}
             </p>
           </div>
         </div>
         <div className="grid gap-10 pt-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-start-3 lg:col-span-6">
+          <div className="lg:col-start-3 lg:col-span-6 reveal reveal--3">
             <p className="editorial-copy max-w-2xl">
               {t.body}
             </p>
           </div>
-          <div className="lg:col-span-3 lg:justify-self-end">
+          <div className="lg:col-span-3 lg:justify-self-end reveal reveal--4">
             <div className="font-mono text-[0.65rem] uppercase tracking-[0.15em] leading-relaxed text-[#777168]">
               <p>WordPress / PHP</p>
               <p>Product platforms</p>
               <p>Performance & measurement</p>
             </div>
           </div>
-          <div className="lg:col-start-3 lg:col-span-9">
+          <div className="lg:col-start-3 lg:col-span-9 reveal reveal--4">
             <div className="flex flex-wrap items-center gap-3">
             <Button size="lg" onClick={() => document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" })} className="group">
               {t.primary}<ArrowDownRight size={17} className="transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5" />

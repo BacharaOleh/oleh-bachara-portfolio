@@ -9,6 +9,8 @@ const LABELS: Record<ArtworkId, string> = {
 export function CaseArtwork({ id, index, label }: { id: ArtworkId; index: string; label?: string }) {
   return (
     <div className={`case-art case-art--${id === "reh4mat-ecosystem" ? "reh4mat" : id === "tech-infrastructure" ? "migration" : "telegram"}`} aria-hidden="true">
+      <span className="case-art__corner case-art__corner--top" />
+      <span className="case-art__corner case-art__corner--bottom" />
       <span className="case-art__index">{index}</span>
       <span className="case-art__label">{label ?? LABELS[id]}</span>
       {id === "reh4mat-ecosystem" && (
