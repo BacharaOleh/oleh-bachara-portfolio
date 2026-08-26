@@ -1,20 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ExternalLink,
-  Tag,
-  BarChart3,
-  ChevronRight,
-  Globe,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { TiltCard } from "@/components/ui/tilt-card";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { CaseArtwork } from "@/components/CaseArtwork";
+import { CASE_STUDY_CONTENT, FEATURED_PROJECT_IDS, type FeaturedProjectId } from "@/data/case-study-content";
 import { PROJECTS, type Project, type Lang } from "@/data/portfolio-data";
 
 interface ProjectPageClientProps {
@@ -22,232 +12,108 @@ interface ProjectPageClientProps {
   projectPl: Project;
 }
 
+const COPY = {
+  en: { back: "Back to portfolio", selectedOutcome: "Selected outcome", projectNotes: "Project notes", role: "Role", period: "Period", scope: "Scope", technologies: "Technologies", nextCase: "Next case", overview: "Overview", type: "Project type" },
+  pl: { back: "Powrót do portfolio", selectedOutcome: "Wybrany rezultat", projectNotes: "Notatki projektowe", role: "Rola", period: "Okres", scope: "Zakres", technologies: "Technologie", nextCase: "Następny case", overview: "Przegląd", type: "Typ projektu" },
+} as const;
+
+function isFeaturedProject(id: string): id is FeaturedProjectId {
+  return FEATURED_PROJECT_IDS.includes(id as FeaturedProjectId);
+}
+
 export function ProjectPageClient({ projectEn, projectPl }: ProjectPageClientProps) {
   const [lang, setLang] = useState<Lang>("en");
   const project = lang === "en" ? projectEn : projectPl;
+  const t = COPY[lang];
+  const featuredProjectId = isFeaturedProject(project.id) ? project.id : null;
+  const study = featuredProjectId ? CASE_STUDY_CONTENT[lang][featuredProjectId] : null;
+  const sections = study?.sections ?? [{ title: t.overview, body: project.fullDescription }];
 
-  // Find related projects (other projects)
-  const allProjects = PROJECTS[lang];
-  const relatedProjects = allProjects.filter((p) => p.id !== project.id);
+  const featuredProjects = PROJECTS[lang].filter((item) => isFeaturedProject(item.id));
+  const currentIndex = featuredProjects.findIndex((item) => item.id === project.id);
+  const nextProject = featuredProjects.length > 1 && currentIndex >= 0
+    ? featuredProjects[(currentIndex + 1) % featuredProjects.length]
+    : null;
 
   return (
-    <div className="relative min-h-screen bg-[#08090a] text-[#f7f8f8] overflow-x-hidden">
-      {/* Background Ambience */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-[15%] left-[20%] w-[650px] h-[650px] rounded-full blur-[130px] bg-amber-500/[0.02]" />
-        <div className="absolute top-[50%] right-[-10%] w-[500px] h-[500px] rounded-full blur-[130px] bg-amber-500/[0.015]" />
-      </div>
-
-      {/* Navigation Bar */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#08090a]/80 backdrop-blur-2xl">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm font-mono text-[#a8a29e] hover:text-[#f7f8f8] transition-colors group"
-          >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            {lang === "pl" ? "Powrót do Portfolio" : "Back to Portfolio"}
+    <div className="site-shell min-h-screen overflow-x-hidden">
+      <div className="site-grain" aria-hidden="true" />
+      <header className="sticky top-0 z-50 border-b border-white/[0.09] bg-[#11100e]/85 backdrop-blur-xl">
+        <div className="container-custom flex min-h-20 items-center justify-between py-4">
+          <Link href="/" className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#b9b4aa] transition-colors hover:text-[#eeece5]">
+            <ArrowLeft size={15} className="transition-transform group-hover:-translate-x-1" />
+            {t.back}
           </Link>
-
-          {/* Language Toggle */}
-          <div className="flex items-center gap-1 bg-[#121316] border border-white/10 rounded-full p-0.5">
-            <button
-              onClick={() => setLang("en")}
-              className={`px-3 py-1 rounded-full text-[11px] font-mono font-semibold transition-all cursor-pointer ${
-                lang === "en"
-                  ? "bg-white/10 text-[#f7f8f8] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
-                  : "text-[#a8a29e] hover:text-[#f7f8f8]"
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("pl")}
-              className={`px-3 py-1 rounded-full text-[11px] font-mono font-semibold transition-all cursor-pointer ${
-                lang === "pl"
-                  ? "bg-white/10 text-[#f7f8f8] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
-                  : "text-[#a8a29e] hover:text-[#f7f8f8]"
-              }`}
-            >
-              PL
-            </button>
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em]">
+            {(["en", "pl"] as Lang[]).map((item) => (
+              <button key={item} type="button" onClick={() => setLang(item)}
+                className={`px-2 py-1 transition-colors ${lang === item ? "bg-[#eeece5] text-[#11100e]" : "text-[#777168] hover:text-[#eeece5]"}`}>
+                {item}
+              </button>
+            ))}
           </div>
         </div>
       </header>
-
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-24">
-        {/* Breadcrumb */}
-        <motion.nav
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex items-center gap-1.5 text-xs font-mono text-[#78716c] mb-8"
-          aria-label="Breadcrumb"
-        >
-          <Link href="/" className="hover:text-[#a8a29e] transition-colors">
-            {lang === "pl" ? "Portfolio" : "Portfolio"}
-          </Link>
-          <ChevronRight size={12} />
-          <span className="text-[#a8a29e]">{lang === "pl" ? "Projekty" : "Projects"}</span>
-          <ChevronRight size={12} />
-          <span className="text-[#f7f8f8] font-semibold truncate max-w-[200px]">{project.title}</span>
-        </motion.nav>
-
-        {/* Hero Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          {/* Category Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#121316] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)] animate-pulse" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#a8a29e]">
-              {project.category}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f7f8f8] tracking-tight leading-[1.15] mb-6">
-            {project.title}
-          </h1>
-
-          {/* Short Description */}
-          <p className="text-lg text-[#a8a29e] leading-relaxed max-w-3xl">
-            {project.shortDescription}
-          </p>
-        </motion.div>
-
-        {/* Metrics Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
-        >
-          {project.metrics.map((metric, i) => (
-            <TiltCard
-              key={metric.label}
-              className="glass-card p-5 sm:p-6 rounded-2xl text-center relative overflow-hidden border border-white/10 hover:border-amber-500/40 shadow-xl"
-              spotlightColor="rgba(245, 158, 11, 0.1)"
-            >
-              <div className="text-2xl sm:text-3xl font-extrabold text-gradient-accent tracking-tight font-mono">
-                {metric.value}
-              </div>
-              <div className="text-xs text-[#a8a29e] font-medium mt-1.5 font-sans">
-                {metric.label}
-              </div>
-            </TiltCard>
-          ))}
-        </motion.div>
-
-        {/* Full Description Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="mb-12"
-        >
-          <SpotlightCard
-            className="glass-card p-8 sm:p-10 rounded-3xl relative overflow-hidden"
-            spotlightColor="rgba(245, 158, 11, 0.06)"
-          >
-            <h2 className="text-xl font-bold text-[#f7f8f8] tracking-tight mb-5 flex items-center gap-2">
-              <BarChart3 size={20} className="text-amber-500" />
-              {lang === "pl" ? "Szczegółowy Opis Projektu" : "Detailed Project Overview"}
-            </h2>
-            <p className="text-[#d6d3d1] text-base leading-[1.8] font-normal">
-              {project.fullDescription}
-            </p>
-          </SpotlightCard>
-        </motion.div>
-
-        {/* Tags */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-16"
-        >
-          <h3 className="text-sm font-bold text-[#f7f8f8] mb-4 flex items-center gap-2">
-            <Tag size={14} className="text-amber-500" />
-            {lang === "pl" ? "Technologie i Umiejętności" : "Technologies & Skills"}
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="slate">{tag}</Badge>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Divider */}
-        <div className="border-t border-white/[0.06] mb-12" />
-
-        {/* Related Projects */}
-        {relatedProjects.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-          >
-            <h3 className="text-lg font-bold text-[#f7f8f8] mb-6 flex items-center gap-2">
-              <Globe size={18} className="text-amber-500" />
-              {lang === "pl" ? "Inne Projekty" : "Other Projects"}
-            </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {relatedProjects.map((rp) => (
-                <Link key={rp.id} href={`/projects/${rp.id}`}>
-                  <SpotlightCard
-                    className="glass-card p-6 rounded-2xl h-full relative overflow-hidden group hover:border-amber-500/30 transition-all"
-                    spotlightColor="rgba(245, 158, 11, 0.06)"
-                  >
-                    <div className="mb-3">
-                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#78716c]">
-                        {rp.category}
-                      </span>
-                    </div>
-                    <h4 className="text-sm font-bold text-[#f7f8f8] tracking-tight mb-2 group-hover:text-amber-400 transition-colors leading-snug">
-                      {rp.title}
-                    </h4>
-                    <p className="text-xs text-[#a8a29e] line-clamp-2 leading-relaxed">
-                      {rp.shortDescription}
-                    </p>
-
-                    <div className="mt-4 flex items-center gap-1 text-xs font-mono text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                      {lang === "pl" ? "Zobacz projekt" : "View project"}
-                      <ChevronRight size={12} />
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              ))}
+      <main className="container-custom relative py-14 sm:py-20 lg:py-28">
+        <section className="grid gap-10 lg:grid-cols-12 lg:gap-x-8">
+          <div className="lg:col-span-2"><p className="kicker">{study?.index ?? "04"} / {study?.type ?? t.type}</p></div>
+          <div className="lg:col-span-10">
+            <h1 className="display-xl max-w-5xl">{project.title}</h1>
+            <div className="mt-8 grid gap-6 border-t border-white/[0.12] pt-6 md:grid-cols-12">
+              <p className="editorial-copy text-xl text-[#d4d0c8] md:col-span-8">{project.shortDescription}</p>
+              <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.13em] text-[#777168] md:col-span-4 md:text-right">{study?.artLabel ?? "Project record"}</p>
             </div>
-          </motion.div>
+          </div>
+        </section>
+        <section className="mt-14 sm:mt-20">
+          {featuredProjectId ? (
+            <CaseArtwork id={featuredProjectId} index={study?.index ?? "01"} label={project.title} />
+          ) : (
+            <div className="case-art case-art--migration flex min-h-[340px] items-end p-6 sm:min-h-[460px] sm:p-8">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#eeece5]/70">Independent project / {project.title}</span>
+            </div>
+          )}
+        </section>
+        <section className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:gap-x-8">
+          <div className="lg:col-span-2"><p className="kicker">{t.projectNotes}</p></div>
+          <div className="space-y-14 lg:col-span-7">
+            {sections.map((section) => (
+              <article key={section.title} className="case-section">
+                <h2 className="display-md">{section.title}</h2>
+                <p className="editorial-copy mt-5 text-lg sm:text-xl">{section.body}</p>
+              </article>
+            ))}
+            <div className="border-l border-[#c4a160] pl-5 sm:pl-7">
+              <p className="kicker text-[#c4a160]">{t.selectedOutcome}</p>
+              <p className="case-outcome mt-4">{study?.outcome ?? project.metrics[0]?.value}</p>
+            </div>
+          </div>
+          <aside className="lg:col-span-3 lg:pl-4">
+            <div className="border-t border-white/[0.14] pt-5 lg:sticky lg:top-28">
+              <dl className="metadata-list">
+                <div><dt>{t.role}</dt><dd>{study?.role ?? "Web Developer"}</dd></div>
+                <div><dt>{t.period}</dt><dd>{study?.period ?? "Independent work"}</dd></div>
+                <div><dt>{t.scope}</dt><dd>{study?.scope ?? project.tags.join(", ")}</dd></div>
+              </dl>
+              <div className="mt-10 border-t border-white/[0.10] pt-5">
+                <p className="kicker">{t.technologies}</p>
+                <ul className="tag-list mt-4">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+              </div>
+            </div>
+          </aside>
+        </section>
+        {nextProject && (
+          <section className="mt-24 border-t border-white/[0.14] pt-8 sm:mt-32 sm:pt-10">
+            <Link href={`/projects/${nextProject.id}`} className="group grid gap-4 md:grid-cols-12 md:items-end">
+              <span className="kicker md:col-span-2">{t.nextCase}</span>
+              <span className="display-lg flex items-center gap-4 md:col-span-9 group-hover:text-[#c4a160]">
+                {nextProject.title}
+                <ArrowRight size={30} strokeWidth={1.25} className="transition-transform group-hover:translate-x-2" />
+              </span>
+            </Link>
+          </section>
         )}
-
-        {/* Back to Portfolio CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 text-center"
-        >
-          <Link href="/">
-            <Button variant="outline" size="lg" className="cursor-pointer">
-              <ArrowLeft size={16} />
-              {lang === "pl" ? "Powrót do Portfolio" : "Back to Portfolio"}
-            </Button>
-          </Link>
-        </motion.div>
       </main>
-
-      {/* Footer Attribution */}
-      <footer className="border-t border-white/[0.06] bg-[#08090a] py-8 relative z-10">
-        <div className="max-w-5xl mx-auto px-6 text-center text-xs text-[#78716c] font-mono">
-          © {new Date().getFullYear()} Oleh Bachara · Jarosław, Poland 🇵🇱
-        </div>
-      </footer>
     </div>
   );
 }

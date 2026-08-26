@@ -10,15 +10,15 @@ interface TypewriterRolesProps {
 export function TypewriterRoles({ lang }: TypewriterRolesProps) {
   const roles = lang === "pl"
     ? [
-        "Web Developer & Architekt Stron",
+        "Web Developer — Platformy Webowe",
         "Specjalista Technical Marketing",
-        "Inżynier PHP & WordPress",
+        "Programista PHP & WordPress",
         "Magister Zarządzania & Inż. Informatyki",
       ]
     : [
-        "Web Developer & Systems Architect",
+        "Web Developer for Product Platforms",
         "Technical Marketing Specialist",
-        "PHP & WordPress Engineer",
+        "PHP & WordPress Developer",
         "M.Sc. Management & B.Sc. CompSci",
       ];
 

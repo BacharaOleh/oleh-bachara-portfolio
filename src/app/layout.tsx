@@ -1,23 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, IBM_Plex_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+const newsreader = Newsreader({
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-mono",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#080c14",
+  themeColor: "#11100e",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -25,9 +32,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://oleh-bachara-portfolio-zeta.vercel.app"),
-  title: "Oleh Bachara — Web Developer & Systems Architect",
+  title: "Oleh Bachara — Web Developer for Product Platforms",
   description:
-    "Portfolio of Oleh Bachara — Inżynier Informatyki & Magister Zarządzania. 4.5+ years of building high-performance web systems, product catalogs, Telegram API bridges, and driving business growth.",
+    "Portfolio of Oleh Bachara — Web Developer working across WordPress/PHP, product catalogues, performance and technical measurement.",
   keywords: [
     "Web Developer",
     "Technical Marketing Specialist",
@@ -44,8 +51,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Oleh Bachara — Web Developer & Systems Architect",
-    description: "4.5+ years of building high-performance web systems, product catalogs, and driving business growth.",
+    title: "Oleh Bachara — Web Developer for Product Platforms",
+    description: "WordPress/PHP, product catalogues, performance and technical measurement.",
     siteName: "Oleh Bachara Portfolio",
     url: "https://oleh-bachara-portfolio-zeta.vercel.app",
     images: [
@@ -53,7 +60,7 @@ export const metadata: Metadata = {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Oleh Bachara — Web Developer & Systems Architect",
+        alt: "Oleh Bachara — Web Developer for Product Platforms",
       },
     ],
   },
@@ -74,7 +81,7 @@ export default function RootLayout({
         "@type": "Person",
         "@id": "https://oleh-bachara-portfolio-zeta.vercel.app/#person",
         "name": "Oleh Bachara",
-        "jobTitle": "Web Developer & Systems Architect",
+        "jobTitle": "Web Developer for Product Platforms",
         "url": "https://oleh-bachara-portfolio-zeta.vercel.app",
         "sameAs": [
           "https://linkedin.com/in/olegh-bachara",
@@ -100,13 +107,12 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`dark scroll-smooth ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#08090a] text-[#f7f8f8] antialiased selection:bg-amber-500/25 selection:text-white overflow-x-hidden min-h-screen">
+    <html lang="en" className={`dark scroll-smooth ${dmSans.variable} ${newsreader.variable} ${ibmPlexMono.variable}`}>
+      <body className="bg-[#11100e] text-[#eeece5] antialiased overflow-x-hidden min-h-screen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="noise-overlay" aria-hidden="true" />
         {children}
       </body>
     </html>
