@@ -4,17 +4,17 @@ import type { Lang } from "@/data/portfolio-data";
 const COPY = {
   en: {
     eyebrow: "Contact",
-    title: "Have a platform that needs a clearer technical direction?",
-    body: "Email me to discuss an existing product catalogue, website performance or a technical improvement project.",
-    email: "olegbachara@gmail.com",
-    linkedin: "LinkedIn",
+    title: "Have an engineering or hardware project that needs architectural direction?",
+    body: "Email me to discuss robotics, embedded firmware on ESP32-C6, industrial edge gateways, or MES software.",
+    email: "m.pnikut@gmail.com",
+    github: "GitHub",
   },
   pl: {
     eyebrow: "Kontakt",
-    title: "Masz platformę, która potrzebuje lepszego kierunku technicznego?",
-    body: "Napisz do mnie, aby porozmawiać o istniejącym katalogu produktów, wydajności strony lub projekcie technicznego rozwoju.",
-    email: "olegbachara@gmail.com",
-    linkedin: "LinkedIn",
+    title: "Masz projekt inżynierski lub hardware potrzebujący kierunku architektonicznego?",
+    body: "Napisz do mnie, aby porozmawiać o robotyce, firmware ESP32-C6, przemysłowych bramkach edge lub oprogramowaniu MES.",
+    email: "m.pnikut@gmail.com",
+    github: "GitHub",
   },
 } as const;
 
@@ -34,19 +34,19 @@ export function Contact({ lang }: ContactProps) {
             <p className="editorial-copy mt-8 max-w-2xl">{t.body}</p>
             <div className="mt-12 flex flex-col gap-5 border-t editorial-rule pt-6 sm:flex-row sm:items-center sm:gap-10">
             <a
-              href="mailto:olegbachara@gmail.com"
+              href="mailto:m.pnikut@gmail.com"
               className="inline-flex items-center gap-2 font-display text-2xl tracking-[-0.035em] text-[#eeece5] transition-colors hover:text-[#c4a160]"
             >
               {t.email}
               <ArrowUpRight size={16} />
             </a>
             <a
-              href="https://linkedin.com/in/olegh-bachara"
+              href="https://github.com/NeKoRoM"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 text-sm text-[#b9b4aa] transition-colors hover:text-[#eeece5]"
             >
-              {t.linkedin}
+              {t.github}
               <ArrowUpRight size={16} />
             </a>
             </div>

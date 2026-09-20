@@ -1,19 +1,32 @@
-type ArtworkId = "reh4mat-ecosystem" | "tech-infrastructure" | "telegram-auth-bridge";
+export type ArtworkId =
+  | "keysnap-robotics"
+  | "wfm-industrial-mes"
+  | "embedded-mesh-iot"
+  | "reh4mat-ecosystem"
+  | "tech-infrastructure"
+  | "telegram-auth-bridge";
 
 const LABELS: Record<ArtworkId, string> = {
+  "keysnap-robotics": "Robotics & CNC Kinematics",
+  "wfm-industrial-mes": "MES Telemetry & Dispatch",
+  "embedded-mesh-iot": "ESP-NOW Mesh Network",
   "reh4mat-ecosystem": "Catalogue field",
   "tech-infrastructure": "Migration path",
   "telegram-auth-bridge": "Signed signal",
 };
 
 export function CaseArtwork({ id, index, label }: { id: ArtworkId; index: string; label?: string }) {
+  const isKeySnap = id === "keysnap-robotics" || id === "reh4mat-ecosystem";
+  const isMES = id === "wfm-industrial-mes" || id === "tech-infrastructure";
+  const isMesh = id === "embedded-mesh-iot" || id === "telegram-auth-bridge";
+
   return (
-    <div className={`case-art case-art--${id === "reh4mat-ecosystem" ? "reh4mat" : id === "tech-infrastructure" ? "migration" : "telegram"}`} aria-hidden="true">
+    <div className={`case-art case-art--${isKeySnap ? "reh4mat" : isMES ? "migration" : "telegram"}`} aria-hidden="true">
       <span className="case-art__corner case-art__corner--top" />
       <span className="case-art__corner case-art__corner--bottom" />
       <span className="case-art__index">{index}</span>
       <span className="case-art__label">{label ?? LABELS[id]}</span>
-      {id === "reh4mat-ecosystem" && (
+      {isKeySnap && (
         <svg viewBox="0 0 720 420" fill="none" preserveAspectRatio="xMidYMid slice">
           <g className="art-stroke" strokeWidth="1">
             <path d="M0 84H720M0 168H720M0 252H720M0 336H720" opacity=".38" />
@@ -26,7 +39,7 @@ export function CaseArtwork({ id, index, label }: { id: ArtworkId; index: string
           <circle className="art-fill" cx="280" cy="72" r="9" /><circle className="art-fill" cx="492" cy="156" r="9" /><circle className="art-fill" cx="640" cy="54" r="9" />
         </svg>
       )}
-      {id === "tech-infrastructure" && (
+      {isMES && (
         <svg viewBox="0 0 720 420" fill="none" preserveAspectRatio="xMidYMid slice">
           <g className="art-stroke" strokeWidth="1" opacity=".42"><path d="M0 91H720M0 210H720M0 329H720" /><path d="M150 0V420M360 0V420M570 0V420" /></g>
           <path className="art-stroke" d="M38 315C132 315 138 105 236 105C331 105 332 258 426 258C520 258 523 55 682 55" strokeWidth="3" />
@@ -34,7 +47,7 @@ export function CaseArtwork({ id, index, label }: { id: ArtworkId; index: string
           <g className="art-stroke" strokeWidth="1.5"><path d="M90 361H213M482 319H642" /><path d="M213 350V372M482 308V330" /></g>
         </svg>
       )}
-      {id === "telegram-auth-bridge" && (
+      {isMesh && (
         <svg viewBox="0 0 720 420" fill="none" preserveAspectRatio="xMidYMid slice">
           <g className="art-stroke" strokeWidth="1" opacity=".42"><circle cx="360" cy="210" r="70" /><circle cx="360" cy="210" r="132" /><circle cx="360" cy="210" r="200" /></g>
           <path className="art-stroke" d="M80 260L270 214L360 117L489 218L640 135" strokeWidth="3" />

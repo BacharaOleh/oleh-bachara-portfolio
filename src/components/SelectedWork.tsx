@@ -5,25 +5,25 @@ import { CaseArtwork } from "@/components/CaseArtwork";
 
 const COPY = {
   en: {
-    eyebrow: "Selected work",
-    title: "Three examples of work where technical decisions changed the usefulness of a platform.",
-    read: "Read case study",
-    caption: "System abstracts / each mark corresponds to the thinking behind the case.",
+    eyebrow: "Selected systems",
+    title: "Three engineering systems where architecture, firmware and mechanics meet.",
+    read: "Read system case",
+    caption: "System abstracts / each mark corresponds to the engineering thinking behind the case.",
     projects: [
-      { id: "reh4mat-ecosystem", number: "01", title: "Reh4mat — product catalogue ecosystem", description: "Improving a group of corporate websites and product catalogues across PL, UA and EU markets.", result: "+40% organic traffic reported for the main site during the relevant measurement period." },
-      { id: "tech-infrastructure", number: "02", title: "Platform migration & performance recovery", description: "Planning and supporting platform migrations while reducing page weight and mobile performance bottlenecks.", result: "Selected mobile pages improved from approximately 45 to 90+ in PageSpeed testing." },
-      { id: "telegram-auth-bridge", number: "03", title: "Telegram authentication integration", description: "A PHP-based authentication and webhook integration connecting a Telegram flow with a web application.", result: "Signed payload validation, session handling and database synchronization." },
+      { id: "keysnap-robotics", number: "01", title: "KeySnap AI — autonomous key-cutting kiosk", description: "Precision CNC robotics, automatic blank feeding, cyclone extraction, and Raspberry Pi edge gateway.", result: "FTR ≥ 98.5%, cycle time ≤ 60s, unit CAPEX reduced to ≤ 25k PLN via DFM." },
+      { id: "wfm-industrial-mes", number: "02", title: "WFM & Industrial MES Platform", description: "Real-time production dispatching, React 19 Canvas floor plan, and machine telemetry streaming.", result: "End-to-end dispatching with same-day parcel dispatch SLA under 12 hours." },
+      { id: "embedded-mesh-iot", number: "03", title: "Distributed Embedded Mesh & Edge IoT", description: "Zero-router P2P wireless mesh on ESP32-C6 via ESP-NOW with RS485 and Wiegand integration.", result: "Sub-10ms packet delivery and ≥ 99.2% uptime across harsh factory environments." },
     ],
   },
   pl: {
-    eyebrow: "Wybrane realizacje",
-    title: "Trzy projekty, w których decyzje techniczne wpłynęły na użyteczność platformy.",
-    read: "Zobacz case study",
-    caption: "Abstrakty systemowe / każdy znak odpowiada sposobowi myślenia stojącemu za casem.",
+    eyebrow: "Wybrane systemy",
+    title: "Trzy systemy inżynierskie, w których łączą się architektura, firmware i mechanika.",
+    read: "Zobacz studium przypadku",
+    caption: "Abstrakty systemowe / każdy znak odpowiada sposobowi myślenia inżynierskiego stojącemu za projektem.",
     projects: [
-      { id: "reh4mat-ecosystem", number: "01", title: "Reh4mat — ekosystem katalogów produktów", description: "Rozwój grupy serwisów korporacyjnych i katalogów produktów dla rynków PL, UA i UE.", result: "+40% ruchu organicznego na głównej stronie w opisywanym okresie pomiarowym." },
-      { id: "tech-infrastructure", number: "02", title: "Migracja platformy i poprawa wydajności", description: "Planowanie i wsparcie migracji platform wraz z ograniczaniem wagi stron i problemów mobilnych.", result: "Na wybranych stronach mobilnych wynik PageSpeed wzrósł z około 45 do 90+." },
-      { id: "telegram-auth-bridge", number: "03", title: "Integracja uwierzytelniania Telegram", description: "Integracja oparta na PHP, łącząca proces logowania Telegram z aplikacją webową i webhookami.", result: "Walidacja podpisanych danych, obsługa sesji i synchronizacja bazy danych." },
+      { id: "keysnap-robotics", number: "01", title: "KeySnap AI — autonomiczny kiosk CNC", description: "Precyzyjna mechanika CNC, automatyczne podawanie surówek, odciąg wiórów i brzegowe Raspberry Pi.", result: "FTR ≥ 98.5%, czas cyklu ≤ 60s, redukcja CAPEX do ≤ 25k PLN dzięki DFM." },
+      { id: "wfm-industrial-mes", number: "02", title: "WFM & Przemysłowa Platforma MES", description: "Zarządzanie produkcją live, plan hali na React 19 Canvas i asynchroniczne kolejkowanie maszyn.", result: "Kompletny конвеєр zleceń z czasem realizacji wysyłki poniżej 12 godzin." },
+      { id: "embedded-mesh-iot", number: "03", title: "Rozproszony Mesh Wbudowany & Edge IoT", description: "Bezrouterowa sieć kratowa P2P na ESP32-C6 (ESP-NOW) z magistralą RS485 i protokołem Wiegand.", result: "Opóźnienia pakietów <10ms i dostępność ≥ 99.2% w warunkach przemysłowych." },
     ],
   },
 } as const;

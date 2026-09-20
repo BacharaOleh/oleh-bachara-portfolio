@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         },
         body: JSON.stringify({
           from: "Portfolio Contact Form <onboarding@resend.dev>",
-          to: ["olegbachara@gmail.com"],
+          to: ["m.pnikut@gmail.com"],
           subject: `NEW INQUIRY: ${projectType} from ${name}`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; background: #08090a; color: #f7f8f8;">

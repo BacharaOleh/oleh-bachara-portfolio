@@ -1,8 +1,20 @@
 import type { Lang } from "@/data/portfolio-data";
 
 const COPY = {
-  en: { eyebrow: "About", title: "Development, product content and measurement — treated as one system.", body: "I am a Computer Science Engineer (2023) and M.Sc. in Management (2025), both from PANS in Jarosław. Since 2021, I have worked across web development and technical marketing: building with WordPress/PHP, structuring product content, improving performance and using analytics to make better decisions.", facts: ["WordPress / PHP", "Product catalogues", "Performance & migrations", "GA4 / Search Console"], footnote: "Polish, Ukrainian and Russian — native · English — working proficiency" },
-  pl: { eyebrow: "O mnie", title: "Rozwój, treść produktowa i pomiar — traktowane jako jeden system.", body: "Jestem inżynierem informatyki (2023) oraz magistrem zarządzania (2025), PANS w Jarosławiu. Od 2021 roku pracuję na styku rozwoju webowego i marketingu technicznego: tworzę w WordPress/PHP, porządkuję treść produktową, poprawiam wydajność i wykorzystuję analitykę do podejmowania lepszych decyzji.", facts: ["WordPress / PHP", "Katalogi produktów", "Wydajność i migracje", "GA4 / Search Console"], footnote: "Polski, ukraiński i rosyjski — języki ojczyste · angielski — poziom roboczy" },
+  en: {
+    eyebrow: "About",
+    title: "From microcontrollers and CNC mechanics to high-concurrency cloud and web systems.",
+    body: "I hold a Master's degree (Magister) and combine 10+ years of family domain heritage in precision lock & key mechanics with modern IoT and software engineering. I design hardware kiosks, program low-latency ESP-NOW mesh networks on ESP32-C6, build Raspberry Pi industrial edge gateways, and engineer full-stack MES systems with Python/FastAPI and React 19 Canvas.",
+    facts: ["ESP32-C6 & ESP-NOW Mesh", "CNC & Robotics (±0.05 mm)", "Industrial MES (FastAPI & React 19)", "10+ Yrs Locksmith Domain Expertise"],
+    footnote: "Polish — fluent · Ukrainian — native · English — technical B2",
+  },
+  pl: {
+    eyebrow: "O mnie",
+    title: "Od mikrokontrolerów i mechaniki CNC po wysokowydajne systemy chmurowe i webowe.",
+    body: "Posiadam wykształcenie wyższe magisterskie oraz ponad 10-letnie rodzinne zaplecze branżowe w mechanice precyzyjnej i systemach zamkowych. Projektuję autonomiczne automaty, programuję sieci mesh ESP-NOW na ESP32-C6, buduję przemysłowe bramki brzegowe Raspberry Pi oraz tworzę systemy MES w oparciu o Python/FastAPI i React 19 Canvas.",
+    facts: ["ESP32-C6 & Mesh ESP-NOW", "CNC i Robotyka (±0.05 mm)", "Przemysłowy MES (FastAPI & React 19)", "10+ lat wiedzy domenowej"],
+    footnote: "Polski — płynny · Ukraiński — ojczysty · Angielski — techniczny B2",
+  },
 } as const;
 
 export function About({ lang }: { lang: Lang }) {

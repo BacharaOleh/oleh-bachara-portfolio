@@ -32,35 +32,39 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://oleh-bachara-portfolio-zeta.vercel.app"),
-  title: "Oleh Bachara — Web Developer for Product Platforms",
+  title: "Roman Deyneko — Lead Hardware, Embedded & Full-Stack Architect",
   description:
-    "Portfolio of Oleh Bachara — Web Developer working across WordPress/PHP, product catalogues, performance and technical measurement.",
+    "Portfolio of Roman Deyneko — CTO & Lead Architect across ESP32-C6 firmware, robotics CNC, ESP-NOW mesh, Raspberry Pi, and industrial MES platforms.",
   keywords: [
-    "Web Developer",
-    "Technical Marketing Specialist",
-    "WordPress Developer",
-    "PHP Developer",
-    "Telegram API",
-    "PageSpeed Optimization",
-    "Oleh Bachara",
+    "Hardware Engineer",
+    "Embedded Systems",
+    "ESP32-C6",
+    "ESP-NOW Mesh",
+    "Robotics",
+    "CNC Machining",
+    "MES Architecture",
+    "Python FastAPI",
+    "React 19",
+    "Raspberry Pi",
+    "Roman Deyneko",
     "Poland",
-    "Jarosław",
+    "Przechlewo",
   ],
-  authors: [{ name: "Oleh Bachara" }],
-  creator: "Oleh Bachara",
+  authors: [{ name: "Roman Deyneko" }],
+  creator: "Roman Deyneko",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Oleh Bachara — Web Developer for Product Platforms",
-    description: "WordPress/PHP, product catalogues, performance and technical measurement.",
-    siteName: "Oleh Bachara Portfolio",
+    title: "Roman Deyneko — Lead Hardware, Embedded & Full-Stack Architect",
+    description: "ESP32-C6 firmware, robotics CNC, ESP-NOW mesh, Raspberry Pi edge gateways, and industrial MES platforms.",
+    siteName: "Roman Deyneko Portfolio",
     url: "https://oleh-bachara-portfolio-zeta.vercel.app",
     images: [
       {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Oleh Bachara — Web Developer for Product Platforms",
+        alt: "Roman Deyneko — Lead Hardware, Embedded & Full-Stack Architect",
       },
     ],
   },
@@ -68,6 +72,8 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
 };
+
+import { VisitorTracker } from "@/components/VisitorTracker";
 
 export default function RootLayout({
   children,
@@ -80,28 +86,28 @@ export default function RootLayout({
       {
         "@type": "Person",
         "@id": "https://oleh-bachara-portfolio-zeta.vercel.app/#person",
-        "name": "Oleh Bachara",
-        "jobTitle": "Web Developer for Product Platforms",
+        "name": "Roman Deyneko",
+        "jobTitle": "Lead Hardware, Embedded & Full-Stack Architect",
         "url": "https://oleh-bachara-portfolio-zeta.vercel.app",
         "sameAs": [
-          "https://linkedin.com/in/olegh-bachara",
-          "https://github.com/olegb",
-          "https://t.me/olegh_bachara"
+          "https://github.com/NeKoRoM"
         ],
         "knowsAbout": [
-          "Web Engineering",
-          "PHP",
-          "WordPress Custom Themes",
-          "Telegram API",
-          "Google Analytics 4",
-          "PageSpeed Optimization"
+          "Embedded Systems",
+          "ESP32-C6",
+          "ESP-NOW Wireless Mesh",
+          "Robotics & CNC Machining",
+          "Raspberry Pi Edge Gateways",
+          "Manufacturing Execution Systems (MES)",
+          "Python FastAPI",
+          "React 19"
         ]
       },
       {
         "@type": "WebSite",
         "@id": "https://oleh-bachara-portfolio-zeta.vercel.app/#website",
         "url": "https://oleh-bachara-portfolio-zeta.vercel.app",
-        "name": "Oleh Bachara Portfolio"
+        "name": "Roman Deyneko Portfolio"
       }
     ]
   };
@@ -109,6 +115,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark scroll-smooth ${dmSans.variable} ${newsreader.variable} ${ibmPlexMono.variable}`}>
       <body className="bg-[#11100e] text-[#eeece5] antialiased overflow-x-hidden min-h-screen">
+        <VisitorTracker />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

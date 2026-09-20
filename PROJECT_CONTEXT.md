@@ -1,18 +1,18 @@
-# PROJECT CONTEXT: oleh-bachara-portfolio (Web Developer for Product Platforms)
+# PROJECT CONTEXT: oleh-bachara-portfolio / roman-deyneko (Hardware, Embedded & Full-Stack)
 
-> **Версія проєкту:** `v0.1.0` (Осінь 2026 / Next.js Portfolio & Case Studies)  
+> **Версія проєкту:** `v0.2.0` (Осінь 2026 / Branch: `roman-deyneko`)  
 > **Локація:** `/Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio`  
-> **Головна мета:** Презентація комерційного досвіду розробки продуктових платформ, технічного SEO, WordPress/PHP та продуктових каталогів для Олега Бачари (член команди `czoDelat`).  
-> **Зв'язок з екосистемою:** Інтегровано з `czoDelat` ([`team/roster.md`](../czoDelat/team/roster.md)).
+> **Головна мета гілки `roman-deyneko`:** Персональне інженерне портфоліо Романа Дейнека (CTO, Lead Hardware, Embedded Systems & Full-Stack Architect, член команди `czoDelat`).  
+> **Зв'язок з екосистемою:** Інтегровано з `czoDelat` ([`team/roster.md`](../czoDelat/team/roster.md)) та `startup` ([`profiles/current_startup/team.md`](../startup/profiles/current_startup/team.md)).
 
 ---
 
 ## 1. Контекст та Позиціонування
-- **Особа:** Олег Бачара (Oleh Bachara), Ярослав, Підкарпатське воєводство, Польща.
+- **Особа:** Роман Дейнеко (Roman Deyneko / @roman / @neko), Пшехлево, Поморське воєводство, Польща.
 - **Головна посада:**
-  - **EN:** Web Developer for Product Platforms & Technical Growth
-  - **PL:** Web Developer — platformy produktowe i rozwój techniczny
-- **Позиціонування:** Практичний web-розробник комерційних веб-платформ (WordPress/PHP, індивідуальні каталоги, технічне SEO, продуктивність Core Web Vitals / PageSpeed 90+, аналітика GA4/GSC). Уникати штучно завищених назв (наприклад, "Systems Architect") без підтвердження.
+  - **EN:** CTO / Lead Hardware, Embedded Systems & Full-Stack Architect
+  - **PL:** Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack (CTO)
+- **Позиціонування:** Інженер-мехатронік, архітектор вбудованих систем та Full-Stack розробник. Поєднує 10+ років галузевого ноу-хау у виготовленні ключів та замкових систем із сучасною робототехнікою, низьколатентними бездротовими mesh-мережами (ESP-NOW на ESP32-C6), edge-шлюзами на Raspberry Pi та промисловими MES-платформами (FastAPI + React 19 Canvas).
 
 ---
 
@@ -29,7 +29,8 @@
 ```text
 📁 oleh-bachara-portfolio/
 ├── 📄 PROJECT_CONTEXT.md                  # Онтологія та інструкції системи для ШІ
-├── 📄 OLEH_BACHARA_PROFILE_SOURCE_OF_TRUTH.md # Фактологічне першоджерело профілю (без вигадок)
+├── 📄 ROMAN_DEYNEKO_PROFILE_SOURCE_OF_TRUTH.md # Фактологічне першоджерело профілю Романа Дейнека
+├── 📄 OLEH_BACHARA_PROFILE_SOURCE_OF_TRUTH.md # Джерело профілю Олега Бачари (гілка main)
 ├── 📄 PORTFOLIO_CONTENT_FOUNDATION.md     # Редакційний фундамент та структура сайту
 ├── 📄 README.md                           # Запуск та розгортання проєкту
 ├── 📄 package.json                        # Залежності та скрипти
@@ -40,14 +41,23 @@
 │   │   ├── 📄 layout.tsx                  # Базовий макет (шрифти, метадані)
 │   │   ├── 📄 page.tsx                    # Головна сторінка (Hero, SelectedWork, About, Contact)
 │   │   ├── 📄 globals.css                 # Стилі Tailwind v4
-│   │   ├── 📁 api/                        # API routes
+│   │   ├── 📁 admin/                      # Кабінет адміністратора (auth gate, дашборд, проєкти, ліди, телеметрія, відвідувачі)
+│   │   │   ├── 📄 layout.tsx              # Макет адмін-панелі
+│   │   │   └── 📄 page.tsx                # Інтерфейс кабінету адміна з вкладками та PIN/Telegram авторизацією
+│   │   ├── 📁 api/                        # API routes (ping, send-email, telegram-auth, visitors)
+│   │   │   └── 📁 visitors/               # Облік візитів та фільтрація пристроїв адміністратора
 │   │   └── 📁 projects/                   # Сторінки окремих кейсів
 │   │
 │   ├── 📁 components/                     # Компоненти інтерфейсу
-│   │   ├── 📄 Navbar.tsx                  # Навігація та перемикач мов (EN/PL)
-│   │   ├── 📄 Hero.tsx                    # Головний екран
-│   │   ├── 📄 SelectedWork.tsx            # Добірка ключових проектів/кейсів
-│   │   ├── 📄 About.tsx                   # Блок "Про мене", освіта, стек
+│   │   ├── 📄 Navbar.tsx                  # Навігація з кнопкою швидкого доступу ⚡ Recruiter Mode
+│   │   ├── 📄 Hero.tsx                    # Головний екран з метричним баром та Fast-Track кнопками
+│   │   ├── 📄 VisitorTracker.tsx          # Клієнтський трекер візитів із розпізнаванням пристроїв адміна
+│   │   ├── 📄 RecruiterFitMatcher.tsx     # Інтерактивний калькулятор відповідності вакансії
+│   │   ├── 📄 StickyRecruiterBar.tsx      # Плаваючий бар швидких дій для рекрутерів
+│   │   ├── 📄 RecruiterModal.tsx          # 1-хвилинне резюме для HR (ATS snapshot)
+│   │   ├── 📄 SelectedWork.tsx            # Добірка ключових проектів/кейсів (CAR framework)
+│   │   ├── 📄 ValueProposition.tsx       # 4 стовпи бізнес-цінності та ROI (трафік, швидкість, міграції)
+│   │   ├── 📄 About.tsx                   # Блок "Про мене", освіта, кваліфікація
 │   │   ├── 📄 Contact.tsx                 # Форма та канали зв'язку
 │   │   ├── 📄 Footer.tsx                  # Футер сайту
 │   │   └── 📁 ui/                         # Базові UI примітиви
@@ -64,6 +74,6 @@
 ---
 
 ## 4. Джерела Правди та Правила Роботи
-1. **Source of Truth:** Будь-які нові тексти, метрики чи кейси мають базуватися виключно на [`OLEH_BACHARA_PROFILE_SOURCE_OF_TRUTH.md`](file:///Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio/OLEH_BACHARA_PROFILE_SOURCE_OF_TRUTH.md) та [`PORTFOLIO_CONTENT_FOUNDATION.md`](file:///Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio/PORTFOLIO_CONTENT_FOUNDATION.md). Не вигадувати досягнень, технологій чи відгуків.
+1. **Source of Truth:** Будь-які нові тексти, метрики чи кейси в цій гілці мають базуватися виключно на [`ROMAN_DEYNEKO_PROFILE_SOURCE_OF_TRUTH.md`](file:///Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio/ROMAN_DEYNEKO_PROFILE_SOURCE_OF_TRUTH.md). Не вигадувати досягнень, технологій чи відгуків.
 2. **Безпека інфраструктури:** Жодного прямого підключення до зовнішніх серверів чи Raspberry Pi з цього робочого простору.
 3. **Мовна підтримка:** Двомовність EN / PL зберігається в `portfolio-data.ts` та синхронізується між компонентами.

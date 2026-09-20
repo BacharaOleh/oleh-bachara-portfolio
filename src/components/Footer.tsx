@@ -1,6 +1,7 @@
 "use client";
 
-import { Mail, ArrowUp, Phone } from "lucide-react";
+import Link from "next/link";
+import { Mail, ArrowUp, Phone, Lock } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/portfolio-data";
 import { BrandMark } from "@/components/BrandMark";
 
@@ -43,9 +44,9 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <BrandMark />
             <div>
-              <div className="font-medium text-[#eeece5] text-sm">Oleh Bachara</div>
+              <div className="font-medium text-[#eeece5] text-sm">Roman Deyneko</div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-[0.12em] text-[#777168]">
-                Web Developer for Product Platforms
+                Lead Hardware & Full-Stack Architect
               </div>
             </div>
           </div>
@@ -76,7 +77,18 @@ export function Footer() {
 
         <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-[#777168] font-mono uppercase tracking-[0.1em]">
           <div>&copy; {year} Oleh Bachara. Jarosław, Podkarpackie, Poland 🇵🇱</div>
-          <div>Selected work / 2026</div>
+          <div className="flex items-center gap-3">
+            <span>Selected work / 2026</span>
+            <span className="text-white/20">|</span>
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 text-[#a39c91] hover:text-[#c4a160] transition-colors py-1 px-2 rounded border border-white/[0.08] hover:border-[#c4a160]/40 bg-white/[0.02]"
+              title="Кабінет адміністратора"
+            >
+              <Lock size={10} className="text-[#c4a160]" />
+              <span>Admin Portal</span>
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
