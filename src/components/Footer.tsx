@@ -38,7 +38,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t editorial-rule py-9 relative z-10">
+    <footer className="border-t editorial-rule pt-9 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] sm:pb-12 relative z-10 overflow-hidden w-full max-w-full">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
             {social.map(({ href, Icon, label }) => (
               <a
                 key={label}
@@ -59,7 +59,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-8 h-8 border border-white/[0.12] flex items-center justify-center text-[#a39c91] hover:text-[#eeece5] hover:border-white/40 transition-colors"
+                className="w-11 h-11 sm:w-8 sm:h-8 rounded-lg border border-white/[0.12] flex items-center justify-center text-[#a39c91] hover:text-[#eeece5] hover:border-white/40 active:scale-95 transition-all"
               >
                 <Icon />
               </a>
@@ -67,7 +67,7 @@ export function Footer() {
 
             <button
               onClick={scrollToTop}
-              className="w-8 h-8 border border-white/[0.12] flex items-center justify-center text-[#a39c91] hover:text-[#eeece5] hover:border-white/40 transition-colors ml-1 cursor-pointer"
+              className="w-11 h-11 sm:w-8 sm:h-8 rounded-lg border border-white/[0.12] flex items-center justify-center text-[#a39c91] hover:text-[#eeece5] hover:border-white/40 active:scale-95 transition-all ml-1 cursor-pointer"
               aria-label="Back to top"
             >
               <ArrowUp size={16} />
@@ -75,17 +75,24 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-[#777168] font-mono uppercase tracking-[0.1em]">
-          <div>&copy; {year} Oleh Bachara. Jarosław, Podkarpackie, Poland 🇵🇱</div>
-          <div className="flex items-center gap-3">
+        <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-[#777168] font-mono uppercase tracking-[0.1em] text-center sm:text-left">
+          <div>&copy; {year} Roman Deyneko. Przechlewo, Pomorskie, Poland 🇵🇱</div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <span>Selected work / 2026</span>
             <span className="text-white/20">|</span>
             <Link
+              href="/cv"
+              className="min-h-[44px] inline-flex items-center px-1 text-[#a39c91] hover:text-[#c4a160] transition-colors py-1"
+            >
+              CV (PDF)
+            </Link>
+            <span className="text-white/20">|</span>
+            <Link
               href="/admin"
-              className="inline-flex items-center gap-1.5 text-[#a39c91] hover:text-[#c4a160] transition-colors py-1 px-2 rounded border border-white/[0.08] hover:border-[#c4a160]/40 bg-white/[0.02]"
+              className="min-h-[44px] inline-flex items-center gap-1.5 text-[#a39c91] hover:text-[#c4a160] transition-colors py-1.5 px-2.5 rounded-lg border border-white/[0.08] hover:border-[#c4a160]/40 bg-white/[0.02]"
               title="Кабінет адміністратора"
             >
-              <Lock size={10} className="text-[#c4a160]" />
+              <Lock size={11} className="text-[#c4a160]" />
               <span>Admin Portal</span>
             </Link>
           </div>

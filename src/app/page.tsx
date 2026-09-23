@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { RecruiterFitMatcher } from "@/components/RecruiterFitMatcher";
+import { ExpoFocusNavigator } from "@/components/ExpoFocusNavigator";
 import { SelectedWork } from "@/components/SelectedWork";
+import { RecruiterFitMatcher } from "@/components/RecruiterFitMatcher";
 import { ValueProposition } from "@/components/ValueProposition";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
@@ -21,25 +22,29 @@ export default function Home() {
   const closeRecruiterModal = () => setIsRecruiterModalOpen(false);
 
   return (
-    <div className="site-shell min-h-screen overflow-x-hidden">
+    <div className="site-shell min-h-screen w-full max-w-full overflow-x-hidden overflow-x-clip">
       <div className="site-grain" aria-hidden="true" />
-      <div className="relative pb-16">
+      <div className="relative w-full max-w-full overflow-x-hidden overflow-x-clip">
         <Navbar
           lang={lang}
           setLang={setLang}
           onOpenRecruiterModal={openRecruiterModal}
         />
-        <main>
+        <main className="w-full max-w-full overflow-x-hidden overflow-x-clip">
           <Hero
             lang={lang}
             onOpenRecruiterModal={openRecruiterModal}
           />
-          <RecruiterFitMatcher
+          <ExpoFocusNavigator
             lang={lang}
             onOpenRecruiterModal={openRecruiterModal}
           />
           <SelectedWork
             lang={lang}
+          />
+          <RecruiterFitMatcher
+            lang={lang}
+            onOpenRecruiterModal={openRecruiterModal}
           />
           <ValueProposition
             lang={lang}

@@ -57,8 +57,9 @@ export async function POST(req: Request) {
     console.log("==========================================");
 
     return NextResponse.json({ success: true, mode: "logged" });
-  } catch (error: any) {
-    console.error("Contact Form API Error:", error);
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("Contact Form API Error:", err.message);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

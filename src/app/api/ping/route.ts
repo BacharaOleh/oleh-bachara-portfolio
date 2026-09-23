@@ -12,8 +12,7 @@ interface PingResult {
 }
 
 const DEFAULT_TARGETS = [
-  { domain: "reh4mat.com", url: "https://reh4mat.com" },
-  { domain: "reh4mat.pl", url: "https://reh4mat.pl" },
+  { domain: "cloudflare.com", url: "https://1.1.1.1" },
   { domain: "api.github.com", url: "https://api.github.com" },
   { domain: "httpbin.org", url: "https://httpbin.org/get" },
 ];

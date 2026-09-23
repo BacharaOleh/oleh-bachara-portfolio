@@ -14,30 +14,30 @@ export interface Stat {
 export const PERSPECTIVE_STATS: Record<Perspective, Record<"en" | "pl", Stat[]>> = {
   engineer: {
     en: [
-      { value: "ESP-NOW", label: "Zero-Router Wireless Mesh", icon: "Radio" },
-      { value: "±0.05 mm", label: "CNC Cutting Precision", icon: "Crosshair" },
-      { value: "98.5%+", label: "First-Time-Right (FTR)", icon: "Shield" },
+      { value: "<10ms", label: "Low-Latency Industrial Mesh", icon: "Radio" },
+      { value: "Factory I/O", label: "3D Digital Twin Simulation", icon: "Cpu" },
+      { value: "100%", label: "Zero Punch Loss Standard", icon: "Shield" },
       { value: "FastAPI", label: "Async MES Architecture", icon: "Database" },
     ],
     pl: [
-      { value: "ESP-NOW", label: "Bezrouterowa Sieć Mesh", icon: "Radio" },
-      { value: "±0.05 mm", label: "Precyzja Frezowania CNC", icon: "Crosshair" },
-      { value: "98.5%+", label: "First-Time-Right (FTR)", icon: "Shield" },
+      { value: "<10ms", label: "Niskolatencyjna Sieć Mesh", icon: "Radio" },
+      { value: "Factory I/O", label: "Symulacja Cyfrowego Bliźniaka", icon: "Cpu" },
+      { value: "100%", label: "Standard Zero Punch Loss", icon: "Shield" },
       { value: "FastAPI", label: "Architektura Asynchroniczna MES", icon: "Database" },
     ],
   },
   business: {
     en: [
-      { value: "≤25k PLN", label: "Unit CAPEX via DFM", icon: "TrendingDown" },
-      { value: "≤60 s", label: "Cycle Time per Unit", icon: "Clock" },
-      { value: "99.2%+", label: "Autonomous Kiosk Uptime", icon: "Server" },
-      { value: "10+ Yrs", label: "Locksmith Domain Know-how", icon: "Award" },
+      { value: "+33% OEE", label: "Plant Throughput Increase", icon: "TrendingUp" },
+      { value: "71.1k PLN", label: "Annual Gas Fuel Savings", icon: "Zap" },
+      { value: "-40%", label: "Unscheduled Downtime Cut", icon: "ShieldCheck" },
+      { value: "≥99.2%", label: "Industrial Edge Uptime", icon: "Server" },
     ],
     pl: [
-      { value: "≤25k PLN", label: "CAPEX Urządzenia (DFM)", icon: "TrendingDown" },
-      { value: "≤60 s", label: "Czas Cyklu na Jednostkę", icon: "Clock" },
-      { value: "99.2%+", label: "Dostępność Kiosków (Uptime)", icon: "Server" },
-      { value: "10+ Lat", label: "Rodzinnego Know-how Branży", icon: "Award" },
+      { value: "+33% OEE", label: "Wzrost Przepustowości Linii", icon: "TrendingUp" },
+      { value: "71.1k PLN", label: "Roczne Oszczędności Gazu", icon: "Zap" },
+      { value: "-40%", label: "Redukcja Mikroprzestojów", icon: "ShieldCheck" },
+      { value: "≥99.2%", label: "Dostępność Bramek Edge", icon: "Server" },
     ],
   },
 };
@@ -53,36 +53,36 @@ export const VALUE_CARD_PERSPECTIVES: Record<Perspective, Record<"en" | "pl", Re
   engineer: {
     en: {
       "hardware-robotics": {
-        metric: "CNC/ЧПК",
-        metricLabel: "Precision Robotics",
-        description: "Custom automated key-cutting kinematics, vacuum and mechanical clamp modules, cyclone chip evacuation, and precision CNC milling (±0.05 mm).",
+        metric: "Factory I/O",
+        metricLabel: "Virtual Commissioning",
+        description: "Virtual commissioning in Factory I/O via Siemens PLCSIM & Modbus TCP, CAD/CAM mechanical modeling (AutoCAD, Fusion 360, SolidWorks, EPLAN), CNC laser cutting, and UR-5 robotic sorting.",
       },
       "embedded-mesh": {
-        metric: "ESP32-C6",
-        metricLabel: "Low-Latency Mesh",
-        description: "ESP-NOW P2P mesh network architecture, Raspberry Pi industrial edge gateway, RS485 bus, and Wiegand protocol readers with sub-10ms packet delivery.",
+        metric: "C/C++ & FreeRTOS",
+        metricLabel: "Industrial IoT Mesh",
+        description: "Embedded C/C++ firmware, zero-router P2P mesh architecture (ESP-NOW), Linux industrial edge gateways, and sub-10ms packet delivery in harsh RF environments.",
       },
       "industrial-mes": {
         metric: "MES/Web",
         metricLabel: "Real-time Telemetry",
-        description: "Python FastAPI async queues, React 19 Canvas floor plan rendering, spindle RPM & tool wear monitoring, and automated cutting dispatch pipelines.",
+        description: "Python FastAPI async queues, React 19 Canvas floor plan rendering, spindle RPM & tool wear monitoring, and automated production dispatch pipelines.",
       },
       "system-reliability": {
-        metric: "FTR 98.5%",
-        metricLabel: "Zero-Failure Standard",
-        description: "Stage-Gate R&D milestones from TRL 3 to TRL 8, statistical quality assurance, predictive tool wear analytics, and CE Machinery Directive compliance.",
+        metric: "Zero-Defect",
+        metricLabel: "Plant Commissioning",
+        description: "Control cabinet prefabrication (ZUT Kunzek), Android POS fiscal protocols (MostCentrService, RS-232/Bluetooth), and transactional Zero Punch Loss edge storage.",
       },
     },
     pl: {
       "hardware-robotics": {
-        metric: "CNC/Robotyka",
-        metricLabel: "Mechanika Precyzyjna",
-        description: "Autorska kinematyka automatów do dorabiania kluczy, moduły zacisków próżniowych i mechanicznych, odciąg wiórów oraz precyzyjne frezowanie CNC (±0.05 mm).",
+        metric: "Factory I/O",
+        metricLabel: "Wirtualne Uruchomienia",
+        description: "Wirtualne uruchomienia w Factory I/O (Siemens PLCSIM, Modbus TCP, OPC UA), projektowanie CAD/CAM (AutoCAD, Fusion 360, SolidWorks, EPLAN), cięcie laserowe CNC oraz robotyka UR-5.",
       },
       "embedded-mesh": {
-        metric: "ESP32-C6",
-        metricLabel: "Niskolatencyjny Mesh",
-        description: "Architektura sieci kratowej ESP-NOW P2P, przemysłowa bramka brzegowa Raspberry Pi, magistrala RS485 i czytniki Wiegand z czasem pakietu <10ms.",
+        metric: "C/C++ & FreeRTOS",
+        metricLabel: "Przemysłowy Mesh IoT",
+        description: "Oprogramowanie wbudowane C/C++, sieć kratowa P2P (ESP-NOW), przemysłowe bramki Linux Edge oraz czas dostarczania pakietów <10ms w trudnych warunkach zakłóceń.",
       },
       "industrial-mes": {
         metric: "MES/Web",
@@ -90,23 +90,23 @@ export const VALUE_CARD_PERSPECTIVES: Record<Perspective, Record<"en" | "pl", Re
         description: "Asynchroniczne kolejki Python FastAPI, wizualizacja planu hali na React 19 Canvas, telemetria wrzeciona i zużycia frezów oraz kolejkowanie zleceń.",
       },
       "system-reliability": {
-        metric: "FTR 98.5%",
-        metricLabel: "Niezawodność Systemowa",
-        description: "Realizacja kamieni milowych Stage-Gate od TRL 3 do TRL 8, statystyczna kontrola jakości, predykcja zużycia narzędzi i zgodność z Dyrektywą Maszynową CE.",
+        metric: "Zero Usterek",
+        metricLabel: "Uruchomienia Obiektowe",
+        description: "Prefabrykacja szaf sterowniczych (ZUT Kunzek), protokoły kas fiskalnych Android POS (MostCentrService, RS-232/Bluetooth) oraz standard bezstratnej rejestracji zdarzeń Zero Punch Loss.",
       },
     },
   },
   business: {
     en: {
       "hardware-robotics": {
-        metric: "≤25k PLN",
-        metricLabel: "Unit CAPEX",
-        description: "Design for Manufacturing (DFM) methodology replacing expensive machined blocks with adaptive 3D printing, cutting production costs by 45%.",
+        metric: "+33% OEE",
+        metricLabel: "Line Throughput",
+        description: "Industrial machine and PLC logic optimization (San-Pajda, Goodvalley) eliminating bottlenecks and delivering 71,124 PLN/year verified energy savings.",
       },
       "embedded-mesh": {
         metric: "99.2%+",
         metricLabel: "Network Uptime",
-        description: "Zero external Wi-Fi router dependency ensures continuous operation and kiosk telemetry even in degraded network conditions.",
+        description: "Zero external Wi-Fi router dependency ensures continuous operation and edge telemetry even in harsh factory conditions.",
       },
       "industrial-mes": {
         metric: "≤12h",
@@ -114,21 +114,21 @@ export const VALUE_CARD_PERSPECTIVES: Record<Perspective, Record<"en" | "pl", Re
         description: "Automated end-to-end pipeline from customer order to CNC machine queue enabling same-day parcel dispatch across courier networks.",
       },
       "system-reliability": {
-        metric: "10+ Yrs",
-        metricLabel: "Domain Heritage",
-        description: "10+ years of family locksmith mastery providing immediate access to key blank catalogs (Silca, JMA, Gerda), wear physics, and test locks.",
+        metric: "-40%",
+        metricLabel: "Downtime Cut",
+        description: "PLC algorithm refactoring, sensor debounce filters, and electrical interlocks eliminating micro-downtime across Goodvalley and San-Pajda production lines.",
       },
     },
     pl: {
       "hardware-robotics": {
-        metric: "≤25k PLN",
-        metricLabel: "CAPEX Urządzenia",
-        description: "Metodologia DFM (Design for Manufacturing) zastępująca kosztowne bloki frezowane drukiem 3D, redukująca koszt budowy automatu o 45%.",
+        metric: "+33% OEE",
+        metricLabel: "Przepustowość Linii",
+        description: "Optymalizacja maszyn i logiki PLC (Siemens S7) w San-Pajda i Goodvalley, eliminująca wąskie gardła i generująca 71 124 PLN/rok potwierdzonych oszczędności gazu.",
       },
       "embedded-mesh": {
         metric: "99.2%+",
         metricLabel: "Dostępność Sieci",
-        description: "Brak zależności od zewnętrznego routera Wi-Fi gwarantuje nieprzerwaną pracę i telemetrię kiosków w trudnych warunkach obiektowych.",
+        description: "Brak zależności od zewnętrznego routera Wi-Fi gwarantuje nieprzerwaną pracę i telemetrię węzłów w trudnych warunkach przemysłowych.",
       },
       "industrial-mes": {
         metric: "≤12h",
@@ -136,9 +136,9 @@ export const VALUE_CARD_PERSPECTIVES: Record<Perspective, Record<"en" | "pl", Re
         description: "Automatyczny przepływ od zamówienia klienta do kolejki obrabiarki CNC, umożliwiający wysyłkę tego samego dnia przez sieć paczkomatów.",
       },
       "system-reliability": {
-        metric: "10+ Lat",
-        metricLabel: "Zaplecze Branżowe",
-        description: "Ponad dekada rodzinnego doświadczenia ślusarskiego: dostęp do bazy surówek (Silca, JMA, Gerda), fizyki zużycia zamków i bazy testowej.",
+        metric: "-40%",
+        metricLabel: "Redukcja Przestojów",
+        description: "Refaktoring algorytmów PLC, filtry zakłóceń czujników i blokady elektryczne eliminujące mikroprzestoje na liniach produkcyjnych Goodvalley i San-Pajda.",
       },
     },
   },
@@ -197,28 +197,66 @@ export interface ValueCard {
   span?: "wide" | "tall" | "normal";
 }
 
+export type ExpoAlignmentId =
+  | "automation-plc"
+  | "embedded-mesh"
+  | "wfm-operations"
+  | "hardware-mobile"
+  | "world-of-ai"
+  | "hr-tech"
+  | "cyber-security"
+  | "data-center";
+
+export interface ExpoAlignment {
+  id: ExpoAlignmentId;
+  expoName: string;
+  badge: string;
+  vector: string;
+  challenge: string;
+  solution: string;
+  metric: string;
+  metricLabel: string;
+  stack: string[];
+  proofSystems: string[];
+  ctaText: string;
+  ctaTargetId: string;
+}
+
+export interface ConversionOffer {
+  id: "industrial" | "startup" | "recruiter";
+  targetAudience: string;
+  title: string;
+  description: string;
+  deliverables: string[];
+  badge: string;
+  actionText: string;
+  actionUrl: string;
+}
+
 // ─── CONTACT INFORMATION & SOCIAL LINKS ─────────────────────
 export const SOCIAL_LINKS = {
   linkedin: "https://linkedin.com/in/roman-deyneko",
   github: "https://github.com/NeKoRoM",
   email: "mailto:m.pnikut@gmail.com",
   telegram: "https://t.me/NeKoRoM",
-  phone: "+48 000 000 000",
+  phone: "+48 791 265 019",
+  tel: "tel:+48791265019",
+  whatsapp: "https://wa.me/48791265019",
 };
 
 // ─── STATS ──────────────────────────────────────────────────
 export const STATS: Record<"en" | "pl", Stat[]> = {
   en: [
-    { value: "98.5%+", label: "First-Time-Right (FTR)", icon: "Shield" },
-    { value: "≤60 s", label: "Cycle Time per Key", icon: "Clock" },
-    { value: "≤25k PLN", label: "Unit CAPEX via DFM", icon: "TrendingDown" },
-    { value: "10+ Yrs", label: "Domain Heritage & Know-how", icon: "Award" },
+    { value: "+33%", label: "Throughput Increase", icon: "TrendingUp" },
+    { value: "71.1k PLN", label: "Annual Gas Fuel Savings", icon: "Zap" },
+    { value: "-40%", label: "Unscheduled Downtime Cut", icon: "ShieldCheck" },
+    { value: "Factory I/O", label: "3D Virtual Commissioning", icon: "Cpu" },
   ],
   pl: [
-    { value: "98.5%+", label: "First-Time-Right (FTR)", icon: "Shield" },
-    { value: "≤60 s", label: "Czas Cyklu na Klucz", icon: "Clock" },
-    { value: "≤25k PLN", label: "CAPEX Urządzenia (DFM)", icon: "TrendingDown" },
-    { value: "10+ Lat", label: "Wiedzy i Doświadczenia Branżowego", icon: "Award" },
+    { value: "+33%", label: "Wzrost Wydajności Linii", icon: "TrendingUp" },
+    { value: "71.1k PLN", label: "Roczne Oszczędności Gazu", icon: "Zap" },
+    { value: "-40%", label: "Redukcja Mikroprzestojów", icon: "ShieldCheck" },
+    { value: "Factory I/O", label: "Wirtualne Uruchomienia 3D", icon: "Cpu" },
   ],
 };
 
@@ -226,100 +264,100 @@ export const STATS: Record<"en" | "pl", Stat[]> = {
 export const VALUE_CARDS: Record<"en" | "pl", ValueCard[]> = {
   en: [
     {
-      id: "web-engineering",
-      icon: "Code2",
-      title: "Web Platform Engineering & Custom PHP",
+      id: "hardware-robotics",
+      icon: "Crosshair",
+      title: "Industrial Automation, CAD/CAM & Factory I/O",
       description:
-        "Custom PHP themes and Gutenberg architecture with optimized SQL queries, lazy-loaded WebP assets, and schema.org structured data across 8+ corporate platforms.",
-      metric: "8+",
-      metricLabel: "Corporate Platforms",
-      tags: ["WordPress / PHP", "Custom Themes", "SQL Optimization", "Schema.org"],
+        "Virtual commissioning in Factory I/O via Siemens PLCSIM and Modbus TCP, mechanical CAD/CAM (AutoCAD, Fusion 360, SolidWorks, EPLAN), CNC laser cutting nesting, and UR-5 robotic sorting.",
+      metric: "Factory I/O",
+      metricLabel: "Virtual Commissioning",
+      tags: ["Factory I/O", "Siemens PLCSIM", "CAD/CAM", "CNC Laser", "UR-5 / Sick"],
       accentColor: "indigo",
       span: "wide",
     },
     {
-      id: "performance-speed",
-      icon: "Zap",
-      title: "Core Web Vitals & Radical PageSpeed",
+      id: "embedded-mesh",
+      icon: "Radio",
+      title: "Embedded C/C++, FreeRTOS & Industrial Mesh",
       description:
-        "Solving mobile performance bottlenecks and heavy payload issues, recovering low PageSpeed scores up to 90+ to protect conversion funnels from drop-offs.",
-      metric: "90+",
-      metricLabel: "PageSpeed Mobile",
-      tags: ["Core Web Vitals", "Asset Compression", "WebP / Lazy Loading", "Clean Code"],
+        "Production firmware on 32-bit MCUs (ESP32/STM32) and FreeRTOS: zero-router P2P wireless mesh architecture, industrial Linux edge gateways, RS485 fieldbuses, and sub-10ms packet delivery in harsh RF environments.",
+      metric: "<10ms",
+      metricLabel: "Packet Latency",
+      tags: ["Embedded C/C++", "FreeRTOS", "Industrial Wireless Mesh", "Edge Computing"],
       accentColor: "cyan",
       span: "normal",
     },
     {
-      id: "technical-marketing",
-      icon: "BarChart3",
-      title: "Technical SEO & Data-Driven Growth",
+      id: "industrial-mes",
+      icon: "Database",
+      title: "Real-Time Industrial MES & Digital Twin",
       description:
-        "Architecting clean semantic structures, automated GSC indexing, and GA4 custom event tracking that drove +40% organic traffic growth on flagship corporate platforms.",
-      metric: "+40%",
-      metricLabel: "Organic Traffic Surge",
-      tags: ["Technical SEO", "GA4 / GTM", "Search Console", "Funnel Analytics"],
+        "Python FastAPI async queues, React 19 Canvas floor plan rendering at 60 FPS, spindle RPM and tool wear telemetry streaming, and automated production dispatch pipelines.",
+      metric: "60 FPS",
+      metricLabel: "Canvas Digital Twin",
+      tags: ["Python FastAPI", "React 19 Canvas", "MES Dispatching", "Telemetry"],
       accentColor: "violet",
       span: "normal",
     },
     {
-      id: "infrastructure-reliability",
+      id: "system-reliability",
       icon: "Shield",
-      title: "Zero-Downtime Migrations & Integrations",
+      title: "System Reliability & Industrial Commissioning",
       description:
-        "Seamless server and multi-domain migrations, DNS/SSL management, and secure webhook integrations (Telegram Bot API with HMAC-SHA256 signatures).",
-      metric: "0%",
-      metricLabel: "Unplanned Downtime",
-      tags: ["Domain Migrations", "REST APIs", "Telegram Webhooks", "HMAC Security"],
+        "Control cabinet prefabrication (ZUT Kunzek), line commissioning & PLC optimization (Goodvalley, San-Pajda), Android POS fiscal protocols (MostCentrService), and Zero Punch Loss standard.",
+      metric: "-40%",
+      metricLabel: "Downtime Cut",
+      tags: ["Siemens S7", "Control Cabinets", "Android POS", "Zero Punch Loss"],
       accentColor: "emerald",
       span: "wide",
     },
   ],
   pl: [
     {
-      id: "web-engineering",
-      icon: "Code2",
-      title: "Inżynieria Platform Webowych & PHP",
+      id: "hardware-robotics",
+      icon: "Crosshair",
+      title: "Automatyka Przemysłowa, CAD/CAM & Factory I/O",
       description:
-        "Autorskie motywy PHP i architektura Gutenberg ze zoptymalizowanymi zapytaniami SQL, lazy-loadingiem WebP i mikrodanymi schema.org dla ponad 8 serwisów korporacyjnych.",
-      metric: "8+",
-      metricLabel: "Serwisów Korporacyjnych",
-      tags: ["WordPress / PHP", "Autorskie Motywy", "Optymalizacja SQL", "Schema.org"],
+        "Wirtualne uruchomienia w Factory I/O (Siemens PLCSIM, Modbus TCP, OPC UA), projektowanie CAD/CAM (AutoCAD, Fusion 360, SolidWorks, EPLAN), cięcie laserowe CNC oraz robotyka UR-5.",
+      metric: "Factory I/O",
+      metricLabel: "Wirtualne Uruchomienia",
+      tags: ["Factory I/O", "Siemens PLCSIM", "CAD/CAM", "Cięcie Laserowe", "UR-5 / Sick"],
       accentColor: "indigo",
       span: "wide",
     },
     {
-      id: "performance-speed",
-      icon: "Zap",
-      title: "Core Web Vitals & Maksymalna Szybkość",
+      id: "embedded-mesh",
+      icon: "Radio",
+      title: "Systemy Wbudowane C/C++, FreeRTOS & Mesh Przemysłowy",
       description:
-        "Eliminacja wąskich gardeł wydajności mobilnej i redukcja wagi stron — podnoszenie wyników PageSpeed z 45 do 90+, chroniące lejki konwersji przed stratami.",
-      metric: "90+",
-      metricLabel: "PageSpeed Mobile",
-      tags: ["Core Web Vitals", "Kompresja Zasobów", "WebP / Lazy Loading", "Czysty Kod"],
+        "Oprogramowanie układowe na mikrokontrolery 32-bit (ESP32/STM32) i FreeRTOS: bezrouterowa sieć kratowa P2P (ESP-NOW), przemysłowe bramki Linux Edge, magistrale RS-485 i latencja <10ms w trudnych warunkach zakłóceń.",
+      metric: "<10ms",
+      metricLabel: "Opóźnienie Pakietu",
+      tags: ["Embedded C/C++", "FreeRTOS", "Mesh Przemysłowy", "Edge Computing"],
       accentColor: "cyan",
       span: "normal",
     },
     {
-      id: "technical-marketing",
-      icon: "BarChart3",
-      title: "Techniczne SEO & Wzrost Oparty na Danych",
+      id: "industrial-mes",
+      icon: "Database",
+      title: "Przemysłowy MES & Cyfrowy Bliźniak (Digital Twin)",
       description:
-        "Budowa czystej struktury semantycznej, automatyczne indeksowanie GSC i śledzenie zdarzeń GA4, które przyniosły +40% wzrostu ruchu organicznego na kluczowej platformie.",
-      metric: "+40%",
-      metricLabel: "Wzrost Ruchu Organicznego",
-      tags: ["Techniczne SEO", "GA4 / GTM", "Search Console", "Analityka Lejków"],
+        "Asynchroniczne kolejki Python FastAPI, wizualizacja planu hali na React 19 Canvas w 60 FPS, telemetria wrzeciona i zużycia frezów oraz kolejkowanie zleceń.",
+      metric: "60 FPS",
+      metricLabel: "Canvas Digital Twin",
+      tags: ["Python FastAPI", "React 19 Canvas", "Kolejkowanie MES", "Telemetria"],
       accentColor: "violet",
       span: "normal",
     },
     {
-      id: "infrastructure-reliability",
+      id: "system-reliability",
       icon: "Shield",
-      title: "Migracje Bez Przestojów & Integracje API",
+      title: "Niezawodność Systemowa & Uruchomienia Przemysłowe",
       description:
-        "Bezproblemowe migracje serwerów i domen, konfiguracja DNS/SSL oraz bezpieczne integracje webhooków (Telegram Bot API z podpisem HMAC-SHA256).",
-      metric: "0%",
-      metricLabel: "Nieplanowanych Przestojów",
-      tags: ["Migracje Domen", "REST API", "Webhooki Telegram", "Bezpieczeństwo HMAC"],
+        "Prefabrykacja szaf sterowniczych (ZUT Kunzek), uruchomienia obiektowe i optymalizacja PLC (Goodvalley, San-Pajda), protokoły kas fiskalnych Android POS (MostCentrService) oraz standard Zero Punch Loss.",
+      metric: "-40%",
+      metricLabel: "Redukcja Przestojów",
+      tags: ["Siemens S7", "Szafy Sterownicze", "Android POS", "Zero Punch Loss"],
       accentColor: "emerald",
       span: "wide",
     },
@@ -330,19 +368,36 @@ export const VALUE_CARDS: Record<"en" | "pl", ValueCard[]> = {
 export const PROJECTS: Record<"en" | "pl", Project[]> = {
   en: [
     {
-      id: "keysnap-robotics",
-      title: "KeySnap AI / KeyCraft Robotics",
-      category: "Hardware & Robotics (CTO & Co-Founder)",
-      tags: ["CNC Milling", "ESP32-C6", "Raspberry Pi", "ESP-NOW Mesh", "DFM", "Stage-Gate R&D"],
+      id: "san-pajda-automation",
+      title: "San-Pajda: Turbomixer SCADA & Oven Energy Optimization",
+      category: "Lead Industrial Automation Engineer (Fabryka Ciastek San-Pajda)",
+      tags: ["Siemens S7", "Turbomixer SCADA", "Oven Optimization", "Throughput +33%", "71.1k PLN/yr Savings", "Gantt 57d"],
       shortDescription:
-        "Autonomous key-cutting kiosk and edge robotics platform with sub-millimeter precision, DFM optimization, and distributed mesh telemetry.",
+        "Engineered Turbomixer control architecture (57-day deployment, 25.4k PLN CAPEX) and optimized meringue gas oven baking lines, achieving +33% throughput and 71,124 PLN/yr gas savings.",
       fullDescription:
-        "As CTO and Head of Hardware, I engineered the physical and embedded architecture for the KeySnap AI autonomous key duplication kiosk. Designed precision CNC mechanical axes, automated blank feeder mechanisms, and cyclone chip evacuation. Applied Design for Manufacturing (DFM) to reduce unit CAPEX from 45,000 PLN to under 25,000 PLN while sustaining First-Time-Right cutting accuracy >= 98.5% and cycle times under 60 seconds. Integrated industrial Raspberry Pi edge gateways and ESP-NOW mesh controllers for resilient zero-downtime operation.",
+        "As Lead Industrial Automation Engineer at Fabryka Ciastek San-Pajda Sp. z o.o. in Jarosław, architected and executed the end-to-end Turbomixer continuous aeration integration and gas baking oven modernization. Deployed Siemens S7 PLC controls and upper-level SCADA supervision on a strict 57-day Gantt timeline under 25,400 PLN direct CAPEX. Refactored gas burner PID curves and conveyor baking speed for meringue production, achieving a +33% oven capacity increase and 71,124 PLN/year verified gas fuel savings.",
       metrics: [
-        { label: "Accuracy (FTR)", value: "98.5%+" },
-        { label: "Cycle Time", value: "≤60s" },
-        { label: "Unit CAPEX", value: "≤25k PLN" },
-        { label: "Precision", value: "±0.05 mm" },
+        { label: "Throughput", value: "+33%" },
+        { label: "Gas Savings", value: "71.1k PLN/yr" },
+        { label: "Turbomixer CAPEX", value: "25.4k PLN" },
+        { label: "Timeline", value: "57 Days" },
+      ],
+      accentColor: "amber",
+    },
+    {
+      id: "goodvalley-automation",
+      title: "Goodvalley: Food Processing Lines, MES & Mesh Automation",
+      category: "Industrial Automation & Commissioning Engineer (Goodvalley)",
+      tags: ["Siemens S7", "Plant MES", "workTime WFM", "ESP-NOW Mesh", "Energy Telemetry", "Warehouse WMS"],
+      shortDescription:
+        "Commissioned processing lines (Siemens S7, -40% downtime), deployed plant MES & workTime WFM, engineered ESP-NOW mesh telemetry, energy meters readout, and warehouse picking software.",
+      fullDescription:
+        "Conducted industrial automation commissioning, electrical diagnostics, and Siemens S7 PLC software refactoring across meat processing and multi-stage packaging lines at Goodvalley Agro-Industrial Complex in Przechlewo (-40% micro-downtime, 99.4% stability). Architected and deployed the plant MES platform and workTime WFM shift dispatching, engineered low-latency ESP-NOW wireless mesh telemetry, automated industrial energy meter data acquisition, and developed custom warehouse management software for spare parts and tool picking.",
+      metrics: [
+        { label: "Downtime", value: "-40%" },
+        { label: "Architecture", value: "MES & Mesh" },
+        { label: "Facility", value: "Przechlewo" },
+        { label: "Line Stability", value: "99.4%" },
       ],
       accentColor: "indigo",
     },
@@ -352,9 +407,9 @@ export const PROJECTS: Record<"en" | "pl", Project[]> = {
       category: "Industrial Software & Dispatching",
       tags: ["Python FastAPI", "React 19", "HTML5 Canvas", "Raspberry Pi", "Realtime Queues", "MES"],
       shortDescription:
-        "End-to-end manufacturing execution system connecting factory floor telemetry, interactive Canvas floor plans, and cutting queues.",
+        "End-to-end manufacturing execution system connecting factory floor telemetry, interactive Canvas floor plans, and production queues.",
       fullDescription:
-        "Architected an industrial Manufacturing Execution System (MES) designed to coordinate workshop machinery, operator workflows, and real-time order dispatching. Features a responsive React 19 Canvas floor plan displaying live station states and spindle RPM telemetry. The asynchronous Python FastAPI backend orchestrates cutting jobs from intake to machine execution, enabling same-day parcel dispatch SLAs under 12 hours.",
+        "Architected an industrial Manufacturing Execution System (MES) designed to coordinate workshop machinery, operator workflows, and real-time order dispatching. Features a responsive React 19 Canvas floor plan displaying live station states and spindle RPM telemetry. The asynchronous Python FastAPI backend orchestrates production jobs from intake to machine execution, enabling same-day parcel dispatch SLAs under 12 hours.",
       metrics: [
         { label: "Order SLA", value: "≤12h" },
         { label: "Floor Plan", value: "React 19 Canvas" },
@@ -380,39 +435,39 @@ export const PROJECTS: Record<"en" | "pl", Project[]> = {
       ],
       accentColor: "cyan",
     },
-    {
-      id: "portfolio-engine",
-      title: "Warm Titanium Portfolio & Next.js Architecture",
-      category: "Personal Engineering (2026)",
-      tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "Framer Motion", "Turbopack", "Vercel"],
-      shortDescription:
-        "High-performance, dual-perspective portfolio system engineered with Next.js 16 App Router, custom Warm Titanium design tokens, and spring physics.",
-      fullDescription:
-        "Designed and built this interactive portfolio application from scratch using Next.js 16, TypeScript, and Framer Motion. Features a dual-perspective toggle system (Systems Engineering vs. Business Growth), custom noise overlay textures, interactive 3D Tilt Cards with cursor spotlights, and sub-1s static page generation via Turbopack.",
-      metrics: [
-        { label: "Lighthouse Score", value: "98/100" },
-        { label: "Page Load", value: "<0.8s" },
-        { label: "Design System", value: "Custom" },
-        { label: "Tech Stack", value: "Next.js 16" },
-      ],
-      accentColor: "indigo",
-    },
   ],
   pl: [
     {
-      id: "keysnap-robotics",
-      title: "KeySnap AI / KeyCraft Robotics",
-      category: "Hardware & Robotyka (CTO & Współzałożyciel)",
-      tags: ["Frezowanie CNC", "ESP32-C6", "Raspberry Pi", "Mesh ESP-NOW", "DFM", "Stage-Gate R&D"],
+      id: "san-pajda-automation",
+      title: "San-Pajda: SCADA Turbomikser & Optymalizacja Energetyczna Pieca",
+      category: "Główny Inżynier Automatyk (Fabryka Ciastek San-Pajda)",
+      tags: ["Siemens S7", "SCADA Turbomikser", "Optymalizacja Pieca", "Wydajność +33%", "71.1k PLN/rok", "Gantt 57d"],
       shortDescription:
-        "Autonomiczny automat do dorabiania kluczy oraz brzegowa platforma robotyczna z submilimetrową precyzją i optymalizacją DFM.",
+        "Zaprojektowałem architekturę sterowania turbomikserem (wdrożenie w 57 dni, 25.4k PLN CAPEX) oraz zoptymalizowałem linię pieca gazowego bezów (+33% wydajności, 71 124 PLN/rok oszczędności).",
       fullDescription:
-        "Jako CTO i szef działu Hardware zaprojektowałem architekturę mechaniczną oraz wbudowaną dla autonomicznego kiosku KeySnap AI. Opracowałem precyzyjne osie mechaniczne CNC, automatyczne podajniki surówek i cyklonowy system odciągu wiórów. Dzięki metodologii DFM (Design for Manufacturing) obniżyłem koszt budowy urządzenia (CAPEX) z 45 000 PLN do poniżej 25 000 PLN, utrzymując precyzję First-Time-Right >= 98.5% i czas cyklu <60 s. Zintegrowałem przemysłowe bramki brzegowe Raspberry Pi oraz kontrolery ESP-NOW mesh dla maksymalnej stabilności.",
+        "Jako Główny Inżynier Automatyk w Fabryce Ciastek San-Pajda Sp. z o.o. w Jarosławiu zaprojektowałem i wdrożyłem układ napowietrzania ciasta Turbomixer oraz zoptymalizowałem proces wypieku w piecu gazowym. Zrealizowałem integrację sterowników Siemens S7 PLC i nadrzędnego systemu SCADA w rygorystycznym harmonogramie 57 dni (CAPEX: 25 400 PLN). Optymalizacja krzywych PID palników i prędkości pieca przyniosła wzrost wydajności o +33% oraz 71 124 PLN/rok udokumentowanych oszczędności gazu.",
       metrics: [
-        { label: "Dokładność (FTR)", value: "98.5%+" },
-        { label: "Czas Cyklu", value: "≤60s" },
-        { label: "CAPEX Kiosku", value: "≤25k PLN" },
-        { label: "Tolerancja", value: "±0.05 mm" },
+        { label: "Wydajność Linii", value: "+33%" },
+        { label: "Oszczędność Gazu", value: "71.1k PLN/rok" },
+        { label: "CAPEX Turbomiksera", value: "25.4k PLN" },
+        { label: "Czas Realizacji", value: "57 Dni" },
+      ],
+      accentColor: "amber",
+    },
+    {
+      id: "goodvalley-automation",
+      title: "Goodvalley: Linie Przetwórstwa, MES & Automatyzacja Mesh",
+      category: "Inżynier ds. Automatyzacji i Uruchomień Przemysłowych (Goodvalley)",
+      tags: ["Siemens S7", "Platforma MES", "workTime WFM", "ESP-NOW Mesh", "Telemetria Energii", "System Magazynowy"],
+      shortDescription:
+        "Uruchomienia linii (Siemens S7, -40% przestojów), wdrożenie platformy MES i workTime WFM, telemetria mesh ESP-NOW, odczyt liczników energii i program magazynu części.",
+      fullDescription:
+        "Prowadzenie uruchomień automatyki przemysłowej, diagnostyki elektrycznej i refaktoringu programów PLC Siemens S7 na liniach przetwórstwa mięsnego i stacjach pakowania w kompleksie Goodvalley w Przechlewie (-40% mikroprzestojów, 99.4% stabilności). Zaprojektowałem i wdrożyłem zakładową platformę MES oraz dyspozytornię workTime WFM, rozwinąłem bezprzewodową sieć telemetryczną mesh ESP-NOW (<10ms), zautomatyzowałem zczytywanie przemysłowych liczników energii oraz stworzyłem dedykowany program magazynowy do ewidencji i pobierania części zamiennych/narzędzi.",
+      metrics: [
+        { label: "Przestoje", value: "-40%" },
+        { label: "Architektura", value: "MES & Mesh" },
+        { label: "Zakład", value: "Przechlewo" },
+        { label: "Stabilność Linii", value: "99.4%" },
       ],
       accentColor: "indigo",
     },
@@ -450,22 +505,239 @@ export const PROJECTS: Record<"en" | "pl", Project[]> = {
       ],
       accentColor: "cyan",
     },
+  ],
+};
+
+// ─── DOMAIN & INDUSTRY ALIGNMENTS (ENGINEERING VECTORS) ────────
+export const EXPO_ALIGNMENTS: Record<"en" | "pl", ExpoAlignment[]> = {
+  en: [
     {
-      id: "portfolio-engine",
-      title: "Architektura Portfolio Warm Titanium & Next.js 16",
-      category: "Inżynieria Własna (2026)",
-      tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "Framer Motion", "Turbopack", "Vercel"],
-      shortDescription:
-        "Wysokowydajny, dwuperspektywiczny system portfolio stworzony w oparciu o Next.js 16 App Router, własne tokeny Warm Titanium i fizykę płynnych przejść.",
-      fullDescription:
-        "Zaprojektowanie i budowa od podstaw interaktywnego serwisu portfolio w oparciu o Next.js 16, TypeScript oraz Framer Motion. System oferuje przełącznik perspektyw (Inżynieria Systemowa vs Wymiar Biznesowy), autorską teksturę szumu, interaktywne karty 3D z podświetleniem kursora i czas ładowania poniżej 0.8s.",
-      metrics: [
-        { label: "Wynik Lighthouse", value: "98/100" },
-        { label: "Czas Ładowania", value: "<0.8s" },
-        { label: "Design System", value: "Autorski" },
-        { label: "Stos Techniczny", value: "Next.js 16" },
+      id: "automation-plc",
+      expoName: "Industrial Automation & PLC",
+      badge: "Siemens S7 & Factory I/O",
+      vector: "PLC Logic Refactoring, 3D Virtual Commissioning & OEE Optimization",
+      challenge:
+        "Unoptimized machine cyclograms, sensor bounce causing micro-stoppages, and costly production downtime during on-site commissioning on active plant floors.",
+      solution:
+        "3D virtual commissioning in Factory I/O (Siemens PLCSIM / Modbus TCP / OPC UA) before physical deployment; PLC algorithm refactoring (Siemens S7-1200/1500 in TIA Portal) delivering -40% micro-stoppages at Goodvalley and +33% throughput with 71,124 PLN/yr gas savings at San-Pajda; EPLAN schematics and CNC laser cutting.",
+      metric: "-40% / +33%",
+      metricLabel: "Downtime Cut & Throughput Gain",
+      stack: ["Siemens S7 (TIA Portal)", "Factory I/O (3D Twin)", "PLCSIM / OPC UA", "EPLAN Electric P8", "UR-5 & OpenCV"],
+      proofSystems: ["San-Pajda Turbomixer", "Goodvalley Packaging Lines", "Colorland Virtual Twin"],
+      ctaText: "Explore Industrial Automation & PLC",
+      ctaTargetId: "turbomixer-scada",
+    },
+    {
+      id: "embedded-mesh",
+      expoName: "Distributed Embedded Mesh & Edge IoT",
+      badge: "Sub-10ms P2P Mesh",
+      vector: "Zero-Router ESP-NOW Mesh, FreeRTOS Firmware & Industrial Gateways",
+      challenge:
+        "Unreliable corporate Wi-Fi in harsh factory RF environments, micro-SD / flash storage corruption from abrupt industrial power cuts, and lack of deterministic edge communication.",
+      solution:
+        "Decentralized peer-to-peer (P2P) wireless mesh on ESP32-C6 (ESP-NOW protocol) delivering sub-10ms packet latency without external routers; hardened Raspberry Pi edge gateway with Read-Only Rootfs (overlayfs) and hardware watchdog (/dev/watchdog); custom hardware interface modules and reverse-engineered machine protocols.",
+      metric: "<10ms",
+      metricLabel: "P2P Mesh Delivery Latency",
+      stack: ["ESP32-C6 (RISC-V)", "ESP-NOW Protocol", "FreeRTOS / PlatformIO", "Raspberry Pi (Linux Edge)", "Read-Only Rootfs"],
+      proofSystems: ["c6 / espProg Nodes", "espNow Multi-Hop", "rpi2 IoT Gateway"],
+      ctaText: "Explore Embedded Mesh & Edge IoT",
+      ctaTargetId: "embedded-mesh-iot",
+    },
+    {
+      id: "wfm-operations",
+      expoName: "Industrial WFM & Plant Operations",
+      badge: "Zero Punch Loss (100%)",
+      vector: "Workforce Management, Dead-Letter Queue & Plant Telemetry",
+      challenge:
+        "Unrecorded employee punches during factory network outages causing payroll disputes and compliance fines, untracked spare parts for machine maintenance, and manual energy monitoring.",
+      solution:
+        "Industrial WFM platform (workTime) with transactional offline Dead-Letter Queue on Raspberry Pi (rpi2), guaranteeing 100% Zero Physical Punch Loss for RFID and PIN events; automated Shift Leader Incident Portal and official blank generator (doc); WMS parts dispensing module and automated industrial energy meter telemetry.",
+      metric: "100%",
+      metricLabel: "Zero Physical Punch Loss Standard",
+      stack: ["workTime (FastAPI + React 19)", "Dead-Letter Queue (rpi2)", "RFID (Wiegand/SPI)", "WMS Parts Dispensing", "Energy Meter Telemetry"],
+      proofSystems: ["workTime WFM", "rpi2 Gateway", "Goodvalley Production Ops"],
+      ctaText: "Explore WFM & MES Operations",
+      ctaTargetId: "wfm-industrial-mes",
+    },
+    {
+      id: "hardware-mobile",
+      expoName: "Hardware Integration & Mobile POS",
+      badge: "RS-232, BLE & Modbus",
+      vector: "Android Hardware Drivers, Serial Industrial Buses & Digital Twin Canvas",
+      challenge:
+        "Incompatibility of legacy peripheral equipment (fiscal cash registers, industrial scales, barcode scanners, access control readers) with mobile systems, and high UI latency when monitoring machine states.",
+      solution:
+        "Commercial mobile POS architecture (Android / Kotlin, Jetpack Compose) with low-level protocol drivers for RS-232 serial buses and Bluetooth SPP/BLE integrating fiscal printers (Posnet, Novitus, Elzab, Datex) and scales; hardware Wiegand/Clock-Data decoders; real-time 60 FPS factory floor visualization on React 19 Canvas.",
+      metric: "60 FPS / <10ms",
+      metricLabel: "Canvas Render & Serial Protocol Response",
+      stack: ["Android (Kotlin / Compose)", "RS-232 / USB Serial", "Bluetooth SPP / BLE", "Modbus RTU/TCP", "HTML5 Canvas (React 19)"],
+      proofSystems: ["MostCentrService / KasaMobile POS", "wiegandReader & rs485", "factory 2D Canvas Twin"],
+      ctaText: "Explore Hardware & Digital Twin",
+      ctaTargetId: "wfm-industrial-mes",
+    },
+  ],
+  pl: [
+    {
+      id: "automation-plc",
+      expoName: "Automatyka Przemysłowa & PLC",
+      badge: "Siemens S7 & Factory I/O",
+      vector: "Refaktoring Logiki PLC, Wirtualne Uruchomienia 3D & Optymalizacja OEE",
+      challenge:
+        "Niezoptymalizowane cyklogramy maszyn, zakłócenia sygnałów czujników powodujące mikroprzestoje oraz kosztowne postoje linii podczas uruchomień bezpośrednio na obiekcie.",
+      solution:
+        "Wirtualne uruchomienia 3D w Factory I/O (Siemens PLCSIM / Modbus TCP / OPC UA) przed wdrożeniem na obiekcie; refaktoring logiki PLC (Siemens S7-1200/1500 w TIA Portal) redukujący mikroprzestoje o -40% w Goodvalley oraz zwiększający przepustowość o +33% z 71 124 PLN/rok oszczędności gazu w San-Pajda; schematy EPLAN i cięcie laserowe CNC.",
+      metric: "-40% / +33%",
+      metricLabel: "Redukcja Przestojów & Wzrost Wydajności",
+      stack: ["Siemens S7 (TIA Portal)", "Factory I/O (3D Twin)", "PLCSIM / OPC UA", "EPLAN Electric P8", "UR-5 & OpenCV"],
+      proofSystems: ["Turbomikser San-Pajda", "Linie Pakujące Goodvalley", "Wirtualny Bliźniak Colorland"],
+      ctaText: "Zobacz Automatykę Przemysłową & PLC",
+      ctaTargetId: "turbomixer-scada",
+    },
+    {
+      id: "embedded-mesh",
+      expoName: "Rozproszony Mesh Wbudowany & Edge IoT",
+      badge: "Mesh P2P Poniżej 10ms",
+      vector: "Bezrouterowa Sieć ESP-NOW, Firmware FreeRTOS & Bramki Przemysłowe",
+      challenge:
+        "Niestabilne zakładowe Wi-Fi w warunkach silnych zakłóceń elektromagnetycznych hal, uszkodzenia pamięci flash po nagłych zanikach zasilania oraz brak determinizmu komunikacji brzegowej.",
+      solution:
+        "Zdecentralizowana sieć kratowa P2P na ESP32-C6 (protokół ESP-NOW) zapewniająca opóźnienia pakietów <10ms bez zewnętrznego routera; wzmocniona bramka brzegowa Raspberry Pi z partycją Read-Only Rootfs (overlayfs) i sprzętowym watchdogiem; autorskie moduły sprzętowe i analiza protokołów maszyn.",
+      metric: "<10ms",
+      metricLabel: "Opóźnienie Dostarczania Pakietów Mesh",
+      stack: ["ESP32-C6 (RISC-V)", "Protokół ESP-NOW", "FreeRTOS / PlatformIO", "Raspberry Pi (Linux Edge)", "Read-Only Rootfs"],
+      proofSystems: ["Węzły c6 / espProg", "Mesh Multi-Hop espNow", "Bramka IoT rpi2"],
+      ctaText: "Zobacz Mesh Wbudowany & Edge IoT",
+      ctaTargetId: "embedded-mesh-iot",
+    },
+    {
+      id: "wfm-operations",
+      expoName: "Przemysłowe WFM & Operacje Zakładowe",
+      badge: "Zero Punch Loss (100%)",
+      vector: "System RCP workTime, Kolejkowanie Offline & Telemetria Zakładowa",
+      challenge:
+        "Utrata odbić kart pracowników przy awariach sieci zakładowej (spory płacowe, kary inspekcji), brak ewidencji części zamiennych do serwisu maszyn oraz ręczny odczyt zużycia energii.",
+      solution:
+        "Przemysłowa platforma WFM (workTime) z lokalną transakcyjną kolejką Dead-Letter Queue na Raspberry Pi (rpi2) gwarantująca 100% Zero Physical Punch Loss dla zdarzeń RFID i PIN; panel lidera zmiany z obsługą incydentów i generatorem druków (doc); moduł magazynowy WMS pobierania części oraz automatyczna telemetria liczników energii.",
+      metric: "100%",
+      metricLabel: "Gwarancja Zerowej Utraty Odbić",
+      stack: ["workTime (FastAPI + React 19)", "Kolejka Dead-Letter (rpi2)", "RFID (Wiegand/SPI)", "Magazyn Części WMS", "Telemetria Liczników Energii"],
+      proofSystems: ["workTime WFM", "Bramka rpi2", "Operacje Produkcyjne Goodvalley"],
+      ctaText: "Zobacz WFM & Operacje MES",
+      ctaTargetId: "wfm-industrial-mes",
+    },
+    {
+      id: "hardware-mobile",
+      expoName: "Integracja Sprzętowa & Mobile POS",
+      badge: "RS-232, BLE & Modbus",
+      vector: "Sterowniki Sprzętowe Android, Magistrale Szeregowe & Cyfrowy Bliźniak",
+      challenge:
+        "Niekompatybilność urządzeń peryferyjnych (drukarki fiskalne, wagi przemysłowe, skanery, czytniki KD) z nowoczesnymi systemami mobilnymi oraz opóźnienia interfejsu przy wizualizacji stanu maszyn.",
+      solution:
+        "Komercyjne aplikacje Android POS (Kotlin, Jetpack Compose) z niskopoziomowymi sterownikami magistral RS-232 i Bluetooth SPP/BLE do obsługi drukarek fiskalnych (Posnet, Novitus, Elzab, Datex) i wag; dekodery sprzętowe Wiegand/Clock-Data; wizualizacja planu hali w 60 FPS na React 19 Canvas.",
+      metric: "60 FPS / <10ms",
+      metricLabel: "Render Canvas & Czas Odpowiedzi Magistrali",
+      stack: ["Android (Kotlin / Compose)", "RS-232 / USB Serial", "Bluetooth SPP / BLE", "Modbus RTU/TCP", "HTML5 Canvas (React 19)"],
+      proofSystems: ["MostCentrService / KasaMobile POS", "Mosty wiegandReader & rs485", "Cyfrowy Bliźniak 2D factory"],
+      ctaText: "Zobacz Integrację Sprzętową & Bliźniaka",
+      ctaTargetId: "wfm-industrial-mes",
+    },
+  ],
+};
+
+// ─── CONVERSION OFFERS (THE IRRESISTIBLE OFFER) ─────────────
+export const CONVERSION_OFFERS: Record<"en" | "pl", ConversionOffer[]> = {
+  en: [
+    {
+      id: "industrial",
+      targetAudience: "Industrial Plants & Manufacturing",
+      badge: "Zero-Risk Express Audit",
+      title: "45-Minute Line & PLC Bottleneck Audit",
+      description:
+        "During a focused technical session, we will review your current machine cycle diagram, PLC logic, and line interlocks to identify 2–3 immediate micro-stoppages or speed leaks without halting production.",
+      deliverables: [
+        "Identification of 2–3 micro-downtime causes",
+        "Actionable PLC & sensor timing optimization plan",
+        "Estimated line throughput gain and energy savings",
       ],
-      accentColor: "indigo",
+      actionText: "Request 45-Min Technical Audit",
+      actionUrl: "https://t.me/NeKoRoM?text=Hello%20Roman,%20I%20would%20like%20to%20request%20the%2045-Minute%20Industrial%20Line%20Audit.",
+    },
+    {
+      id: "startup",
+      targetAudience: "Industrial IoT & Automation Startups",
+      badge: "Architecture & IIoT",
+      title: "Architecture Review & IIoT Feasibility Call",
+      description:
+        "Transition from concept to industrial rollout: evaluate 3D virtual commissioning (Factory I/O), MCU selection (ESP32-C6 vs STM32), Android POS fiscal integration, and zero-router wireless mesh network architecture.",
+      deliverables: [
+        "Industrial firmware & wireless mesh topology feasibility",
+        "Virtual commissioning & CAD/CAM integration roadmap",
+        "Edge gateway & transactional offline storage architecture",
+      ],
+      actionText: "Book Architecture Feasibility Call",
+      actionUrl: "https://t.me/NeKoRoM?text=Hello%20Roman,%20I%20would%20like%20to%20book%20an%20Architecture%20Feasibility%20Call.",
+    },
+    {
+      id: "recruiter",
+      targetAudience: "HR & Fast-Track Hiring",
+      badge: "1-Click Direct Access",
+      title: "Executive Instant Screening & Dossier",
+      description:
+        "Download the verified 1-page ATS profile, review academic diplomas (493 ECTS), verify EU legal work status, and book a direct 15-minute screening call with no intermediary delays.",
+      deliverables: [
+        "1-Page ATS PDF Resume (EN or PL with RODO)",
+        "Triple competence verification (M.Sc. + 2x B.Sc. Eng.)",
+        "Direct chat in Telegram / WhatsApp (+48 791 265 019)",
+      ],
+      actionText: "Open Telegram @NeKoRoM",
+      actionUrl: "https://t.me/NeKoRoM",
+    },
+  ],
+  pl: [
+    {
+      id: "industrial",
+      targetAudience: "Zakłady Produkcyjne & Przemysł",
+      badge: "Bezpłatny Audyt Express",
+      title: "45-Minutowy Audyt Wąskich Gardeł Linii & PLC",
+      description:
+        "Podczas zwięzłej sesji technicznej przeanalizujemy aktualne cyklogramy maszyn, program sterownika PLC oraz blokady międzyoperacyjne, aby wskazać 2–3 źródła mikroprzestojów bez zatrzymywania produkcji.",
+      deliverables: [
+        "Identyfikacja 2–3 przyczyn mikroprzestojów linii",
+        "Konkretny plan optymalizacji czasów PLC i czujników",
+        "Szacunek wzrostu wydajności i oszczędności energii",
+      ],
+      actionText: "Zamów 45-Min Audyt Techniczny",
+      actionUrl: "https://t.me/NeKoRoM?text=Cześć%20Roman,%20chciałbym%20umówić%2045-minutowy%20audyt%20techniczny%20linii%20i%20PLC.",
+    },
+    {
+      id: "startup",
+      targetAudience: "Startupy IIoT & Automatyki Przemysłowej",
+      badge: "Architektura & IIoT",
+      title: "Przegląd Architektury & Konsultacja IIoT",
+      description:
+        "Przejście od koncepcji do wdrożenia przemysłowego: weryfikacja wirtualnych uruchomień (Factory I/O), dobór MCU (ESP32-C6 vs STM32), integracje Android POS z drukarkami fiskalnymi oraz bezprzewodowa sieć kratowa mesh.",
+      deliverables: [
+        "Weryfikacja topologii firmware i sieci bezprzewodowej mesh",
+        "Plan wirtualnych uruchomień i integracji CAD/CAM",
+        "Architektura bramek brzegowych i bezstratnej bazy offline",
+      ],
+      actionText: "Umów Konsultację Architektury",
+      actionUrl: "https://t.me/NeKoRoM?text=Cześć%20Roman,%20chciałbym%20umówić%20konsultację%20architektury%20i%20IIoT.",
+    },
+    {
+      id: "recruiter",
+      targetAudience: "HR & Rekruterzy Techniczni",
+      badge: "Szybki Kontakt w 1 Klik",
+      title: "Executive Instant Screening & Dossier",
+      description:
+        "Pobierz 1-stronicowy profil ATS, zweryfikuj potrójne wykształcenie (493 ECTS), potwierdź pełne prawa pracy w UE i porozmawiaj bezpośrednio w 15-minutowej rozmowie bez pośredników.",
+      deliverables: [
+        "1-stronicowe CV PDF w formacie ATS (PL z RODO lub EN)",
+        "Potwierdzenie 3 dyplomów (Mgr + 2x Inż. PANS)",
+        "Bezpośredni kontakt w Telegram / WhatsApp (+48 791 265 019)",
+      ],
+      actionText: "Napisz na Telegram @NeKoRoM",
+      actionUrl: "https://t.me/NeKoRoM",
     },
   ],
 };
@@ -478,12 +750,16 @@ export const SKILL_TABS: Record<"en" | "pl", SkillTab[]> = {
       label: "Embedded & Hardware",
       skills: [
         { name: "ESP32-C6 / ESP-IDF", badge: "Core", experience: "PlatformIO & FreeRTOS Firmware" },
-        { name: "ESP-NOW Wireless Mesh", badge: "Core", experience: "P2P Low-Latency Protocol" },
-        { name: "CNC Machining & G-Code", badge: "Core", experience: "±0.05 mm Precision Cutting" },
+        { name: "ESP-NOW Wireless Mesh", badge: "Core", experience: "P2P Low-Latency Protocol (<10ms)" },
+        { name: "Factory I/O 3D Simulation", badge: "Core", experience: "Virtual Commissioning & Siemens PLCSIM" },
+        { name: "CAD/CAM (AutoCAD/Fusion/SolidWorks)", badge: "Core", experience: "Mechanical Modeling & EPLAN Schematics" },
+        { name: "CNC Laser Cutting (Trumpf/Bystronic)", badge: "Core", experience: "Nesting, DXF/G-code & Laser Cutting" },
+        { name: "Control Cabinets (Szafy Sterownicze)", badge: "Core", experience: "Prefabrication, Wiring & I/O Testing" },
         { name: "Raspberry Pi Edge Gateway", badge: "Core", experience: "Linux Edge Daemon & Telemetry" },
-        { name: "3D Prototyping (FDM/SLA)", badge: "Core", experience: "Rapid Iterative Hardware R&D" },
-        { name: "RS485 & Wiegand", badge: "Advanced", experience: "Industrial Field Buses & RFID" },
+        { name: "RS485 & Modbus RTU/TCP", badge: "Advanced", experience: "Industrial Field Buses & Field Instruments" },
         { name: "C / C++ (PlatformIO)", badge: "Core", experience: "Embedded Firmware Architecture" },
+        { name: "Industrial Robotics (UR-5)", badge: "Advanced", experience: "Robotic Arm Sorting & Sick Vision" },
+        { name: "3D Prototyping (FDM/SLA)", badge: "Core", experience: "Rapid Iterative Hardware R&D" },
         { name: "Electronics & Diagnostics", badge: "Advanced", experience: "Oscilloscopes & Logic Analyzers" },
       ],
     },
@@ -492,25 +768,31 @@ export const SKILL_TABS: Record<"en" | "pl", SkillTab[]> = {
       label: "Full-Stack & Software",
       skills: [
         { name: "Python (FastAPI)", badge: "Core", experience: "Async Queues, WebSockets & APIs" },
+        { name: "Android SDK & Kotlin", badge: "Core", experience: "Jetpack Compose, Clean Architecture, Hilt & Room" },
+        { name: "Fiscal Protocols & POS (RS-232)", badge: "Core", experience: "Posnet, Novitus, Elzab, Datex & Bluetooth SPP/BLE" },
         { name: "React 19 & TypeScript", badge: "Core", experience: "Modern Components & Hooks" },
         { name: "HTML5 Canvas", badge: "Advanced", experience: "Real-time Factory Floor Plan" },
+        { name: "OpenCV Computer Vision", badge: "Advanced", experience: "Industrial Geometry & Defect Inspection" },
         { name: "Next.js 16 (App Router)", badge: "Advanced", experience: "SSR, Turbopack & Web Vitals" },
         { name: "Tailwind CSS v4", badge: "Core", experience: "Design Tokens & Responsive UI" },
-        { name: "SQLite / PostgreSQL", badge: "Advanced", experience: "MES Schema & Query Tuning" },
-        { name: "Redis & WebSockets", badge: "Advanced", experience: "Real-time Telemetry Caching" },
-        { name: "Docker & Linux CLI", badge: "Advanced", experience: "Edge & Cloud Containerization" },
+        { name: "SQLite / PostgreSQL", badge: "Advanced", experience: "MES Schema & Transactional Edge Storage" },
+        { name: "Embedded Grafana & InfluxDB", badge: "Advanced", experience: "OEE Telemetry, ECharts & Kiosk Dashboards" },
+        { name: "Docker, Compose & Hub", badge: "Core", experience: "Multi-arch ARM64/x86, Registries, Edge Stacks" },
+        { name: "Git & GitHub CI/CD", badge: "Core", experience: "GitHub Actions, Multi-stage Builds & Releases" },
       ],
     },
     {
       id: "industrial-management",
-      label: "Industrial & R&D",
+      label: "Engineering Leadership, Agile & R&D",
       skills: [
-        { name: "10+ Yrs Locksmith Know-how", badge: "Core", experience: "Silca, JMA, Gerda & Bitting Cards" },
-        { name: "DFM / BOM Optimization", badge: "Core", experience: "CAPEX Reduction to ≤25k PLN" },
-        { name: "MES System Architecture", badge: "Core", experience: "End-to-End Factory Dispatching" },
-        { name: "Stage-Gate R&D Process", badge: "Core", experience: "Milestone Management (TRL 3 to 8)" },
-        { name: "First-Time-Right (FTR) QA", badge: "Core", experience: "Statistical Precision & QA (≥98.5%)" },
-        { name: "CE Machinery Directive", badge: "Advanced", experience: "Safety Compliance & Tech Files" },
+        { name: "Agile & Scrum Delivery", badge: "Core", experience: "Sprint Planning, Backlog & Velocity" },
+        { name: "Jira, Confluence & Git", badge: "Core", experience: "Epics, Issues, ADRs & Release Cycles" },
+        { name: "Lean Manufacturing & OEE", badge: "Core", experience: "Bottleneck Elimination & Cycle Time (-40%)" },
+        { name: "Turbomixer Commissioning (57d)", badge: "Core", experience: "Full Cycle Deployment (25.4k PLN direct CAPEX)" },
+        { name: "Plant Energy Optimization", badge: "Core", experience: "+33% Oven Throughput & 71.1k PLN/yr Gas Savings" },
+        { name: "Cross-Functional Leadership", badge: "Core", experience: "Bridging Software, Firmware & Plant Ops" },
+        { name: "Industrial Commissioning", badge: "Core", experience: "Goodvalley, San-Pajda, Siemens S7 & SCADA" },
+        { name: "Quality Audit & CE Compliance", badge: "Advanced", experience: "ISO 9001, Zero Punch Loss & Machinery Safety" },
       ],
     },
   ],
@@ -520,12 +802,16 @@ export const SKILL_TABS: Record<"en" | "pl", SkillTab[]> = {
       label: "Systemy Wbudowane & Hardware",
       skills: [
         { name: "ESP32-C6 / ESP-IDF", badge: "Core", experience: "Firmware PlatformIO i FreeRTOS" },
-        { name: "Sieć Mesh ESP-NOW", badge: "Core", experience: "Niskolatencyjny Protokół P2P" },
-        { name: "Obróbka CNC i G-Code", badge: "Core", experience: "Precyzja Frezowania ±0.05 mm" },
+        { name: "Sieć Mesh ESP-NOW", badge: "Core", experience: "Niskolatencyjny Protokół P2P (<10ms)" },
+        { name: "Symulacja 3D Factory I/O", badge: "Core", experience: "Wirtualne Uruchomienia & Siemens PLCSIM" },
+        { name: "CAD/CAM (AutoCAD/Fusion/SolidWorks)", badge: "Core", experience: "Modelowanie 3D i Schematy EPLAN" },
+        { name: "Cięcie Laserowe CNC (Trumpf/Bystronic)", badge: "Core", experience: "Nesting, DXF/G-code i Obróbka Laserowa" },
+        { name: "Szafy Sterownicze & Prefabrykacja", badge: "Core", experience: "Montaż Szaf, Okablowanie i Pomiary I/O" },
         { name: "Bramka Edge Raspberry Pi", badge: "Core", experience: "Demony Linux Edge i Telemetria" },
-        { name: "Druk 3D (FDM/SLA)", badge: "Core", experience: "Szybkie Prototypowanie R&D" },
-        { name: "RS485 & Wiegand", badge: "Advanced", experience: "Magistrale Przemysłowe i RFID" },
+        { name: "RS485 & Modbus RTU/TCP", badge: "Advanced", experience: "Magistrale Przemysłowe i Aparatura Obiektowa" },
         { name: "C / C++ (PlatformIO)", badge: "Core", experience: "Architektura Oprogramowania Wbudowanego" },
+        { name: "Robotyka Przemysłowa (UR-5)", badge: "Advanced", experience: "Sortowanie Ramieniem Robotycznym i Wizja Sick" },
+        { name: "Druk 3D (FDM/SLA)", badge: "Core", experience: "Szybkie Prototypowanie R&D" },
         { name: "Elektronika i Diagnostyka", badge: "Advanced", experience: "Oscyloskopy i Analizatory Logiczne" },
       ],
     },
@@ -534,25 +820,31 @@ export const SKILL_TABS: Record<"en" | "pl", SkillTab[]> = {
       label: "Full-Stack & Oprogramowanie",
       skills: [
         { name: "Python (FastAPI)", badge: "Core", experience: "Kolejki Asynchroniczne, API i Sockets" },
+        { name: "Android SDK & Kotlin", badge: "Core", experience: "Jetpack Compose, Clean Architecture, Hilt & Room" },
+        { name: "Protokoły Fiskalne & POS (RS-232)", badge: "Core", experience: "Posnet, Novitus, Elzab, Datex & Bluetooth SPP/BLE" },
         { name: "React 19 & TypeScript", badge: "Core", experience: "Nowoczesne Komponenty i Hooki" },
         { name: "HTML5 Canvas", badge: "Advanced", experience: "Plan Hali Produkcyjnej w Czasie Rzeczywistym" },
+        { name: "Wizja Maszynowa OpenCV", badge: "Advanced", experience: "Detekcja Wad i Geometrii Części" },
         { name: "Next.js 16 (App Router)", badge: "Advanced", experience: "SSR, Turbopack i Wydajność" },
         { name: "Tailwind CSS v4", badge: "Core", experience: "Tokeny Wizualne i Responsywność" },
-        { name: "SQLite / PostgreSQL", badge: "Advanced", experience: "Schematy MES i Optymalizacja Zapytań" },
-        { name: "Redis & WebSockets", badge: "Advanced", experience: "Buforowanie Telemetrii Live" },
-        { name: "Docker & Linux CLI", badge: "Advanced", experience: "Konteneryzacja Edge i Chmurowa" },
+        { name: "SQLite / PostgreSQL", badge: "Advanced", experience: "Schematy MES i Bezstratny Zapis Offline" },
+        { name: "Embedded Grafana & InfluxDB", badge: "Advanced", experience: "Telemetria OEE, ECharts i Panele Kiosk" },
+        { name: "Docker, Compose & Hub", badge: "Core", experience: "Multi-arch ARM64/x86, Rejestry, Stosy Edge" },
+        { name: "Git & GitHub CI/CD", badge: "Core", experience: "GitHub Actions, Multi-stage Builds & Automatyzacja" },
       ],
     },
     {
       id: "industrial-management",
-      label: "Zarządzanie Przemysłowe & R&D",
+      label: "Zarządzanie Inżynierskie, Agile & R&D",
       skills: [
-        { name: "10+ Lat Wiedzy Branżowej", badge: "Core", experience: "Silca, JMA, Gerda i Karty Nacięć" },
-        { name: "Optymalizacja DFM / BOM", badge: "Core", experience: "Redukcja CAPEX do ≤25k PLN" },
-        { name: "Architektura Systemów MES", badge: "Core", experience: "Dyspozytornia Hali Produkcyjnej" },
-        { name: "Metodyka Stage-Gate R&D", badge: "Core", experience: "Zarządzanie Kamieniami Milowymi (TRL 3-8)" },
-        { name: "Kontrola Jakości FTR", badge: "Core", experience: "Statystyczna Kontrola Jakości (≥98.5%)" },
-        { name: "Dyrektywa Maszynowa CE", badge: "Advanced", experience: "Zgodność z Normami Bezpieczeństwa" },
+        { name: "Zarządzanie Agile & Scrum", badge: "Core", experience: "Planowanie Sprintów, Backlog i Velocity" },
+        { name: "Jira, Confluence & Git", badge: "Core", experience: "Epiki, Taski, ADR-y i Cykle Wydawnicze" },
+        { name: "Lean Manufacturing & OEE", badge: "Core", experience: "Eliminacja Wąskich Gardeł i Czas Cyklu (-40%)" },
+        { name: "Wdrożenie Turbomixera (57d)", badge: "Core", experience: "Pełny Cykl Wdrożenia (CAPEX: 25.4k PLN)" },
+        { name: "Optymalizacja Energetyczna", badge: "Core", experience: "+33% Wydajności Pieca & 71.1k PLN/rok Gazu" },
+        { name: "Przywództwo Międzydyscyplinarne", badge: "Core", experience: "Łączenie Zespołów Software, Hardware i UR" },
+        { name: "Uruchomienia Przemysłowe", badge: "Core", experience: "Goodvalley, San-Pajda, Siemens S7 i SCADA" },
+        { name: "Audyt Jakości & Zgodność CE", badge: "Advanced", experience: "ISO 9001, Standard Zero Punch Loss i Bezpieczeństwo" },
       ],
     },
   ],
@@ -563,25 +855,171 @@ export const EDUCATION: Record<"en" | "pl", EducationItem[]> = {
   en: [
     {
       degree: "Magister (M.Sc.)",
-      field: "Technical & Industrial Engineering",
-      institution: "Higher Education Institution",
-      location: "Poland",
-      years: "Completed",
+      field: "Zarządzanie (Management & Production Systems)",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Poland",
+      years: "2023 – 2025 (120 ECTS · 360h Practicum)",
       description:
-        "Master's degree education emphasizing engineering systems, R&D project leadership, industrial automation principles (Industry 4.0), and systematic technical problem solving.",
+        "Second-cycle Master's program. Advanced coursework in integrated management systems auditing (ISO 9001/14001/27001), operations research, quality engineering, strategic CAPEX investment planning, and R&D product lifecycle management.",
       accentColor: "cyan",
+    },
+    {
+      degree: "Inżynier (B.Sc. Eng.)",
+      field: "Informatyka (Computer Science)",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Poland",
+      years: "2019 – 2023 (213 ECTS · 800h Industrial Internships)",
+      description:
+        "First-cycle 7-semester engineering degree. Rigorous curriculum in embedded systems, microprocessor architecture, operating systems, networking (TCP/IP, mesh routing), data structures, Python, and C/C++.",
+      accentColor: "indigo",
+    },
+    {
+      degree: "Inżynier (B.Sc. Eng.)",
+      field: "Automatyka i Elektronika Praktyczna (Automatic Control & Practical Electronics)",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Poland",
+      years: "2022 – 2026 (160 ECTS · 720h Industrial Practicum)",
+      description:
+        "First-cycle engineering program. PLC automation (Siemens S7-1200/1500, TIA Portal), SCADA systems, industrial robotics, electrical drive control, sensorics, and hardware circuit & control cabinet engineering.",
+      accentColor: "amber",
     },
   ],
   pl: [
     {
       degree: "Magister",
-      field: "Inżynieria Techniczna i Przemysłowa",
-      institution: "Uczelnia Wyższa",
-      location: "Polska",
-      years: "Ukończone",
+      field: "Zarządzanie (Systemy Zarządzania i Produkcji)",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Polska",
+      years: "2023 – 2025 (120 ECTS · 360h Praktyk)",
       description:
-        "Wykształcenie wyższe magisterskie ze szczególnym naciskiem na systemy inżynierskie, kierowanie projektami R&D, automatyzację przemysłową (Przemysł 4.0) oraz systemowe rozwiązywanie problemów technicznych.",
+        "Studia II stopnia magisterskie. Zaawansowane audytowanie zintegrowanych systemów zarządzania (ISO 9001/14001/27001), badania operacyjne, zarządzanie projektami i procesami produkcyjnymi, planowanie inwestycji CAPEX oraz projektowanie innowacyjnych produktów.",
       accentColor: "cyan",
+    },
+    {
+      degree: "Inżynier",
+      field: "Informatyka",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Polska",
+      years: "2019 – 2023 (213 ECTS · 800h Praktyk Przemysłowych)",
+      description:
+        "Studia I stopnia inżynierskie, 7 semestrów. Specjalistyczny program obejmujący systemy wbudowane, architekturę mikroprocesorową, sieci komputerowe, struktury danych, C/C++, Python oraz inżynierię oprogramowania.",
+      accentColor: "indigo",
+    },
+    {
+      degree: "Inżynier",
+      field: "Automatyka i Elektronika Praktyczna",
+      institution: "Państwowa Akademia Nauk Stosowanych w Jarosławiu",
+      location: "Jarosław, Polska",
+      years: "2022 – 2026 (160 ECTS · 720h Praktyk Przemysłowych)",
+      description:
+        "Studia I stopnia inżynierskie. Programowanie sterowników PLC (Siemens S7, TIA Portal), systemy SCADA, robotyka przemysłowa, napędy elektryczne, sensoryka oraz projektowanie szaf sterowniczych i układów elektronicznych.",
+      accentColor: "amber",
+    },
+  ],
+};
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  description: string;
+  tags: string[];
+}
+
+export const EXPERIENCE: Record<"en" | "pl", ExperienceItem[]> = {
+  en: [
+    {
+      company: "Goodvalley Agro-Industrial Complex",
+      role: "Industrial Automation & Commissioning Engineer",
+      period: "2025 – Present",
+      location: "Przechlewo, Poland",
+      description:
+        "Commissioned processing and multi-stage packaging lines (Siemens S7, TIA Portal, -40% micro-downtime). Architected and deployed the plant MES platform and workTime WFM system for shift scheduling and station tracking. Engineered distributed low-latency ESP-NOW wireless mesh telemetry nodes, automated telemetry data acquisition from industrial energy meters, and developed custom warehouse management software for spare parts and tool picking.",
+      tags: ["Industrial MES", "workTime WFM", "ESP-NOW Mesh", "Energy Telemetry", "Warehouse WMS", "Siemens S7", "TIA Portal"],
+    },
+    {
+      company: "Colorland Sp. z o.o.",
+      role: "Industrial Automation Specialist",
+      period: "07.2024 – 07.2025",
+      location: "Rzeszów, Poland",
+      description:
+        "Factory I/O 3D virtual commissioning (Siemens PLCSIM, Modbus TCP, OPC UA). Developed OpenCV computer vision pipelines for industrial image analysis and vision inspection. Designed custom hardware interface modules for machine integration and reverse-engineered internal machine communication protocols. CNC laser cutting optimization (nesting) and UR-5 robotic sorting with Sick vision.",
+      tags: ["OpenCV", "Machine Protocols", "Custom Modules", "Factory I/O", "Siemens PLCSIM", "CNC Laser", "UR-5"],
+    },
+    {
+      company: "Fabryka Ciastek San-Pajda Sp. z o.o.",
+      role: "Lead Industrial Automation Engineer",
+      period: "02.2023 – 07.2024",
+      location: "Jarosław, Poland",
+      description:
+        "Architected Turbomixer continuous aeration control and upper-level SCADA on a strict 57-day Gantt timeline (25.4k PLN CAPEX). Refactored gas oven PID burner curves and conveyor speeds for meringue production, boosting throughput by +33% and delivering 71,124 PLN/year verified gas fuel savings.",
+      tags: ["Siemens S7", "SCADA", "Turbomixer", "Gas Oven", "+33% Throughput", "71.1k PLN/yr"],
+    },
+    {
+      company: "MostCentrService / KasaMobile",
+      role: "Android Developer & Embedded Integrator",
+      period: "05.2021 – 08.2023",
+      location: "Remote / Hybrid",
+      description:
+        "Developed commercial Android POS applications in Kotlin and Jetpack Compose (Clean Architecture, Hilt, Room). Integrated fiscal printers (Posnet, Novitus, Elzab, Datex), scales, and barcode scanners via RS-232 serial buses and Bluetooth SPP/BLE.",
+      tags: ["Kotlin", "Jetpack Compose", "Android SDK", "RS-232", "Fiscal POS", "Bluetooth SPP"],
+    },
+    {
+      company: "ZUT Kunzek",
+      role: "Control Cabinet Assembler (Elektromonter Szaf Sterowniczych)",
+      period: "07.2021 – 09.2021",
+      location: "Jarosław, Poland",
+      description:
+        "Prefabrication and assembly of industrial control cabinets (szafy sterownicze). Read and executed EPLAN electrical wiring diagrams, mounted PLCs, VFDs, safety relays, terminal blocks, Festo/SMC pneumatics, and conducted I/O loop testing.",
+      tags: ["Control Cabinets", "EPLAN", "Wiring", "PLCs & VFDs", "Pneumatics", "I/O Testing"],
+    },
+  ],
+  pl: [
+    {
+      company: "Kompleks Agroprzemysłowy Goodvalley",
+      role: "Inżynier ds. Automatyzacji i Uruchomień Przemysłowych",
+      period: "2025 – Obecnie",
+      location: "Przechlewo, Polska",
+      description:
+        "Uruchomienia linii przetwórstwa i stacji pakowania (Siemens S7, TIA Portal, -40% mikroprzestojów). Wdrożenie zakładowej platformy MES oraz systemu workTime WFM do harmonogramowania pracy i dyspozytorni. Rozbudowa rozproszonej bezprzewodowej sieci telemetrycznej mesh ESP-NOW, automatyzacja zczytywania danych z przemysłowych liczników energii oraz autorskie oprogramowanie magazynowe do ewidencji i pobierania części/narzędzi.",
+      tags: ["Platforma MES", "workTime WFM", "Sieć Mesh ESP-NOW", "Telemetria Energii", "System Magazynowy", "Siemens S7", "TIA Portal"],
+    },
+    {
+      company: "Colorland Sp. z o.o.",
+      role: "Specjalista ds. Automatyki Przemysłowej",
+      period: "07.2024 – 07.2025",
+      location: "Rzeszów, Polska",
+      description:
+        "Wirtualne uruchomienia 3D w Factory I/O (Siemens PLCSIM, Modbus TCP, OPC UA). Zastosowanie OpenCV do analizy obrazu i inspekcji wizyjnej. Projektowanie autorskich modułów sprzętowych do integracji z maszynami przemysłowymi oraz analiza wewnętrznych protokołów transmisji danych w maszynach. Optymalizacja cięcia laserowego CNC (nesting) i robotyka sortująca UR-5 z kamerą Sick.",
+      tags: ["OpenCV", "Protokoły Maszyn", "Moduły Integracyjne", "Factory I/O", "Siemens PLCSIM", "Cięcie Laserowe", "UR-5"],
+    },
+    {
+      company: "Fabryka Ciastek San-Pajda Sp. z o.o.",
+      role: "Główny Inżynier Automatyk",
+      period: "02.2023 – 07.2024",
+      location: "Jarosław, Polska",
+      description:
+        "Zaprojektowanie układu napowietrzania ciasta Turbomixer i nadrzędnej SCADA w 57 dni (CAPEX: 25 400 PLN). Optymalizacja krzywych PID palników pieca gazowego bezów (+33% wydajności, 71 124 PLN/rok udokumentowanych oszczędności gazu).",
+      tags: ["Siemens S7", "SCADA", "Turbomikser", "Piec Gazowy", "Wydajność +33%", "71.1k PLN/rok"],
+    },
+    {
+      company: "MostCentrService / KasaMobile",
+      role: "Programista Android & Integrator Embedded",
+      period: "05.2021 – 08.2023",
+      location: "Zdalnie / Hybrydowo",
+      description:
+        "Rozwój komercyjnych aplikacji kasowych POS na Androida w Kotlin i Jetpack Compose (Clean Architecture, Hilt, Room). Integracja drukarek fiskalnych (Posnet, Novitus, Elzab, Datex), wag i skanerów przez RS-232 i Bluetooth SPP/BLE.",
+      tags: ["Kotlin", "Jetpack Compose", "Android SDK", "RS-232", "Kasy Fiskalne", "Bluetooth SPP"],
+    },
+    {
+      company: "ZUT Kunzek",
+      role: "Elektromonter Szaf Sterowniczych",
+      period: "07.2021 – 09.2021",
+      location: "Jarosław, Polska",
+      description:
+        "Montaż i prefabrykacja szaf sterowniczych. Czytanie schematów EPLAN, montaż aparatury modułowej (PLC, falowniki, przekaźniki bezpieczeństwa), pneumatyka Festo/SMC, zaciskanie złączy i pomiary pętli I/O.",
+      tags: ["Szafy Sterownicze", "EPLAN", "Okablowanie", "PLC i Falowniki", "Pneumatyka", "Testy I/O"],
     },
   ],
 };
@@ -604,6 +1042,7 @@ export const TRANSLATIONS = {
   en: {
     nav: {
       impact: "Impact",
+      expos: "Vectors",
       projects: "Projects",
       demos: "Live Demos",
       skills: "Skills",
@@ -611,48 +1050,53 @@ export const TRANSLATIONS = {
       contact: "Contact",
     },
     hero: {
-      headline: "Web Platforms Engineered for",
-      headline2: "Traffic, Speed & Revenue",
+      headline: "Industrial Automation, Embedded Mesh &",
+      headline2: "Real-Time Industrial MES Platforms",
       subtitle:
-        "Web Developer for Product Platforms & Technical Growth. Combines Computer Science engineering with an M.Sc. in Management. Specializing in WordPress/PHP, product catalogues, technical SEO, and Core Web Vitals.",
-      cta_primary: "Recruiter Fast-Track (30s)",
+        "CTO & Lead Industrial Automation, Embedded Systems & Android / MES Architect. Combining Siemens S7 PLC automation, Factory I/O 3D simulation, ESP32-C6 wireless mesh networks, Raspberry Pi edge gateways, and React 19 Canvas MES systems.",
+      cta_primary: "Explore Case Studies",
       cta_secondary: "Download CV (PDF)",
       cta_demo: "View Case Studies",
-      available: "Available for EU remote & hybrid roles",
+      available: "Available for Remote EU & Hybrid Roles (Przechlewo / Warsaw / EU)",
+    },
+    expos: {
+      eyebrow: "Applied Engineering Vectors",
+      title: "Architected for Critical Industrial Domains",
+      subtitle: "Direct alignment of Roman Deyneko's verified hardware, firmware, and software systems with complex real-world challenges across OT, embedded edge, and high-availability operations.",
     },
     impact: {
-      eyebrow: "The ROI of Hiring Oleh",
+      eyebrow: "The Engineering ROI of Roman Deyneko",
       title: "Commercial Value &",
-      highlight: "Engineering Impact",
-      subtitle: "Delivering measurable business outcomes: organic traffic growth, Core Web Vitals recovery, and zero-downtime multi-market platform continuity.",
+      highlight: "Industrial Impact",
+      subtitle: "Delivering measurable engineering and business outcomes: +33% line throughput, 71.1k PLN/yr gas fuel savings, -40% downtime reduction, sub-10ms mesh latency, and zero punch loss reliability.",
     },
     projects: {
-      eyebrow: "Commercial Case Studies",
+      eyebrow: "Selected Industrial Case Studies",
       title: "Engineered for",
-      highlight: "Performance & Scale",
-      subtitle: "A deeper look into corporate product catalogues, technical platform migrations, and secure webhook integrations.",
+      highlight: "Precision, Scale & Zero Failure",
+      subtitle: "A deeper look into industrial automation & Turbomixer SCADA, plant line PLC optimization, distributed ESP-NOW wireless mesh, and real-time React 19 Canvas MES platforms.",
     },
     demos: {
       eyebrow: "Interactive Architecture",
       title: "Direct System",
       highlight: "Demonstrations",
-      subtitle: "Explore interactive views of product catalogue architecture, Core Web Vitals audits, and API webhook integrations.",
+      subtitle: "Explore interactive views of ESP-NOW mesh telemetry, digital twin Canvas floor plans, and Raspberry Pi edge gateways.",
     },
     skills: {
       eyebrow: "Technical Competencies",
       title: "Tech Stack &",
       highlight: "Specializations",
-      subtitle: "Battle-tested tools across WordPress/PHP development, modern Next.js/TypeScript, technical SEO, and data analytics.",
+      subtitle: "Battle-tested tools across Siemens S7 PLC, Factory I/O, Android POS (Kotlin), ESP32-C6 firmware, Python FastAPI, React 19 Canvas, and industrial fieldbuses.",
     },
     education: {
-      eyebrow: "Academic Foundation",
+      eyebrow: "Academic Credentials",
       title: "Degrees &",
-      highlight: "Credentials",
-      subtitle: "B.Eng. in Computer Science combined with an M.Sc. in Management from PANS in Jarosław.",
+      highlight: "Qualifications",
+      subtitle: "Magister (M.Sc.) & Inżynier Mechatroniki / Informatyki from PANS w Jarosławiu.",
     },
     contact: {
-      title: "Let's Build Something",
-      subtitle: "Have a web platform, catalogue or technical performance project in mind? Let's connect.",
+      title: "Let's Engineer Something Exceptional",
+      subtitle: "Have an industrial automation, PLC, embedded mesh, Android POS, or industrial MES project in mind? Let's connect.",
       name: "Full Name",
       email: "Email Address",
       projectType: "Project / Role Type",
@@ -660,18 +1104,21 @@ export const TRANSLATIONS = {
       send: "Send Message",
       rodo: "I consent to the processing of my personal data for the purpose of responding to this inquiry, in accordance with RODO (GDPR) regulations.",
       projectTypes: [
-        "Web Platform Development",
-        "WordPress & Custom PHP",
-        "Product Catalogue Management",
-        "Technical SEO & Core Web Vitals",
-        "API & Webhook Integrations",
-        "Other",
+        "Industrial Automation & PLC Optimization",
+        "Embedded Systems & ESP-NOW Mesh",
+        "Industrial MES & Digital Twin Canvas",
+        "Factory I/O & CAD/CAM Virtual Commissioning",
+        "San-Pajda & Goodvalley PLC Optimization",
+        "Android POS & Fiscal Peripheral Integration",
+        "Raspberry Pi Industrial Edge Gateway",
+        "Other Engineering Project",
       ],
     },
   },
   pl: {
     nav: {
       impact: "Wyniki & ROI",
+      expos: "Wektory",
       projects: "Realizacje",
       demos: "Architektura",
       skills: "Umiejętności",
@@ -679,48 +1126,53 @@ export const TRANSLATIONS = {
       contact: "Kontakt",
     },
     hero: {
-      headline: "Platformy Webowe Tworzone dla",
-      headline2: "Ruchu, Wydajności i Wyników",
+      headline: "Automatyka Przemysłowa, Rozproszony Mesh &",
+      headline2: "Przemysłowe Platformy MES Real-Time",
       subtitle:
-        "Web Developer — platformy produktowe i rozwój techniczny. Łączy inżynierię informatyki z magistrem zarządzania. Specjalizuje się w WordPress/PHP, katalogach produktów, technicznym SEO i Core Web Vitals.",
-      cta_primary: "Dla Rekruterów (30s)",
+        "CTO & Główny Architekt Automatyki Przemysłowej, Systemów Wbudowanych, Androida i MES. Łączy sterowniki Siemens S7 PLC, wirtualne uruchomienia w Factory I/O, sieci mesh ESP32-C6, bramki Raspberry Pi i platformy MES w React 19 Canvas.",
+      cta_primary: "Zobacz Case Studies",
       cta_secondary: "Pobierz CV (PDF)",
       cta_demo: "Zobacz Case Studies",
-      available: "Dostępny do pracy zdalnej w UE i hybrydowej",
+      available: "Dostępny do pracy zdalnej w UE i hybrydowej (Przechlewo / Warszawa / UE)",
+    },
+    expos: {
+      eyebrow: "Wektory Inżynierii Stosowanej",
+      title: "Architektura dla Kluczowych Obszarów Przemysłu",
+      subtitle: "Rozwiązania sprzętowe, układowe i chmurowe Romana Дейнека dla wyzwań przemysłowych w obszarach OT, edge computing oraz ciągłości operacyjnej.",
     },
     impact: {
-      eyebrow: "Wartość dla Biznesu",
+      eyebrow: "Wartość Inżynierska & ROI",
       title: "Wpływ Inżynieryjny &",
-      highlight: "Wymierne Wyniki",
-      subtitle: "Dostarczanie mierzalnych rezultatów biznesowych: wzrost ruchu organicznego, poprawa Core Web Vitals i ciągłość działania platform na wielu rynkach.",
+      highlight: "Wymierne Wyniki Biznesowe",
+      subtitle: "Dostarczanie mierzalnych rezultatów: +33% wydajności linii, 71.1k PLN/rok oszczędności gazu, redukcja mikroprzestojów o 40%, opóźnienia mesh <10ms oraz standard zerowej utraty danych.",
     },
     projects: {
-      eyebrow: "Studia Przypadków",
+      eyebrow: "Wybrane Studia Przypadków",
       title: "Zaprojektowane dla",
-      highlight: "Wydajności i Skali",
-      subtitle: "Szczegółowy wgląd w ekosystem katalogów produktów, migracje platform i bezpieczne integracje webhooków.",
+      highlight: "Precyzji, Skali i Niezawodności",
+      subtitle: "Szczegółowy wgląd w automatyzację przemysłową i SCADA Turbomixera, optymalizację linii produkcyjnych PLC, rozproszone sieci ESP-NOW mesh oraz systemy MES w React 19 Canvas.",
     },
     demos: {
       eyebrow: "Interaktywna Architektura",
       title: "Demonstracje",
       highlight: "Systemowe",
-      subtitle: "Sprawdź architekturę katalogów produktów, audyty Core Web Vitals oraz integracje API webhooków.",
+      subtitle: "Sprawdź architekturę sieci mesh ESP-NOW, cyfrowego bliźniaka hali produkcyjnej w Canvas oraz przemysłowe bramki Raspberry Pi.",
     },
     skills: {
       eyebrow: "Kompetencje Techniczne",
       title: "Stos Technologiczny &",
-      highlight: "Narzędzia",
-      subtitle: "Sprawdzone narzędzia w rozwoju WordPress/PHP, nowoczesnym Next.js/TypeScript, technicznym SEO i analityce.",
+      highlight: "Narzędzia Inżynierskie",
+      subtitle: "Sprawdzone narzędzia: sterowniki Siemens S7 PLC, Factory I/O, aplikacje Android POS (Kotlin), firmware ESP32-C6, Python FastAPI, React 19 Canvas i magistrale przemysłowe.",
     },
     education: {
       eyebrow: "Wykształcenie",
       title: "Dyplomy i",
       highlight: "Kwalifikacje",
-      subtitle: "Tytuł inżyniera informatyki połączony z magistrem zarządzania (PANS w Jarosławiu).",
+      subtitle: "Tytuł magistra oraz inżyniera mechatroniki / informatyki (PANS w Jarosławiu).",
     },
     contact: {
-      title: "Zbudujmy coś razem",
-      subtitle: "Masz projekt hardware, systemów wbudowanych lub MES? Porozmawiajmy.",
+      title: "Zaprojektujmy coś wyjątkowego",
+      subtitle: "Masz projekt automatyki przemysłowej, PLC, sieci mesh, Android POS lub MES? Porozmawiajmy.",
       name: "Imię i Nazwisko",
       email: "Adres E-mail",
       projectType: "Typ Projektu",
@@ -728,12 +1180,14 @@ export const TRANSLATIONS = {
       send: "Wyślij Wiadomość",
       rodo: "Wyrażam zgodę na przetwarzanie moich danych osobowych w celu udzielenia odpowiedzi na niniejsze zapytanie, zgodnie z przepisami RODO.",
       projectTypes: [
-        "Robotyka i Kioski Vendingowe",
+        "Automatyzacja Przemysłowa & Optymalizacja PLC",
         "Systemy Wbudowane ESP32-C6 & Mesh",
-        "Architektura Przemysłowa MES",
-        "Frezowanie CNC i Mechanika Precyzyjna",
+        "Architektura Przemysłowa MES & Canvas",
+        "Wirtualne Uruchomienia Factory I/O & CAD/CAM",
+        "Optymalizacja Linii PLC (San-Pajda & Goodvalley)",
+        "Integracja Kas Fiskalnych & Android POS",
         "Przemysłowe Bramki Raspberry Pi",
-        "Inne",
+        "Inne Projekty Inżynierskie",
       ],
     },
   },

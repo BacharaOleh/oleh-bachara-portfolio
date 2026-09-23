@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 
 function decodeJwtPayload(token: string) {
   try {
@@ -9,7 +8,7 @@ function decodeJwtPayload(token: string) {
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const jsonPayload = Buffer.from(base64, "base64").toString("utf-8");
     return JSON.parse(jsonPayload);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -53,9 +52,9 @@ export async function POST(request: Request) {
       const payload = tokenData.id_token ? decodeJwtPayload(tokenData.id_token) : null;
       const user = {
         id: payload?.sub || payload?.id || body.id || "8649904549",
-        firstName: payload?.name || payload?.first_name || body.first_name || "Oleh",
-        lastName: payload?.last_name || body.last_name || "",
-        username: payload?.preferred_username || payload?.username || body.username || "olegh_bachara",
+        firstName: payload?.name || payload?.first_name || body.first_name || "Roman",
+        lastName: payload?.last_name || body.last_name || "Deyneko",
+        username: payload?.preferred_username || payload?.username || body.username || "NeKoRoM",
         photoUrl: payload?.picture || payload?.photo_url || null,
         authDate: Math.floor(Date.now() / 1000),
       };
@@ -70,15 +69,13 @@ export async function POST(request: Request) {
       });
     }
 
-    // 2. OpenID Direct / HMAC Payload Validation
-    const { hash, ...data } = body;
-
+    // 2. OpenID Direct / Payload Handling
     const clientId = process.env.TELEGRAM_CLIENT_ID || "8649904549";
     const user = {
       id: body.id || "8649904549",
-      firstName: body.first_name || "Oleh",
-      lastName: body.last_name || "Bachara",
-      username: body.username || "olegh_bachara",
+      firstName: body.first_name || "Roman",
+      lastName: body.last_name || "Deyneko",
+      username: body.username || "NeKoRoM",
       photoUrl: body.photo_url || null,
       authDate: body.auth_date || Math.floor(Date.now() / 1000),
     };

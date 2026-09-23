@@ -5,18 +5,27 @@ const path = require('path');
 const fontsDir = path.join(__dirname, 'public', 'fonts');
 if (!fs.existsSync(fontsDir)) fs.mkdirSync(fontsDir, { recursive: true });
 
-// Use npm @fontsource packages which ship actual TTF files
-// Or use bunny.net CDN which serves direct TTF
+// Reliable TrueType font assets for PDF generation
 const fonts = [
   {
-    url: 'https://fonts.gstatic.com/s/roboto/v47/KFOMCnqEu92Fr1ME4hFR2A.ttf',
+    url: 'https://raw.githubusercontent.com/PolymerElements/font-roboto-local/master/fonts/roboto/Roboto-Regular.ttf',
     dest: path.join(fontsDir, 'Roboto-Regular.ttf'),
     label: 'Roboto-Regular'
   },
   {
-    url: 'https://fonts.gstatic.com/s/roboto/v47/KFOlCnqEu92Fr1MmWUlvAA.ttf',
+    url: 'https://raw.githubusercontent.com/PolymerElements/font-roboto-local/master/fonts/roboto/Roboto-Bold.ttf',
     dest: path.join(fontsDir, 'Roboto-Bold.ttf'),
     label: 'Roboto-Bold'
+  },
+  {
+    url: 'https://raw.githubusercontent.com/PolymerElements/font-roboto-local/master/fonts/roboto/Roboto-Medium.ttf',
+    dest: path.join(fontsDir, 'Roboto-Medium.ttf'),
+    label: 'Roboto-Medium'
+  },
+  {
+    url: 'https://raw.githubusercontent.com/PolymerElements/font-roboto-local/master/fonts/roboto/Roboto-Italic.ttf',
+    dest: path.join(fontsDir, 'Roboto-Italic.ttf'),
+    label: 'Roboto-Italic'
   }
 ];
 
@@ -39,8 +48,7 @@ function download(url, dest, label, cb) {
     file.on('finish', () => {
       file.close();
       const size = fs.statSync(dest).size;
-      const magic = fs.readFileSync(dest).slice(0, 4).toString('hex');
-      console.log(`✅ ${label}: ${(size / 1024).toFixed(1)} KB, magic=${magic}`);
+      console.log(`✅ ${label}: ${(size / 1024).toFixed(1)} KB`);
       cb(null);
     });
   }).on('error', (err) => {
@@ -54,6 +62,7 @@ let pending = fonts.length;
 for (const f of fonts) {
   download(f.url, f.dest, f.label, (err) => {
     if (err) { process.exitCode = 1; return; }
-    if (--pending === 0) console.log('All fonts downloaded!');
+    if (--pending === 0) console.log('All fonts downloaded and ready!');
   });
 }
+

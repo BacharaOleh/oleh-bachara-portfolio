@@ -21,6 +21,7 @@ export function SpotlightCard({
   const [spotlight, setSpotlight] = useState({ x: 0, y: 0, opacity: 0 });
 
   const handleMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) return;
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     setSpotlight({

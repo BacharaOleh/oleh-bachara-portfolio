@@ -45,7 +45,7 @@ export function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5, delay: 0.05 }}
-        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f7f8f8] tracking-tight leading-[1.15]"
+        className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#f7f8f8] tracking-tight leading-[1.15] break-words"
       >
         {title}{" "}
         {highlight && (

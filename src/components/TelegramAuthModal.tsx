@@ -26,21 +26,32 @@ interface TelegramAuthModalProps {
   onSuccess?: (user: { username: string; firstName?: string }, logMessage: string) => void;
 }
 
+interface TelegramUser {
+  id: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  photoUrl?: string | null;
+}
+
+interface TelegramSessionResult {
+  user: TelegramUser;
+  sessionToken: string;
+  message: string;
+  mode: string;
+}
+
 export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthModalProps) {
   const [step, setStep] = useState<"idle" | "verifying" | "success" | "error">("idle");
   const [verifyLogs, setVerifyLogs] = useState<string[]>([]);
-  const [sessionResult, setSessionResult] = useState<any>(null);
+  const [sessionResult, setSessionResult] = useState<TelegramSessionResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [copiedRedirect, setCopiedRedirect] = useState(false);
 
   const clientId = process.env.NEXT_PUBLIC_TELEGRAM_CLIENT_ID || "8649904549";
-  const [currentOrigin, setCurrentOrigin] = useState<string>("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setCurrentOrigin(window.location.origin);
-    }
-  }, []);
+  const [currentOrigin] = useState<string>(() =>
+    typeof window !== "undefined" ? window.location.origin : ""
+  );
 
   const redirectUri = `${currentOrigin || "http://localhost:3000"}/api/telegram-auth/callback`;
 
@@ -135,9 +146,9 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: "8649904549",
-          first_name: "Oleh",
-          last_name: "Bachara",
-          username: "olegh_bachara",
+          first_name: "Roman",
+          last_name: "Deyneko",
+          username: "NeKoRoM",
           auth_date: Math.floor(Date.now() / 1000),
         }),
       });
@@ -163,9 +174,10 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         setStep("error");
         setErrorMessage(data.error || "Authentication verification failed");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as Error;
       setStep("error");
-      setErrorMessage(err.message || "Failed to communicate with authentication server");
+      setErrorMessage(error.message || "Failed to communicate with authentication server");
     }
   };
 
@@ -176,10 +188,22 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
     setErrorMessage("");
   };
 
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-hidden">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -189,24 +213,29 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
             className="fixed inset-0 bg-slate-950/85 backdrop-blur-md"
           />
 
-          {/* Modal Card */}
+          {/* Modal Card / Bottom Sheet on Mobile */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            exit={{ opacity: 0, scale: 0.95, y: 30 }}
             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-            className="relative w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 bg-[#08090a]/95 border border-white/10 shadow-2xl z-10 overflow-hidden"
+            className="relative w-full max-w-lg glass-card rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8 bg-[#08090a]/95 border border-white/10 shadow-2xl z-10 max-h-[90dvh] overflow-y-auto overscroll-contain"
           >
+            {/* Mobile Drag Indicator */}
+            <div className="sm:hidden flex justify-center mb-3">
+              <div className="w-10 h-1 rounded-full bg-white/20" />
+            </div>
+
             {/* Top Glowing Bar */}
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 shadow-sm shadow-amber-500/20" />
+            <div className="hidden sm:block absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 shadow-sm shadow-amber-500/20" />
 
             <button
               type="button"
               aria-label="Close Telegram authentication modal"
               onClick={onClose}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#1c1917] border border-white/10 text-[#a8a29e] hover:text-[#f7f8f8] flex items-center justify-center transition-colors cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+              className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 w-11 h-11 rounded-full bg-[#1c1917] border border-white/10 text-[#a8a29e] hover:text-[#f7f8f8] flex items-center justify-center transition-colors cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] shrink-0 z-20"
             >
-              <X size={16} />
+              <X size={18} />
             </button>
 
             {/* Header */}
@@ -286,7 +315,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                   className="w-full py-2.5 rounded-xl bg-slate-900 border border-white/[0.08] text-slate-300 hover:text-white font-mono text-xs hover:border-indigo-500/40 transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   <UserCheck size={14} className="text-indigo-400" />
-                  Fast Verification Test (@olegh_bachara)
+                  Fast Verification Test (@NeKoRoM)
                 </button>
               </div>
             )}

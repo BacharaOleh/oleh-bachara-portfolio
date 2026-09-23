@@ -51,7 +51,7 @@ export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
   const overlayMap = VALUE_CARD_PERSPECTIVES[perspective][lang];
 
   return (
-    <section id="impact" className="py-20 md:py-28 relative">
+    <section id="impact" className="py-16 sm:py-24 md:py-28 relative overflow-hidden w-full max-w-full">
       <div className="container-custom">
         <SectionHeading
           eyebrow={t.eyebrow}
@@ -60,7 +60,7 @@ export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
           subtitle={t.subtitle}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 w-full min-w-0 max-w-full">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Code2;
             const theme = accentThemes[card.accentColor as keyof typeof accentThemes];
@@ -80,10 +80,10 @@ export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={colSpan}
+                className={`${colSpan} min-w-0`}
               >
                 <SpotlightCard
-                  className={`glass-card h-full p-6 sm:p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between`}
+                  className={`glass-card h-full p-5 sm:p-8 rounded-2xl sm:rounded-3xl relative overflow-hidden flex flex-col justify-between`}
                   spotlightColor={
                     card.accentColor === "indigo" ? "rgba(99,102,241,0.10)" :
                     card.accentColor === "cyan" ? "rgba(56,189,248,0.10)" :
@@ -94,9 +94,9 @@ export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
                   <div className={`absolute inset-0 bg-gradient-to-br ${theme.glowGradient} opacity-50 pointer-events-none`} />
 
                   <div className="relative z-10">
-                    <div className="flex items-center justify-between gap-4 mb-6">
-                      <div className={`w-11 h-11 rounded-2xl border flex items-center justify-center ${theme.iconBg}`}>
-                        <Icon size={20} />
+                    <div className="flex items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-6">
+                      <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border flex items-center justify-center shrink-0 ${theme.iconBg}`}>
+                        <Icon size={18} />
                       </div>
                       <div className="text-right">
                         <AnimatePresence mode="wait">
@@ -106,12 +106,12 @@ export function ValueProposition({ lang, perspective }: ValuePropositionProps) {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ duration: 0.25 }}
-                            className={`text-3xl font-extrabold font-mono ${theme.metricText}`}
+                            className={`text-2xl sm:text-3xl font-extrabold font-mono ${theme.metricText}`}
                           >
                             {currentMetric}
                           </motion.div>
                         </AnimatePresence>
-                        <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                        <div className="text-[10px] sm:text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
                           {currentMetricLabel}
                         </div>
                       </div>

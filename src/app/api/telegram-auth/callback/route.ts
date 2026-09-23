@@ -94,9 +94,9 @@ export async function GET(request: Request) {
     const payload = tokenData.id_token ? decodeJwtPayload(tokenData.id_token) : null;
     const user = {
       id: payload?.sub || payload?.id || "8649904549",
-      username: payload?.preferred_username || payload?.username || "olegh_bachara",
-      firstName: payload?.name || payload?.first_name || "Oleh",
-      lastName: payload?.last_name || "",
+      username: payload?.preferred_username || payload?.username || "NeKoRoM",
+      firstName: payload?.name || payload?.first_name || "Roman",
+      lastName: payload?.last_name || "Deyneko",
       photoUrl: payload?.picture || payload?.photo_url || null,
       phoneNumber: payload?.phone_number || null,
     };
@@ -133,14 +133,15 @@ export async function GET(request: Request) {
       </html>`,
       { headers: { "Content-Type": "text/html" } }
     );
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const error = err as Error;
     return new NextResponse(
       `<!DOCTYPE html>
       <html>
         <body style="background:#090d16;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">
           <div style="text-align:center;">
             <h3 style="color:#f43f5e;">Server Error</h3>
-            <p>${err.message}</p>
+            <p>${error.message}</p>
           </div>
         </body>
       </html>`,
