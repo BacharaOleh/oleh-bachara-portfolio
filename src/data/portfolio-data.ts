@@ -1053,7 +1053,7 @@ export const TRANSLATIONS = {
       headline: "Industrial Automation, Embedded Mesh &",
       headline2: "Real-Time Industrial MES Platforms",
       subtitle:
-        "CTO & Lead Industrial Automation, Embedded Systems & Android / MES Architect. Combining Siemens S7 PLC automation, Factory I/O 3D simulation, ESP32-C6 wireless mesh networks, Raspberry Pi edge gateways, and React 19 Canvas MES systems.",
+        "Head of R&D & Lead Industrial Automation, Embedded Systems & Android / MES Architect. Combining Siemens S7 PLC automation, Factory I/O 3D simulation, ESP32-C6 wireless mesh networks, Raspberry Pi edge gateways, and React 19 Canvas MES systems.",
       cta_primary: "Explore Case Studies",
       cta_secondary: "Download CV (PDF)",
       cta_demo: "View Case Studies",
@@ -1129,7 +1129,7 @@ export const TRANSLATIONS = {
       headline: "Automatyka Przemysłowa, Rozproszony Mesh &",
       headline2: "Przemysłowe Platformy MES Real-Time",
       subtitle:
-        "CTO & Główny Architekt Automatyki Przemysłowej, Systemów Wbudowanych, Androida i MES. Łączy sterowniki Siemens S7 PLC, wirtualne uruchomienia w Factory I/O, sieci mesh ESP32-C6, bramki Raspberry Pi i platformy MES w React 19 Canvas.",
+        "Head of R&D & Główny Architekt Automatyki Przemysłowej, Systemów Wbudowanych, Androida i MES. Łączy sterowniki Siemens S7 PLC, wirtualne uruchomienia w Factory I/O, sieci mesh ESP32-C6, bramki Raspberry Pi i platformy MES w React 19 Canvas.",
       cta_primary: "Zobacz Case Studies",
       cta_secondary: "Pobierz CV (PDF)",
       cta_demo: "Zobacz Case Studies",

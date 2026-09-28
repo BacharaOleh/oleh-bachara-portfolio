@@ -69,7 +69,7 @@ const COPY = {
         mesh: "Pre-paired hardware MAC routing; runs immediately on boot.",
       },
     ],
-    techTitle: "Technical Architecture Under the Hood (For CTOs & Tech Leads)",
+    techTitle: "Technical Architecture Under the Hood (For Engineering Leads & Architects)",
     techSpecs: [
       {
         label: "Hardware Platform",
@@ -148,7 +148,7 @@ const COPY = {
         mesh: "Sprzętowo sparowane adresy MAC; działa natychmiast po włączeniu.",
       },
     ],
-    techTitle: "Szczegóły Architektury Pod Maską (Dla CTO i Architektów)",
+    techTitle: "Szczegóły Architektury Pod Maską (Dla Tech Leadów i Architektów)",
     techSpecs: [
       {
         label: "Platforma Sprzętowa",

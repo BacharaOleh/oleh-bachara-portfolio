@@ -28,7 +28,7 @@ const CV_DATA = {
   en: {
     filename: 'cv-roman-deyneko-en.pdf',
     name: 'Roman Deyneko',
-    role: 'CTO | Lead Hardware, Embedded Systems & Full-Stack Architect',
+    role: 'Head of R&D | Lead Hardware, Embedded Systems & Full-Stack Architect',
     meta: 'Przechlewo, Pomorskie, Poland  ·  Dual PL / UA Citizen  ·  Full EU Work Rights (No Visa Needed)  ·  Remote (EU) / Hybrid / Travel',
     links: [
       { text: '+48 791 265 019', url: 'tel:+48791265019', label: 'Tel/WhatsApp' },
@@ -111,7 +111,7 @@ const CV_DATA = {
     ],
     academic: {
       degrees: 'Mgr (M.Sc.) Management (120 ECTS) · Inż. (B.Sc.) Computer Science (213 ECTS) · Inż. (B.Sc.) Automation & Electronics (160 ECTS) — PANS (493 ECTS Total, 1,880h+ Practicum)',
-      target: 'Target Roles: CTO / Tech Lead · Head of Automation & R&D · Lead Embedded & IIoT Architect · Industrial MES Architect · Senior Automation Engineer',
+      target: 'Target Roles: Head of R&D · Tech Lead · Head of Automation · Lead Embedded & IIoT Architect · Industrial MES Architect · Senior Automation Engineer',
       terms: 'Compensation: Open to Company Offers (B2B + VAT / UoP)   ·   Availability: Immediate / 2 Weeks   ·   Mode: Remote (EU) / Hybrid / Travel'
     },
     rodo: 'I hereby consent to my personal data being processed for the purpose of recruitment processes in accordance with the EU General Data Protection Regulation (GDPR / RODO 2016/679).'
@@ -119,7 +119,7 @@ const CV_DATA = {
   pl: {
     filename: 'cv-roman-deyneko-pl.pdf',
     name: 'Roman Deyneko',
-    role: 'Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack (CTO)',
+    role: 'Head of R&D | Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack',
     meta: 'Przechlewo, woj. pomorskie  ·  Obywatel RP / UA  ·  Pełne prawa rynku pracy UE (Bez wizy)  ·  Zdalnie w UE / Hybryda / Wyjazdy',
     links: [
       { text: '+48 791 265 019', url: 'tel:+48791265019', label: 'Tel/WhatsApp' },
@@ -202,7 +202,7 @@ const CV_DATA = {
     ],
     academic: {
       degrees: 'Mgr Zarządzania (120 ECTS) · Inż. Informatyki (213 ECTS) · Inż. Automatyki i Elektroniki (160 ECTS) — PANS w Jarosławiu (Łącznie 493 ECTS, 1880h+ praktyk)',
-      target: 'Docelowe Stanowiska: CTO / Tech Lead · Head of Automation & R&D · Główny Architekt Embedded & IIoT · Architekt Systemów MES · Senior Automatyk',
+      target: 'Docelowe Stanowiska: Head of R&D · Tech Lead · Head of Automation · Główny Architekt Embedded & IIoT · Architekt Systemów MES · Senior Automatyk',
       terms: 'Wynagrodzenie: Do uzgodnienia / Oferta firmy (B2B / UoP)   ·   Dostępność: Od zaraz / 2 tyg.   ·   Tryb: Zdalnie / Hybryda / Delegacje'
     },
     rodo: 'Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO).'

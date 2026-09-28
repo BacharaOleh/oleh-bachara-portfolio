@@ -87,8 +87,8 @@ export default function CvPage() {
               </h1>
               <p className="text-sm sm:text-base font-medium text-[#c4a160] mt-1">
                 {lang === "pl"
-                  ? "Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack (CTO)"
-                  : "CTO | Lead Hardware, Embedded Systems & Full-Stack Architect"}
+                  ? "Head of R&D | Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack"
+                  : "Head of R&D | Lead Hardware, Embedded Systems & Full-Stack Architect"}
               </p>
               <p className="text-xs font-mono text-[#a39c91] mt-2">
                 Przechlewo, Poland · Remote (EU) / Hybrid / Travel · Dual PL/UA Citizen

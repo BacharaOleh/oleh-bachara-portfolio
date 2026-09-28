@@ -1,0 +1,18 @@
+{
+  "mode": "default",
+  "customUrl": "",
+  "enabled": false,
+  "updatedAt": "2026-09-25T09:43:13.458Z",
+  "stats": {
+    "totalRedirected": 0,
+    "byMode": {
+      "default": 0,
+      "hardware_focus": 0,
+      "mes_focus": 0,
+      "recruiter_fasttrack": 0,
+      "geo_smart": 0,
+      "custom_url": 0
+    }
+  },
+  "maintenanceMode": false
+}

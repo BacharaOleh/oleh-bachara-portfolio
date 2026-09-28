@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://nekorom.eu"),
   title: "Roman Deyneko — Lead Hardware, Embedded & Full-Stack Architect",
   description:
-    "Portfolio of Roman Deyneko — CTO & Lead Architect across ESP32-C6 firmware, robotics CNC, ESP-NOW mesh, Raspberry Pi, and industrial MES platforms.",
+    "Portfolio of Roman Deyneko — Head of R&D / Lead Architect across ESP32-C6 firmware, robotics CNC, ESP-NOW mesh, Raspberry Pi, and industrial MES platforms.",
   keywords: [
     "Hardware Engineer",
     "Embedded Systems",
@@ -85,6 +85,7 @@ export const metadata: Metadata = {
 import { Suspense } from "react";
 import Script from "next/script";
 import { VisitorTracker } from "@/components/VisitorTracker";
+import { MaintenanceBanner } from "@/components/MaintenanceBanner";
 
 export default function RootLayout({
   children,
@@ -168,6 +169,7 @@ export default function RootLayout({
         </Script>
         <Suspense fallback={null}>
           <VisitorTracker />
+          <MaintenanceBanner />
         </Suspense>
         <script
           type="application/ld+json"

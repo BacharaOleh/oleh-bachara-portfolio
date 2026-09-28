@@ -17,6 +17,13 @@ const DEFAULT_TARGETS = [
   { domain: "httpbin.org", url: "https://httpbin.org/get" },
 ];
 
+function getFormattedPingTimestamp(): string {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("sv-SE");
+  const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  return `${dateStr} ${timeStr}`;
+}
+
 async function measurePing(target: { domain: string; url: string }): Promise<PingResult> {
   const startTime = performance.now();
   try {
@@ -40,21 +47,20 @@ async function measurePing(target: { domain: string; url: string }): Promise<Pin
       latencyMs: latency,
       status: `${response.status} ${response.statusText || "OK"}`,
       ssl: "Valid (TLS 1.3)",
-      lastChecked: new Date().toLocaleTimeString(),
+      lastChecked: getFormattedPingTimestamp(),
     };
   } catch (err: unknown) {
     const endTime = performance.now();
     const latency = Math.round(endTime - startTime);
     const error = err as Error;
-
-    // If abort or network fail, return realistic latency measurement or offline status
+    const isTimeout = error.name === "AbortError";
     return {
       domain: target.domain,
-      ping: `${latency > 0 ? latency : 45}ms`,
+      ping: isTimeout ? ">4000ms" : "Offline",
       latencyMs: latency,
-      status: error.name === "AbortError" ? "Timeout" : "Operational",
-      ssl: "Valid (TLS 1.3)",
-      lastChecked: new Date().toLocaleTimeString(),
+      status: isTimeout ? "Timeout" : "Offline / Unreachable",
+      ssl: "Unavailable",
+      lastChecked: getFormattedPingTimestamp(),
     };
   }
 }
@@ -66,15 +72,54 @@ export async function GET(request: Request) {
   if (customUrl) {
     let formattedUrl = customUrl.trim();
     if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+      if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(formattedUrl)) {
+        return NextResponse.json(
+          { success: false, error: "Дозволені виключно HTTP та HTTPS протоколи" },
+          { status: 400 }
+        );
+      }
       formattedUrl = `https://${formattedUrl}`;
     }
+
+    // Security & Infrastructure Protection: Strictly disallow pinging restricted targets
     try {
-      const domainName = new URL(formattedUrl).hostname;
+      const parsedUrl = new URL(formattedUrl);
+      if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+        return NextResponse.json(
+          { success: false, error: "Дозволені виключно HTTP та HTTPS протоколи" },
+          { status: 400 }
+        );
+      }
+
+      const host = parsedUrl.hostname.toLowerCase();
+
+      // Block remote VPS, Raspberry Pi, link-local, loopbacks, and private RFC1918 subnets
+      if (
+        host === "37.187.153.154" ||
+        host.includes("raspberry") ||
+        host === "localhost" ||
+        host === "127.0.0.1" ||
+        host.startsWith("127.") ||
+        host.startsWith("169.254.") ||
+        host.startsWith("10.") ||
+        host.startsWith("192.168.") ||
+        /^172\.(1[6-9]|2\d|3[0-1])\./.test(host)
+      ) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Діагностика приватних серверів, локальних адрес та Raspberry Pi заблокована політикою безпеки проекту.",
+          },
+          { status: 403 }
+        );
+      }
+
+      const domainName = parsedUrl.hostname;
       const result = await measurePing({ domain: domainName, url: formattedUrl });
       return NextResponse.json({ success: true, result });
     } catch {
       return NextResponse.json(
-        { success: false, error: "Invalid URL provided" },
+        { success: false, error: "Некоректний формат URL для перевірки" },
         { status: 400 }
       );
     }

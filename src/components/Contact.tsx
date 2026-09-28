@@ -7,8 +7,8 @@ import { CONVERSION_OFFERS, type Lang } from "@/data/portfolio-data";
 const COPY = {
   en: {
     eyebrow: "Contact & Strategic Collaboration",
-    title: "Looking for a CTO, Head of R&D, Lead Embedded Architect, or Senior Automation Engineer?",
-    body: "Available for CTO / Head of R&D / Lead Architect roles (Open to competitive company offers · B2B / UoP). 6+ years precision engineering domain know-how, robotics CNC, ESP32-C6 wireless mesh, and real-time industrial MES platforms. Immediate turnaround and verified ROI.",
+    title: "Looking for a Head of R&D, Tech Lead, Lead Embedded Architect, or Senior Automation Engineer?",
+    body: "Available for Head of R&D / Tech Lead / Lead Architect roles (Open to competitive company offers · B2B / UoP). 6+ years precision engineering domain know-how, robotics CNC, ESP32-C6 wireless mesh, and real-time industrial MES platforms. Immediate turnaround and verified ROI.",
     phone: "+48 791 265 019",
     email: "m.pnikut@gmail.com",
     telegram: "Telegram @NeKoRoM",
@@ -19,8 +19,8 @@ const COPY = {
   },
   pl: {
     eyebrow: "Kontakt & Współpraca Strategiczna",
-    title: "Szukasz CTO, Head of R&D, Głównego Architekta Embedded lub Senior Inżyniera Automatyki?",
-    body: "Dostępny na stanowiska CTO / Head of R&D / Lead Architect (Otwarte na propozycje firm · B2B / UoP). 6+ lat know-how mechaniki precyzyjnej, robotyka CNC, mesh ESP32-C6 oraz przemysłowe platformy MES. Szybki start i natychmiastowy zwrot z inwestycji.",
+    title: "Szukasz Head of R&D, Tech Leada, Głównego Architekta Embedded lub Senior Inżyniera Automatyki?",
+    body: "Dostępny na stanowiska Head of R&D / Tech Lead / Lead Architect (Otwarte na propozycje firm · B2B / UoP). 6+ lat know-how mechaniki precyzyjnej, robotyka CNC, mesh ESP32-C6 oraz przemysłowe platformy MES. Szybki start i natychmiastowy zwrot z inwestycji.",
     phone: "+48 791 265 019",
     email: "m.pnikut@gmail.com",
     telegram: "Telegram @NeKoRoM",

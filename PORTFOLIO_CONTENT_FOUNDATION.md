@@ -1,14 +1,15 @@
 # Roman Deyneko — Portfolio Content Foundation
 
-> **Мета документа:** Редакційний та архітектурний фундамент портфоліо Романа Дейнека (CTO & Lead Hardware, Embedded Systems & Full-Stack Architect). Визначає позиціонування, ключові тексти, ієрархію 4 кейсів та принципи конверсії.
+> **Мета документа:** Редакційний та архітектурний фундамент портфоліо Романа Дейнека (Head of R&D / Lead Hardware, Embedded Systems & Full-Stack Architect). Визначає позиціонування, ключові тексти, ієрархію 4 кейсів та принципи конверсії.
 
 ---
 
 ## 1. Позиціонування (Positioning)
 
 ### Primary Title
-- **EN:** CTO / Lead Hardware, Embedded Systems & Full-Stack Architect
-- **PL:** Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack (CTO)
+- **EN:** Head of R&D / Lead Hardware, Embedded Systems & Full-Stack Architect
+- **PL:** Head of R&D / Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack
+- **Target Roles:** Head of R&D · Tech Lead · Lead Hardware & Embedded Architect · Industrial MES Architect · Senior Automation (PLC) Engineer
 
 ### Short Bio
 - **EN:**

@@ -14,7 +14,7 @@
   - *Personal Systems:* `familiTracker`, `sleapTrack`, `server`.
 - [`ANNUAL_PROGRESS_REPORT_2025_2026.md`](file:///Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio/privatInfo/ANNUAL_PROGRESS_REPORT_2025_2026.md) — **Аналітичний звіт інженерної еволюції за останній рік (2025–2026)**:
   - Порівняння «Було (2024) vs Стало (2026)».
-  - Квантовий стрибок від лінійного програміста до CTO та Lead Hardware/Embedded Architect.
+  - Квантовий стрибок від лінійного інженера до Head of R&D та Lead Hardware/Embedded Architect.
   - Апаратні прориви (ESP32-C6 RISC-V, ESP-NOW Mesh, Serial OTA, Zero Punch Loss).
   - Промисловий рушій Digital Twin Canvas та MES-платформа.
 - [`GOODVALLEY_EXPERIENCE.md`](file:///Users/neko/Documents/PlatformIO/Projects/oleh-bachara-portfolio/privatInfo/GOODVALLEY_EXPERIENCE.md) — **Промисловий досвід у Goodvalley (Пшехлево)**:

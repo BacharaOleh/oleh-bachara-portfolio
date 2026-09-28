@@ -86,7 +86,7 @@ export function RecruiterModal({ isOpen, onClose, lang }: RecruiterModalProps) {
                   {isPl ? "Executive Brief & Status Inżynierski" : "Executive Brief & Engineering Profile"}
                 </h3>
                 <p className="text-xs text-[#c4a160] font-mono truncate mt-0.5">
-                  Roman Deyneko — CTO / Lead Hardware & Full-Stack
+                  Roman Deyneko — Head of R&D / Lead Hardware & Full-Stack
                 </p>
               </div>
             </div>
@@ -163,8 +163,8 @@ export function RecruiterModal({ isOpen, onClose, lang }: RecruiterModalProps) {
                 <div className="text-[#eeece5] text-[11px] leading-relaxed">
                   <strong>{isPl ? "Stanowiska:" : "Roles:"}</strong>{" "}
                   {isPl
-                    ? "CTO / Tech Lead · Head of R&D · Główny Architekt Embedded & IIoT · Architekt Systemów MES (OT/IT) · Senior Inżynier Automatyki (PLC)"
-                    : "CTO / Tech Lead · Head of R&D · Lead Embedded & IIoT Architect · Industrial MES Architect (OT/IT) · Senior Automation (PLC) Engineer"}
+                    ? "Head of R&D · Tech Lead · Główny Architekt Embedded & IIoT · Architekt Systemów MES (OT/IT) · Senior Inżynier Automatyki (PLC)"
+                    : "Head of R&D · Tech Lead · Lead Embedded & IIoT Architect · Industrial MES Architect (OT/IT) · Senior Automation (PLC) Engineer"}
                 </div>
                 <div className="text-[#94a3b8] text-[10px] flex flex-wrap gap-x-3 gap-y-1 pt-0.5">
                   <span>⚡ {isPl ? "Dostępność: Natychmiast / 2 tyg." : "Availability: Immediate / 2 Weeks"}</span>

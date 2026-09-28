@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getOrInitSecurityConfig, generateSessionToken } from "@/app/api/admin-auth/route";
 
 function decodeJwtPayload(token: string) {
   try {
@@ -13,9 +14,13 @@ function decodeJwtPayload(token: string) {
   }
 }
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const secConfig = getOrInitSecurityConfig();
+    const adminSessionToken = generateSessionToken(secConfig.sessionSecret);
 
     // 1. Modern Telegram OpenID Connect (OAuth 2.0 Code Flow)
     if (body.code) {
@@ -64,12 +69,22 @@ export async function POST(request: Request) {
         mode: "telegram_openid_connect_v2",
         clientId,
         user,
-        sessionToken: `tg_oidc_verified_${user.id}_${Date.now()}`,
+        token: adminSessionToken,
+        sessionToken: adminSessionToken,
         message: "Validated via Official Telegram OpenID Connect (Client ID: 8649904549)",
       });
     }
 
-    // 2. OpenID Direct / Payload Handling
+    // 2. OpenID Direct / Payload Handling (Restricted to Development / Local Test)
+    if (process.env.NODE_ENV === "production") {
+      return NextResponse.json(
+        {
+          verified: false,
+          error: "Пряма тестова верифікація вимкнена в продакшн-середовищі. Використовуйте авторизацію через Telegram OAuth 2.0.",
+        },
+        { status: 403 }
+      );
+    }
     const clientId = process.env.TELEGRAM_CLIENT_ID || "8649904549";
     const user = {
       id: body.id || "8649904549",
@@ -85,7 +100,8 @@ export async function POST(request: Request) {
       mode: "telegram_openid_connect",
       clientId,
       user,
-      sessionToken: `tg_oidc_sso_${user.id}_${Date.now()}`,
+      token: adminSessionToken,
+      sessionToken: adminSessionToken,
       message: `Verified via Official Telegram OpenID Connect (Client ID: ${clientId})`,
     });
   } catch (err: unknown) {

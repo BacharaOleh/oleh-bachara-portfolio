@@ -16,7 +16,7 @@ flowchart TD
     B["⚙️ Автоматика та Електроніка<br/>Inżynier (160 ECTS)<br/>ПЛК Siemens, SCADA, схемотехніка, ЧПК, робототехніка"]
     C["📊 Менеджмент та Управління (Management)<br/>Magister / M.Sc. (120 ECTS)<br/>Аудит систем, DFM/CAPEX, управління процесами, стратегія"]
     
-    A & B & C --> D["🚀 Lead Hardware & Embedded Systems Architect / CTO<br/>(Окупність для бізнесу < 90 днів)"]
+    A & B & C --> D["🚀 Lead Hardware & Embedded Systems Architect / Head of R&D<br/>(Окупність для бізнесу < 90 днів)"]
 ```
 
 | Напрям / Спеціальність | Ступінь | Тривалість | ECTS | Ключові Дисципліни та Фокус | Документ |

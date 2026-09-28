@@ -14,7 +14,7 @@ interface HeroProps {
 
 const COPY = {
   en: {
-    eyebrow: "⚡ CTO & Lead Hardware, Embedded Systems & Full-Stack Architect",
+    eyebrow: "⚡ Head of R&D / Lead Hardware, Embedded Systems & Full-Stack Architect",
     title: "Precision Hardware, Distributed Mesh & Real-Time Industrial MES Platforms.",
     leadPart1: "I build complete industrial IoT and robotics systems from hardware to cloud: autonomous ",
     meshLinkText: "wireless mesh networks",
@@ -31,7 +31,7 @@ const COPY = {
     ],
   },
   pl: {
-    eyebrow: "⚡ CTO & Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack",
+    eyebrow: "⚡ Head of R&D / Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack",
     title: "Precyzyjny Hardware, Rozproszony Mesh & Przemysłowe Platformy MES.",
     leadPart1: "Buduję kompletne systemy IoT i robotyki przemysłowej od sprzętu po chmurę: autonomiczne ",
     meshLinkText: "bezprzewodowe sieci kratowe (mesh)",

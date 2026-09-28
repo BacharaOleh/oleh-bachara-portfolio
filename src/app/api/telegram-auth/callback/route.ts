@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getOrInitSecurityConfig, generateSessionToken } from "@/app/api/admin-auth/route";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,15 @@ function decodeJwtPayload(token: string) {
   }
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
@@ -25,6 +35,7 @@ export async function GET(request: Request) {
 
   if (error || !code) {
     const errorMsg = error || "No authorization code returned from Telegram";
+    const safeError = escapeHtml(errorMsg);
     return new NextResponse(
       `<!DOCTYPE html>
       <html>
@@ -32,13 +43,18 @@ export async function GET(request: Request) {
         <body style="background:#090d16;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
           <div style="text-align:center;padding:20px;border:1px solid #f43f5e;border-radius:16px;background:#0f172a;">
             <h3 style="color:#f43f5e;">Authentication Cancelled</h3>
-            <p style="color:#94a3b8;font-size:14px;">${errorMsg}</p>
+            <p style="color:#94a3b8;font-size:14px;">${safeError}</p>
             <script>
               if (window.opener) {
-                window.opener.postMessage({ type: 'TELEGRAM_AUTH_ERROR', error: '${errorMsg}' }, '*');
+                window.opener.postMessage({ type: 'TELEGRAM_AUTH_ERROR', error: ${JSON.stringify(errorMsg)} }, '*');
                 setTimeout(() => window.close(), 2000);
+              } else {
+                setTimeout(() => { window.location.href = '/admin'; }, 2500);
               }
             </script>
+            <div style="margin-top:16px;">
+              <a href="/admin" style="display:inline-block;padding:8px 16px;background:#334155;color:#fff;text-decoration:none;border-radius:8px;font-size:12px;">Повернутися в кабінет</a>
+            </div>
           </div>
         </body>
       </html>`,
@@ -69,6 +85,7 @@ export async function GET(request: Request) {
 
     if (!tokenRes.ok || tokenData.error) {
       const msg = tokenData.error_description || tokenData.error || "Token exchange failed";
+      const safeMsg = escapeHtml(msg);
       return new NextResponse(
         `<!DOCTYPE html>
         <html>
@@ -76,13 +93,18 @@ export async function GET(request: Request) {
           <body style="background:#090d16;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
             <div style="text-align:center;padding:20px;border:1px solid #f43f5e;border-radius:16px;background:#0f172a;">
               <h3 style="color:#f43f5e;">Token Exchange Failed</h3>
-              <p style="color:#94a3b8;font-size:14px;">${msg}</p>
+              <p style="color:#94a3b8;font-size:14px;">${safeMsg}</p>
               <script>
                 if (window.opener) {
-                  window.opener.postMessage({ type: 'TELEGRAM_AUTH_ERROR', error: '${msg}' }, '*');
+                  window.opener.postMessage({ type: 'TELEGRAM_AUTH_ERROR', error: ${JSON.stringify(msg)} }, '*');
                   setTimeout(() => window.close(), 2500);
+                } else {
+                  setTimeout(() => { window.location.href = '/admin'; }, 2500);
                 }
               </script>
+              <div style="margin-top:16px;">
+                <a href="/admin" style="display:inline-block;padding:8px 16px;background:#334155;color:#fff;text-decoration:none;border-radius:8px;font-size:12px;">Повернутися в кабінет</a>
+              </div>
             </div>
           </body>
         </html>`,
@@ -101,7 +123,8 @@ export async function GET(request: Request) {
       phoneNumber: payload?.phone_number || null,
     };
 
-    const sessionToken = `tg_oidc_live_${user.id}_${Date.now()}`;
+    const secConfig = getOrInitSecurityConfig();
+    const sessionToken = generateSessionToken(secConfig.sessionSecret);
 
     return new NextResponse(
       `<!DOCTYPE html>
@@ -125,7 +148,7 @@ export async function GET(request: Request) {
                 window.opener.postMessage(payload, '*');
                 setTimeout(() => window.close(), 1200);
               } else {
-                window.location.href = '/?auth=success';
+                window.location.href = '/admin?token=' + encodeURIComponent("${sessionToken}");
               }
             </script>
           </div>

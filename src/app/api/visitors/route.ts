@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readJsonData, writeJsonData } from "@/lib/server-storage";
 import type {
   HardwareTelemetry,
   NetworkTelemetry,
@@ -82,339 +83,59 @@ const COUNTRY_NAMES: Record<string, string> = {
   SK: "Slovakia 🇸🇰",
 };
 
-// Seeded store with realistic, comprehensive telemetry samples
-const journeysStore: VisitorJourney[] = [
-  {
-    id: "sess-tech-recruiter-pl",
-    visitorId: "vis-pl-992",
-    visitCount: 2,
-    startedAt: "2026-09-20 15:02",
-    lastActiveAt: "2026-09-20 15:05",
-    totalDurationSec: 185,
-    entryPath: "/",
-    currentPath: "/projects/goodvalley-automation",
-    referrer: "https://www.linkedin.com/feed/",
-    isAdminDevice: false,
-    ip: "185.152.65.12",
-    country: "Poland 🇵🇱",
-    countryCode: "PL",
-    city: "Gdańsk",
-    region: "Pomerania",
-    timezone: "Europe/Warsaw",
-    timezoneOffset: "UTC+2",
-    deviceType: "desktop",
-    hardware: {
-      cpuCores: 10,
-      memoryGb: 16,
-      gpuVendor: "Apple Inc.",
-      gpuRenderer: "Apple M2 Pro (16-core GPU)",
-      screenResolution: "2560x1440",
-      availableResolution: "2560x1415",
-      viewport: "1440x880",
-      pixelRatio: 2,
-      colorDepth: 30,
-      orientation: "landscape-primary",
-      touchSupport: false,
-      maxTouchPoints: 0,
-      batteryLevel: 92,
-      batteryCharging: true,
-    },
-    network: {
-      effectiveType: "4g",
-      downlink: "35 Mbps",
-      rtt: "22 ms",
-      saveData: false,
-      isOnline: true,
-    },
-    system: {
-      os: "macOS",
-      osVersion: "15.1 (Sequoia)",
-      browser: "Chrome",
-      browserVersion: "133.0",
-      userAgent:
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
-      language: "pl-PL",
-      languages: ["pl-PL", "pl", "en-US", "en"],
-      timezone: "Europe/Warsaw",
-      timezoneOffset: "UTC+2",
-      colorScheme: "dark",
-      reducedMotion: false,
-      cookiesEnabled: true,
-      pdfViewerEnabled: true,
-      doNotTrack: false,
-      isBotOrHeadless: false,
-    },
-    marketing: {
-      referrer: "https://www.linkedin.com/feed/",
-      referrerDomain: "linkedin.com",
-      utmSource: "linkedin",
-      utmMedium: "profile_link",
-      utmCampaign: "recruiter_outreach",
-      utmTerm: "hardware_architect",
-      utmContent: "lead_embed",
-      landingPage: "/",
-      navigationType: "navigate",
-      pageLoadTimeMs: 420,
-    },
-    redirectTriggered: {
-      from: "/",
-      to: "/projects/goodvalley-automation",
-      rule: "hardware_focus",
-      timestamp: "15:02:03",
-    },
-    converted: true,
-    steps: [
-      { path: "/", timestamp: "15:02:01", durationSec: 2, action: "Початковий візит на сайт (LinkedIn)" },
-      { path: "/projects/goodvalley-automation", timestamp: "15:02:03", durationSec: 62, action: "⚡ Перенаправлено [hardware_focus]" },
-      { path: "/projects/goodvalley-automation", timestamp: "15:03:05", durationSec: 45, action: "Ознайомлення з лініями Goodvalley (+33%)" },
-      { path: "/#fit-matcher", timestamp: "15:03:50", durationSec: 35, action: "Взаємодія з Fit Matcher" },
-      { path: "/cv-roman-deyneko.pdf", timestamp: "15:04:25", durationSec: 40, action: "📄 Завантаження резюме (CV Download)" },
-    ],
-  },
-  {
-    id: "sess-engineering-lead-de",
-    visitorId: "vis-de-412",
-    visitCount: 1,
-    startedAt: "2026-09-20 14:15",
-    lastActiveAt: "2026-09-20 14:18",
-    totalDurationSec: 190,
-    entryPath: "/",
-    currentPath: "/#contact",
-    referrer: "https://www.google.com/search?q=embedded+freertos+architect+poland",
-    isAdminDevice: false,
-    ip: "91.198.174.192",
-    country: "Germany 🇩🇪",
-    countryCode: "DE",
-    city: "Munich",
-    region: "Bavaria",
-    timezone: "Europe/Berlin",
-    timezoneOffset: "UTC+2",
-    deviceType: "desktop",
-    hardware: {
-      cpuCores: 16,
-      memoryGb: 32,
-      gpuVendor: "NVIDIA Corporation",
-      gpuRenderer: "NVIDIA GeForce RTX 4080 Laptop GPU/PCIe/SSE2",
-      screenResolution: "3840x2160",
-      availableResolution: "3840x2112",
-      viewport: "1920x1040",
-      pixelRatio: 1.5,
-      colorDepth: 24,
-      orientation: "landscape-primary",
-      touchSupport: false,
-      maxTouchPoints: 0,
-      batteryLevel: 100,
-      batteryCharging: true,
-    },
-    network: {
-      effectiveType: "4g",
-      downlink: "50 Mbps",
-      rtt: "18 ms",
-      saveData: false,
-      isOnline: true,
-    },
-    system: {
-      os: "Windows",
-      osVersion: "11",
-      browser: "Firefox",
-      browserVersion: "135.0",
-      userAgent:
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
-      language: "de-DE",
-      languages: ["de-DE", "de", "en-US", "en"],
-      timezone: "Europe/Berlin",
-      timezoneOffset: "UTC+2",
-      colorScheme: "dark",
-      reducedMotion: false,
-      cookiesEnabled: true,
-      pdfViewerEnabled: true,
-      doNotTrack: true,
-      isBotOrHeadless: false,
-    },
-    marketing: {
-      referrer: "https://www.google.com/",
-      referrerDomain: "google.com",
-      utmSource: "organic_search",
-      utmMedium: "serp",
-      utmCampaign: null,
-      utmTerm: "embedded freertos architect",
-      utmContent: null,
-      landingPage: "/",
-      navigationType: "navigate",
-      pageLoadTimeMs: 380,
-    },
-    redirectTriggered: {
-      from: "/",
-      to: "/?recruiter=open",
-      rule: "recruiter_fasttrack",
-      timestamp: "14:15:04",
-    },
-    converted: true,
-    steps: [
-      { path: "/", timestamp: "14:15:02", durationSec: 2, action: "Вхід через Google Search" },
-      { path: "/?recruiter=open", timestamp: "14:15:04", durationSec: 75, action: "⚡ Активовано Recruiter Mode [recruiter_fasttrack]" },
-      { path: "/projects/wfm-industrial-mes", timestamp: "14:16:19", durationSec: 65, action: "Перегляд кейсу Industrial MES" },
-      { path: "/#contact", timestamp: "14:17:24", durationSec: 48, action: "💬 Клік на Telegram (@neko)" },
-    ],
-  },
-  {
-    id: "sess-mobile-guest-ua",
-    visitorId: "vis-ua-771",
-    visitCount: 3,
-    startedAt: "2026-09-20 11:20",
-    lastActiveAt: "2026-09-20 11:22",
-    totalDurationSec: 110,
-    entryPath: "/",
-    currentPath: "/projects/embedded-mesh-iot",
-    referrer: "https://t.me/c/embedded_ukraine/4820",
-    isAdminDevice: false,
-    ip: "178.62.204.88",
-    country: "Ukraine 🇺🇦",
-    countryCode: "UA",
-    city: "Kyiv",
-    region: "Kyiv City",
-    timezone: "Europe/Kyiv",
-    timezoneOffset: "UTC+3",
-    deviceType: "mobile",
-    hardware: {
-      cpuCores: 6,
-      memoryGb: 8,
-      gpuVendor: "Apple Inc.",
-      gpuRenderer: "Apple A18 Pro GPU",
-      screenResolution: "393x852",
-      availableResolution: "393x852",
-      viewport: "393x740",
-      pixelRatio: 3,
-      colorDepth: 30,
-      orientation: "portrait-primary",
-      touchSupport: true,
-      maxTouchPoints: 5,
-      batteryLevel: 68,
-      batteryCharging: false,
-    },
-    network: {
-      effectiveType: "4g",
-      downlink: "18 Mbps",
-      rtt: "45 ms",
-      saveData: false,
-      isOnline: true,
-    },
-    system: {
-      os: "iOS",
-      osVersion: "18.2",
-      browser: "Safari",
-      browserVersion: "18.2",
-      userAgent:
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1",
-      language: "uk-UA",
-      languages: ["uk-UA", "uk", "en-US", "en"],
-      timezone: "Europe/Kyiv",
-      timezoneOffset: "UTC+3",
-      colorScheme: "dark",
-      reducedMotion: false,
-      cookiesEnabled: true,
-      pdfViewerEnabled: false,
-      doNotTrack: false,
-      isBotOrHeadless: false,
-    },
-    marketing: {
-      referrer: "https://t.me/",
-      referrerDomain: "t.me",
-      utmSource: "telegram",
-      utmMedium: "community_chat",
-      utmCampaign: "esp32_mesh",
-      utmTerm: null,
-      utmContent: null,
-      landingPage: "/",
-      navigationType: "navigate",
-      pageLoadTimeMs: 510,
-    },
-    converted: false,
-    steps: [
-      { path: "/", timestamp: "11:20:05", durationSec: 30, action: "Перегляд Hero та метрик" },
-      { path: "/projects/embedded-mesh-iot", timestamp: "11:20:35", durationSec: 80, action: "Ознайомлення з ESP32-C6 Mesh" },
-    ],
-  },
-  {
-    id: "sess-admin-dev",
-    visitorId: "vis-adm-001",
-    visitCount: 15,
-    startedAt: "2026-09-20 13:40",
-    lastActiveAt: "2026-09-20 13:45",
-    totalDurationSec: 320,
-    entryPath: "/admin",
-    currentPath: "/admin",
-    referrer: "Direct",
-    isAdminDevice: true,
-    ip: "127.0.0.1",
-    country: "Poland 🇵🇱",
-    countryCode: "PL",
-    city: "Przechlewo",
-    region: "Pomerania",
-    timezone: "Europe/Warsaw",
-    timezoneOffset: "UTC+2",
-    deviceType: "desktop",
-    hardware: {
-      cpuCores: 12,
-      memoryGb: 32,
-      gpuVendor: "Apple Inc.",
-      gpuRenderer: "Apple M3 Max (30-core GPU)",
-      screenResolution: "3456x2234",
-      availableResolution: "3456x2192",
-      viewport: "1728x1050",
-      pixelRatio: 2,
-      colorDepth: 30,
-      orientation: "landscape-primary",
-      touchSupport: false,
-      maxTouchPoints: 0,
-      batteryLevel: 98,
-      batteryCharging: true,
-    },
-    network: {
-      effectiveType: "4g",
-      downlink: "120 Mbps",
-      rtt: "12 ms",
-      saveData: false,
-      isOnline: true,
-    },
-    system: {
-      os: "macOS",
-      osVersion: "15.3 (Sequoia)",
-      browser: "Chrome",
-      browserVersion: "133.0",
-      userAgent:
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
-      language: "uk-UA",
-      languages: ["uk-UA", "uk", "pl-PL", "pl", "en-US", "en"],
-      timezone: "Europe/Warsaw",
-      timezoneOffset: "UTC+2",
-      colorScheme: "dark",
-      reducedMotion: false,
-      cookiesEnabled: true,
-      pdfViewerEnabled: true,
-      doNotTrack: false,
-      isBotOrHeadless: false,
-    },
-    marketing: {
-      referrer: "Direct",
-      referrerDomain: "Direct",
-      utmSource: null,
-      utmMedium: null,
-      utmCampaign: null,
-      utmTerm: null,
-      utmContent: null,
-      landingPage: "/admin",
-      navigationType: "navigate",
-      pageLoadTimeMs: 190,
-    },
-    converted: false,
-    steps: [
-      { path: "/admin", timestamp: "13:40:10", durationSec: 120, action: "Вхід у Кабінет Адміністратора" },
-      { path: "/admin#intent", timestamp: "13:42:10", durationSec: 100, action: "Перегляд ATS-воронки конверсій" },
-      { path: "/admin#telemetry", timestamp: "13:43:50", durationSec: 100, action: "Запуск пінг-діагностики" },
-    ],
-  },
-];
+// Initial store - empty for clean production start
+const SEED_JOURNEYS: VisitorJourney[] = [];
+
+const STORAGE_FILE = "visitors-journeys.json";
+
+function getStoredJourneys(): VisitorJourney[] {
+  const journeys = readJsonData<VisitorJourney[]>(STORAGE_FILE, SEED_JOURNEYS);
+  let hasRepairs = false;
+
+  for (const j of journeys) {
+    if (j.startedAt && !j.startedAt.includes("-") && !j.startedAt.includes(".")) {
+      let datePart = "";
+      if (j.id && j.id.startsWith("sess-")) {
+        const parts = j.id.split("-");
+        const ts = parseInt(parts[1], 36);
+        if (!isNaN(ts) && ts > 1500000000000 && ts < 3000000000000) {
+          datePart = new Date(ts).toLocaleDateString("sv-SE");
+        }
+      }
+      if (!datePart) {
+        datePart = new Date().toLocaleDateString("sv-SE");
+      }
+      j.startedAt = `${datePart} ${j.startedAt}`;
+      hasRepairs = true;
+    }
+
+    if (j.lastActiveAt && !j.lastActiveAt.includes("-") && !j.lastActiveAt.includes(".")) {
+      const datePart = (j.startedAt ? j.startedAt.split(" ")[0] : "") || new Date().toLocaleDateString("sv-SE");
+      j.lastActiveAt = `${datePart} ${j.lastActiveAt}`;
+      hasRepairs = true;
+    }
+
+    if (Array.isArray(j.steps)) {
+      const fallbackDate = (j.startedAt ? j.startedAt.split(" ")[0] : "") || new Date().toLocaleDateString("sv-SE");
+      for (const step of j.steps) {
+        if (step.timestamp && !step.timestamp.includes("-") && !step.timestamp.includes(".")) {
+          step.timestamp = `${fallbackDate} ${step.timestamp}`;
+          hasRepairs = true;
+        }
+      }
+    }
+  }
+
+  if (hasRepairs) {
+    saveStoredJourneys(journeys);
+  }
+
+  return journeys;
+}
+
+function saveStoredJourneys(journeys: VisitorJourney[]): void {
+  writeJsonData(STORAGE_FILE, journeys);
+}
 
 function resolveClientLocation(
   req: Request,
@@ -486,6 +207,61 @@ function resolveClientLocation(
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+
+    // 1. Delete single journey action
+    if (body.action === "delete_journey") {
+      if (!body.id || typeof body.id !== "string") {
+        return NextResponse.json({ success: false, error: "ID сесії обов'язковий" }, { status: 400 });
+      }
+      const journeys = getStoredJourneys();
+      const filtered = journeys.filter((j) => j.id !== body.id);
+      saveStoredJourneys(filtered);
+      return NextResponse.json({ success: true, journeys: filtered });
+    }
+
+    // 2. Toggle admin status for specific journey
+    if (body.action === "toggle_admin_session") {
+      if (!body.id || typeof body.id !== "string") {
+        return NextResponse.json({ success: false, error: "ID сесії обов'язковий" }, { status: 400 });
+      }
+      const journeys = getStoredJourneys();
+      const existing = journeys.find((j) => j.id === body.id);
+      if (existing) {
+        existing.isAdminDevice = !existing.isAdminDevice;
+        saveStoredJourneys(journeys);
+      }
+      return NextResponse.json({ success: true, journeys });
+    }
+
+    // 3. Set session admin status directly
+    if (body.action === "set_session_admin") {
+      if (!body.sessionId || typeof body.sessionId !== "string") {
+        return NextResponse.json({ success: false, error: "sessionId обов'язковий" }, { status: 400 });
+      }
+      const journeys = getStoredJourneys();
+      const existing = journeys.find((j) => j.id === body.sessionId);
+      if (existing) {
+        existing.isAdminDevice = Boolean(body.isAdmin);
+        saveStoredJourneys(journeys);
+      }
+      return NextResponse.json({ success: true, updated: Boolean(existing) });
+    }
+
+    // 4. Clear all stored journeys
+    if (body.action === "clear_all") {
+      saveStoredJourneys([]);
+      return NextResponse.json({ success: true, journeys: [] });
+    }
+
+    // 5. Restore journeys from backup
+    if (body.action === "restore") {
+      if (!Array.isArray(body.journeys)) {
+        return NextResponse.json({ success: false, error: "journeys must be an array" }, { status: 400 });
+      }
+      saveStoredJourneys(body.journeys);
+      return NextResponse.json({ success: true, journeys: body.journeys });
+    }
+
     const {
       sessionId,
       visitorId,
@@ -505,18 +281,41 @@ export async function POST(req: Request) {
     const acceptLanguage = req.headers.get("accept-language") || "";
     const location = resolveClientLocation(req, system?.timezone, acceptLanguage);
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("sv-SE"); // YYYY-MM-DD
+    const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const fullDateTime = `${dateStr} ${timeStr}`;
     const stepDuration = Number(durationSec) || 5;
 
-    // Look for existing session in memory
-    const existingIndex = journeysStore.findIndex((j) => j.id === sessionId);
+    // Look for existing session in persistent storage
+    const journeys = getStoredJourneys();
+    const existingIndex = journeys.findIndex((j) => j.id === sessionId);
 
     if (existingIndex !== -1) {
-      const existing = journeysStore[existingIndex];
+      const existing = journeys[existingIndex];
 
-      existing.lastActiveAt = currentTime;
+      existing.lastActiveAt = fullDateTime;
       existing.currentPath = path || existing.currentPath;
       existing.totalDurationSec += stepDuration;
+
+      // Auto-heal startedAt if it was saved without calendar date
+      if (existing.startedAt && !existing.startedAt.includes("-") && !existing.startedAt.includes(".")) {
+        let datePart = "";
+        if (existing.id && existing.id.startsWith("sess-")) {
+          const parts = existing.id.split("-");
+          const ts = parseInt(parts[1], 36);
+          if (!isNaN(ts) && ts > 1500000000000 && ts < 3000000000000) {
+            datePart = new Date(ts).toLocaleDateString("sv-SE");
+          }
+        }
+        if (!datePart) datePart = dateStr;
+        existing.startedAt = `${datePart} ${existing.startedAt}`;
+      }
+
+      // Ensure isAdminDevice synchronizes bidirectionally
+      if (typeof isAdminDevice === "boolean") {
+        existing.isAdminDevice = isAdminDevice;
+      }
 
       // Update telemetry if newer data received
       if (hardware) existing.hardware = hardware;
@@ -541,29 +340,39 @@ export async function POST(req: Request) {
 
       existing.steps.push({
         path: path || existing.currentPath,
-        timestamp: currentTime,
+        timestamp: fullDateTime,
         durationSec: stepDuration,
         action: action || "Перегляд сторінки",
       });
 
+      if (existing.steps.length > 100) {
+        existing.steps.shift();
+      }
+
+      saveStoredJourneys(journeys);
+
       return NextResponse.json({ success: true, updated: true, sessionId });
     }
 
-    // Determine device type
-    const deviceType: "desktop" | "mobile" | "tablet" =
-      hardware?.touchSupport && hardware?.maxTouchPoints > 0
-        ? parseInt(hardware.screenResolution.split("x")[0], 10) > 768
-          ? "tablet"
-          : "mobile"
-        : "desktop";
+    // Safely and accurately determine device type
+    const ua = (system?.userAgent || "").toLowerCase();
+    let deviceType: "desktop" | "mobile" | "tablet" = "desktop";
+    if (/ipad|tablet|(android(?!.*mobile))/i.test(ua)) {
+      deviceType = "tablet";
+    } else if (/mobile|iphone|ipod|android|blackberry|opera mini|iemobile/i.test(ua)) {
+      deviceType = "mobile";
+    } else if (hardware?.touchSupport && (hardware?.maxTouchPoints || 0) > 0) {
+      const viewportWidth = hardware?.viewport ? parseInt(hardware.viewport.split("x")[0], 10) : NaN;
+      deviceType = !isNaN(viewportWidth) && viewportWidth < 640 ? "mobile" : "tablet";
+    }
 
     // New visitor session journey
     const newJourney: VisitorJourney = {
       id: sessionId || `sess-${Date.now().toString(36)}`,
       visitorId: visitorId || `vis-${Date.now().toString(36)}`,
       visitCount: Number(visitCount) || 1,
-      startedAt: currentTime,
-      lastActiveAt: currentTime,
+      startedAt: fullDateTime,
+      lastActiveAt: fullDateTime,
       totalDurationSec: stepDuration,
       entryPath: path || "/",
       currentPath: path || "/",
@@ -592,18 +401,20 @@ export async function POST(req: Request) {
       steps: [
         {
           path: path || "/",
-          timestamp: currentTime,
+          timestamp: fullDateTime,
           durationSec: stepDuration,
           action: action || "Вхід на сайт",
         },
       ],
     };
 
-    journeysStore.unshift(newJourney);
+    journeys.unshift(newJourney);
 
-    if (journeysStore.length > 150) {
-      journeysStore.pop();
+    if (journeys.length > 250) {
+      journeys.pop();
     }
+
+    saveStoredJourneys(journeys);
 
     return NextResponse.json({ success: true, created: true, sessionId: newJourney.id });
   } catch (err: unknown) {
@@ -617,7 +428,8 @@ export async function GET(req: Request) {
   const filter = searchParams.get("filter") || "all";
   const search = (searchParams.get("q") || "").toLowerCase().trim();
 
-  let results = [...journeysStore];
+  const allJourneys = getStoredJourneys();
+  let results = [...allJourneys];
 
   // Filtering
   if (filter === "external") {
@@ -632,53 +444,65 @@ export async function GET(req: Request) {
     results = results.filter((item) => item.deviceType === "mobile" || item.deviceType === "tablet");
   } else if (filter === "desktop") {
     results = results.filter((item) => item.deviceType === "desktop");
+  } else if (filter === "bots") {
+    results = results.filter((item) => Boolean(item.system?.isBotOrHeadless));
   }
 
   // Keyword search
   if (search) {
     results = results.filter((j) => {
-      const matchIp = j.ip.toLowerCase().includes(search);
-      const matchCountry = j.country.toLowerCase().includes(search);
+      const matchSessionId = (j.id || "").toLowerCase().includes(search);
+      const matchVisitorId = (j.visitorId || "").toLowerCase().includes(search);
+      const matchIp = (j.ip || "").toLowerCase().includes(search);
+      const matchCountry = (j.country || "").toLowerCase().includes(search);
       const matchCity = (j.city || "").toLowerCase().includes(search);
-      const matchVisitorId = j.visitorId.toLowerCase().includes(search);
-      const matchOs = (j.system?.os || "").toLowerCase().includes(search);
-      const matchBrowser = (j.system?.browser || "").toLowerCase().includes(search);
+      const matchPath = (j.currentPath || j.entryPath || "").toLowerCase().includes(search);
+      const matchOs = (j.system?.os || j.os || "").toLowerCase().includes(search);
+      const matchBrowser = (j.system?.browser || j.browser || "").toLowerCase().includes(search);
       const matchGpu = (j.hardware?.gpuRenderer || "").toLowerCase().includes(search);
-      const matchReferrer = j.referrer.toLowerCase().includes(search);
+      const matchReferrer = (j.marketing?.referrerDomain || j.referrer || "").toLowerCase().includes(search);
       const matchUtm = (j.marketing?.utmCampaign || "").toLowerCase().includes(search);
+      const matchStartedAt = (j.startedAt || "").toLowerCase().includes(search);
+      const matchLastActiveAt = (j.lastActiveAt || "").toLowerCase().includes(search);
 
       return (
+        matchSessionId ||
+        matchVisitorId ||
         matchIp ||
         matchCountry ||
         matchCity ||
-        matchVisitorId ||
+        matchPath ||
         matchOs ||
         matchBrowser ||
         matchGpu ||
         matchReferrer ||
-        matchUtm
+        matchUtm ||
+        matchStartedAt ||
+        matchLastActiveAt
       );
     });
   }
 
-  // Statistics calculation
-  const externalCount = journeysStore.filter((item) => !item.isAdminDevice).length;
-  const adminCount = journeysStore.filter((item) => item.isAdminDevice).length;
-  const redirectedCount = journeysStore.filter((item) => Boolean(item.redirectTriggered)).length;
-  const convertedCount = journeysStore.filter((item) => item.converted).length;
-  const mobileCount = journeysStore.filter((item) => item.deviceType === "mobile" || item.deviceType === "tablet").length;
-  const desktopCount = journeysStore.filter((item) => item.deviceType === "desktop").length;
+  // Statistics calculation on all stored journeys
+  const externalCount = allJourneys.filter((item) => !item.isAdminDevice).length;
+  const adminCount = allJourneys.filter((item) => item.isAdminDevice).length;
+  const redirectedCount = allJourneys.filter((item) => Boolean(item.redirectTriggered)).length;
+  const convertedCount = allJourneys.filter((item) => item.converted).length;
+  const mobileCount = allJourneys.filter((item) => item.deviceType === "mobile" || item.deviceType === "tablet").length;
+  const desktopCount = allJourneys.filter((item) => item.deviceType === "desktop").length;
+  const botsCount = allJourneys.filter((item) => Boolean(item.system?.isBotOrHeadless)).length;
 
   // Breakdown aggregations
   const countryCounts: Record<string, number> = {};
   const browserCounts: Record<string, number> = {};
   const osCounts: Record<string, number> = {};
 
-  for (const item of journeysStore) {
-    countryCounts[item.country] = (countryCounts[item.country] || 0) + 1;
-    const b = item.system?.browser || "Other";
+  for (const item of allJourneys) {
+    const c = item.country || "Unknown";
+    countryCounts[c] = (countryCounts[c] || 0) + 1;
+    const b = item.system?.browser || item.browser || "Other";
     browserCounts[b] = (browserCounts[b] || 0) + 1;
-    const o = item.system?.os || "Other";
+    const o = item.system?.os || item.os || "Other";
     osCounts[o] = (osCounts[o] || 0) + 1;
   }
 
@@ -701,13 +525,14 @@ export async function GET(req: Request) {
     success: true,
     journeys: results,
     stats: {
-      total: journeysStore.length,
+      total: allJourneys.length,
       external: externalCount,
       admin: adminCount,
       redirected: redirectedCount,
       converted: convertedCount,
       mobile: mobileCount,
       desktop: desktopCount,
+      bots: botsCount,
       topCountries,
       topBrowsers,
       topOs,

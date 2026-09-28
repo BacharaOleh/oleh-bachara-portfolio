@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 interface TelegramAuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess?: (user: { username: string; firstName?: string }, logMessage: string) => void;
+  onSuccess?: (user: { username: string; firstName?: string }, logMessage: string, sessionToken?: string) => void;
 }
 
 interface TelegramUser {
@@ -74,7 +74,8 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         if (onSuccess) {
           onSuccess(
             { username: user.username || user.firstName, firstName: user.firstName },
-            `[TELEGRAM OIDC SUCCESS] @${user.username || user.firstName} authenticated via OpenID Connect (Client ID: ${clientId})`
+            `[TELEGRAM OIDC SUCCESS] @${user.username || user.firstName} authenticated via OpenID Connect (Client ID: ${clientId})`,
+            sessionToken
           );
         }
       } else if (event.data && event.data.type === "TELEGRAM_AUTH_ERROR") {
@@ -87,10 +88,26 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
     return () => window.removeEventListener("message", handleMessage);
   }, [isOpen, clientId, onSuccess]);
 
-  const handleCopyRedirect = () => {
-    navigator.clipboard.writeText(redirectUri);
-    setCopiedRedirect(true);
-    setTimeout(() => setCopiedRedirect(false), 2000);
+  const handleCopyRedirect = async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(redirectUri);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = redirectUri;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      setCopiedRedirect(true);
+      setTimeout(() => setCopiedRedirect(false), 2000);
+    } catch {
+      // ignore
+    }
   };
 
   const handleLaunchTelegramOIDC = () => {
@@ -167,7 +184,8 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
         if (onSuccess) {
           onSuccess(
             { username: data.user.username, firstName: data.user.firstName },
-            `[TELEGRAM OIDC SUCCESS] Verified via Client ID: ${clientId}`
+            `[TELEGRAM OIDC SUCCESS] Verified via Client ID: ${clientId}`,
+            data.token || data.sessionToken
           );
         }
       } else {
@@ -368,6 +386,7 @@ export function TelegramAuthModal({ isOpen, onClose, onSuccess }: TelegramAuthMo
                 <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.08] flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {sessionResult?.user?.photoUrl ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={sessionResult.user.photoUrl}
                         alt="Avatar"

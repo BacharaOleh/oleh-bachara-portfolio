@@ -330,7 +330,7 @@ const PRESETS: Record<Lang, RolePreset[]> = {
   en: [
     {
       id: "cto-lead",
-      label: "🚀 CTO / Engineering Lead",
+      label: "🚀 Head of R&D / Engineering Lead",
       badge: "6 Skills",
       itemIds: ["agile-management", "embedded-iot", "industrial-plc", "mes-canvas", "edge-gateway", "wfm-energy"],
     },
@@ -374,7 +374,7 @@ const PRESETS: Record<Lang, RolePreset[]> = {
   pl: [
     {
       id: "cto-lead",
-      label: "🚀 CTO / Lead Inżynierii",
+      label: "🚀 Head of R&D / Lead Inżynierii",
       badge: "6 Umiejętności",
       itemIds: ["agile-management", "embedded-iot", "industrial-plc", "mes-canvas", "edge-gateway", "wfm-energy"],
     },
@@ -575,7 +575,7 @@ export function RecruiterFitMatcher({ lang, onOpenRecruiterModal }: RecruiterFit
     trackIntent("fit_matcher_used", "Copy Fit Summary", `${selectedIds.length} skills`);
     const summaryLines = [
       `Roman Deyneko — Candidate Fit Briefing: ${matchPercentage}% Match (${selectedIds.length}/${items.length} Skills Selected)`,
-      `Role: CTO / Lead Hardware, Embedded Systems & Full-Stack Architect`,
+      `Role: Head of R&D / Lead Hardware, Embedded Systems & Full-Stack Architect`,
       `Location: Przechlewo, Pomorskie, Poland (EU Work Authorization, Remote / Hybrid)`,
       `Key Matched Capabilities:`,
       ...selectedItems.map((item) => `• ${item.label} [${item.metric}] — ${item.company}`),

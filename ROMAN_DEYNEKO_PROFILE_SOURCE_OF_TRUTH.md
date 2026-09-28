@@ -15,8 +15,9 @@
 
 ## 1. Головна Посада та Професійне Позиціонування
 
-- **EN:** CTO / Lead Hardware, Embedded Systems & Full-Stack Architect
-- **PL:** Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack (CTO)
+- **EN:** Head of R&D / Lead Hardware, Embedded Systems & Full-Stack Architect
+- **PL:** Head of R&D / Główny Inżynier Hardware, Systemów Wbudowanych i Full-Stack
+- **Target Roles:** Head of R&D · Tech Lead · Lead Hardware & Embedded Architect · Industrial MES Architect · Senior Automation (PLC) Engineer
 - **Коротка суть:** Інженер-мехатронік, архітектор вбудованих систем, автоматик промислових ліній та Full-Stack/Android розробник. Поєднує глибоку інженерну експертизу в промисловій автоматизації (Siemens S7, Factory I/O, лазерна різка ЧПК, EPLAN, SCADA), вбудованих mesh-мережах (ESP-NOW на ESP32-C6, FreeRTOS), мобільних додатках для промислового обладнання (Android/Kotlin, Bluetooth SPP/BLE, RS-232, касові реєстратори) та розподілених веб-платформах диспетчеризації (Python FastAPI + React 19 Canvas). Швидкий ROI завдяки ліквідації простоїв устаткування (-40%), прямій економії енергоносіїв (71.1k PLN/рік) та оптимізації OEE.
 
 ---

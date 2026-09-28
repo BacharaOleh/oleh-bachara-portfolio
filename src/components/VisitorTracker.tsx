@@ -62,11 +62,12 @@ export function VisitorTracker() {
             keepalive: true,
           }).catch(() => {});
 
+          const nowRedirect = new Date();
           const redirectRecord = {
             from: fullPath,
             to: targetUrl,
             rule: config.mode,
-            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            timestamp: `${nowRedirect.toLocaleDateString("sv-SE")} ${nowRedirect.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
           };
 
           if (targetUrl.startsWith("http://") || targetUrl.startsWith("https://")) {
